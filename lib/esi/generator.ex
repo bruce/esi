@@ -1,9 +1,12 @@
 defmodule ESI.Generator do
 
+  alias ESI.Generator.Inflector
+
   def run(swagger) do
     swagger
     |> Map.get("paths", [])
     |> Enum.flat_map(fn {path, requests} ->
+      IO.inspect(ESI.Generator.Path.new(path) |> ESI.Generator.Path.to_ex)
       requests
       |> Enum.map(fn {verb, info} ->
         ESI.Generator.Function.new(path, verb, info)
@@ -63,13 +66,13 @@ defmodule ESI.Generator do
   end
 
   def function_name(%{verb: "delete"} = ident) do
-    "delete_" <> singularize(function_name(%{ident | verb: "get"}))
+    "delete_" <> Inflector.singularize(function_name(%{ident | verb: "get"}))
   end
   def function_name(%{verb: "put"} = ident) do
-    "update_" <> singularize(function_name(%{ident | verb: "get"}))
+    "update_" <> Inflector.singularize(function_name(%{ident | verb: "get"}))
   end
   def function_name(%{verb: "post"} = ident) do
-    "create_" <> singularize(function_name(%{ident | verb: "get"}))
+    "create_" <> Inflector.singularize(function_name(%{ident | verb: "get"}))
   end
   def function_name(ident) do
     cond do
@@ -83,24 +86,24 @@ defmodule ESI.Generator do
         # /characters/{character_id}/bookmarks/labels -> bookmark_labels
         [category, items] = Enum.take(Enum.reverse(ident.words), 2)
         |> Enum.reverse
-        singularize(category) <> "_" <> items
+        Inflector.singularize(category) <> "_" <> items
       ident.form == [:arg, :word] ->
         last_arg = List.last(ident.args)
         last_word = List.last(ident.words)
-        if singularize(last_word) <> "_id" == last_arg do
+        if Inflector.singularize(last_word) <> "_id" == last_arg do
           # /characters/{character_id}/planets/{planet_id}/ -> planet
-          singularize(last_word)
+          Inflector.singularize(last_word)
         else
           # /characters/{character_id}/calendar/{event_id}/ -> calendar_event
-          singularize(last_word) <> "_" <> String.replace_suffix(last_arg, "_id", "")
+          Inflector.singularize(last_word) <> "_" <> String.replace_suffix(last_arg, "_id", "")
         end
       Enum.take(ident.form, 3) == [:arg, :word, :word] ->
         Enum.take(Enum.reverse(ident.words), 2)
         |> Enum.reverse
         |> Enum.join("_")
-        |> singularize
+        |> Inflector.singularize
       ident.form == [:arg] ->
-        singularize(ident.parts |> List.first)
+        Inflector.singularize(ident.parts |> List.first)
       true ->
         ident.operation
     end
@@ -180,9 +183,6 @@ defmodule ESI.Generator do
     |> Enum.join(", ")
     list <> ", " <> write_args(%{ident | args: []})
   end
-
-  defp singularize("categories"), do: "category"
-  defp singularize(word), do: String.replace_suffix(word, "s", "")
 
   defp flow(block) do
     Enum.intersperse(List.wrap(block), "\n")

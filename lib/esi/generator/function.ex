@@ -1,6 +1,8 @@
 defmodule ESI.Generator.Function do
   @moduledoc false
 
+  alias ESI.Generator.Inflector
+
   @enforce_keys [
     :path,
     :parts,
@@ -67,18 +69,10 @@ defmodule ESI.Generator.Function do
     }))
   end
 
-  @custom_names %{
-    "ui" => "UI"
-  }
-  for {name, mod_name} <- @custom_names do
-    defp generate_module_name(unquote(name)) do
-      unquote(mod_name)
-    end
-  end
   defp generate_module_name(name) do
     name
-    |> String.replace_suffix("s", "")
-    |> Macro.camelize
+    |> Inflector.singularize
+    |> Inflector.titleize
   end
 
   defp param_mapping(params) do
