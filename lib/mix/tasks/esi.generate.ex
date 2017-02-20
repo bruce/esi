@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Esi.Generate do
 
   def run(_) do
     Application.ensure_all_started(:esi)
-    functions_by_module = swagger()
+    swagger()
     |> Map.get("paths", [])
     |> Enum.flat_map(fn {path, requests} ->
       requests
@@ -271,7 +271,7 @@ defmodule Mix.Tasks.Esi.Generate do
     raise "No param type provided"
   end
   defp param_type(%{"enum" => values} = param) do
-    text = Enum.map(values, fn v ->
+    Enum.map(values, fn v ->
       String.to_atom(v) |> inspect
     end)
     |> Enum.join(" | ")
@@ -305,7 +305,7 @@ defmodule Mix.Tasks.Esi.Generate do
     |> Enum.join(", ")
     "[#{internal}]" |> nullable(param)
   end
-  defp param_type(%{"type" => raw} = param) do
+  defp param_type(%{"type" => _} = param) do
     raise "Unknown param type: #{inspect(param)}"
   end
 
