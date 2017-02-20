@@ -39,15 +39,25 @@ defmodule Mix.Tasks.Esi.Generate do
     |> Enum.drop(1)
     module_name = List.first(parts)
     |> generate_module_name()
-    data = Enum.reduce(Enum.drop(parts, 1), %{args: [], words: []}, fn part, acc ->
+    data = Enum.reduce(Enum.drop(parts, 1), %{args: [], words: [], form: []}, fn part, acc ->
       case Regex.run(~r/^\{(.+?)\}$/, part) do
         nil ->
-          %{acc | words: [part | acc.words]}
+          %{acc | words: [part | acc.words], form: [:word | acc.form]}
         [_, value] ->
-          %{acc | args: [value | acc.args]}
+          %{acc | args: [value | acc.args], form: [:arg | acc.form]}
       end
     end)
-    Map.merge(data, %{path: path, args: Enum.reverse(data.args), operation: info["operationId"], module_name: module_name, verb: verb, doc: info["description"], params: param_mapping(info["parameters"])})
+    Map.merge(data, %{
+      path: path,
+      parts: parts,
+      words: Enum.reverse(data.words),
+      args: Enum.reverse(data.args),
+      operation: info["operationId"],
+      module_name: module_name,
+      verb: verb,
+      doc: info["description"],
+      params: param_mapping(info["parameters"])
+    })
   end
 
   @custom_names %{
@@ -94,11 +104,12 @@ defmodule Mix.Tasks.Esi.Generate do
   end
 
   def write_function(ident) do
-    ident = Map.put(ident, :function_name, function_name(ident))
+    ident = Map.put(ident, :function_name, function_name(ident) |> rename_function(ident.form))
     [
       "\n",
       write_doc(ident),
       write_opts_type(ident),
+      "  # #{inspect(ident.form)}",
       "  @spec #{ident.function_name}(#{write_spec_args(ident)}) :: ESI.Request.t",
       "  def #{ident.function_name}(#{write_args(ident)}) do",
       write_request(ident),
@@ -115,28 +126,49 @@ defmodule Mix.Tasks.Esi.Generate do
   def function_name(%{verb: "post"} = ident) do
     "create_" <> singularize(function_name(%{ident | verb: "get"}))
   end
-  def function_name(%{words: [_| _], args: []} = ident) do
-    ident.words |> Enum.join("_")
-  end
-  def function_name(%{words: [singular], args: []} = ident) do
-    singular
-  end
-  def function_name(%{words: [_ | _]} = ident) do
-    ident.words |> List.last
-  end
-  def function_name(%{words: [], args: []} = ident) do
-    "list"
-  end
-  def function_name(%{words: [], args: [plural]} = ident) do
-    String.replace_suffix(plural, "s", "")
-  end
-  def function_name(%{words: [], args: [_ | _]} = ident) do
-    ident.module_name
-    |> Macro.underscore
-  end
   def function_name(ident) do
-    raise "Could not handle #{inspect(ident)}"
+    cond do
+      ident.form == [] ->
+        ident.parts |> List.first
+      ident.args == [] && length(Enum.uniq(ident.form)) == 1 ->
+        Enum.join(ident.words, "_")
+      ident.form == [:word, :arg] ->
+        List.last(ident.words)
+      Enum.take(ident.form, 2) == [:word, :word] ->
+        # /characters/{character_id}/bookmarks/labels -> bookmark_labels
+        [category, items] = Enum.take(Enum.reverse(ident.words), 2)
+        |> Enum.reverse
+        singularize(category) <> "_" <> items
+      ident.form == [:arg, :word] ->
+        last_arg = List.last(ident.args)
+        last_word = List.last(ident.words)
+        if singularize(last_word) <> "_id" == last_arg do
+          # /characters/{character_id}/planets/{planet_id}/ -> planet
+          singularize(last_word)
+        else
+          # /characters/{character_id}/calendar/{event_id}/ -> calendar_event
+          singularize(last_word) <> "_" <> String.replace_suffix(last_arg, "_id", "")
+        end
+      Enum.take(ident.form, 3) == [:arg, :word, :word] ->
+        Enum.take(Enum.reverse(ident.words), 2)
+        |> Enum.reverse
+        |> Enum.join("_")
+        |> singularize
+      ident.form == [:arg] ->
+        singularize(ident.parts |> List.first)
+      true ->
+        ident.operation
+    end
   end
+
+  @function_renames %{
+    {"corporationhistory", [:word, :arg]} => "corporation_history",
+    {"mail", [:arg, :word, :arg]} => "mail_item"
+  }
+  for {{old, form}, new} <- @function_renames do
+    defp rename_function(unquote(old), unquote(form)), do: unquote(new)
+  end
+  defp rename_function(name, _), do: name
 
   defp write_request(ident) do
     spaces = "    "
@@ -204,6 +236,7 @@ defmodule Mix.Tasks.Esi.Generate do
     list <> ", " <> write_args(%{ident | args: []})
   end
 
+  defp singularize("categories"), do: "category"
   defp singularize(word), do: String.replace_suffix(word, "s", "")
 
   defp flow(block) do

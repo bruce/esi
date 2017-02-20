@@ -30,7 +30,8 @@ defmodule ESI.Mixfile do
   defp deps do
     [
       {:hackney, "~> 1.6"},
-      {:poison, "~> 2.0"}
+      {:poison, "~> 2.0"},
+      {:ex_doc, "~> 0.14", only: :dev, runtime: false}
     ]
   end
 end

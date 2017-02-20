@@ -1,19 +1,25 @@
 # ESI
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `esi` to your list of dependencies in `mix.exs`:
+## Examples
 
 ```elixir
-def deps do
-  [{:esi, "~> 0.1.0"}]
-end
+ESI.API.Insurance.prices()
+|> ESI.request()
+{:ok, result}
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/esi](https://hexdocs.pm/esi).
+```elixir
+ESI.API.Insurance.prices()
+|> ESI.request!()
+result
+```
 
+## Development
+
+Download ESI's `swagger.json` to `priv/`
+
+Then run:
+
+```
+$ mix esi.generate
+```
