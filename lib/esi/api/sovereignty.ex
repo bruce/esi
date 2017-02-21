@@ -1,17 +1,7 @@
 defmodule ESI.API.Sovereignty do
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type campaigns_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Shows sovereignty data for campaigns.
+  Shows sovereignty data for campaigns..
 
   ## Swagger Source
 
@@ -23,27 +13,17 @@ defmodule ESI.API.Sovereignty do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Sovereignty/get_sovereignty_campaigns)
 
   """
-  @spec campaigns(opts :: campaigns_opts) :: ESI.Request.t
-  def campaigns(opts \\ []) do
+  @spec campaigns() :: ESI.Request.t
+  def campaigns() do
     %ESI.Request{
       verb: :get,
-      path: "sovereignty/campaigns",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/sovereignty/campaigns/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type structures_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Shows sovereignty data for structures.
+  Shows sovereignty data for structures..
 
   ## Swagger Source
 
@@ -55,12 +35,12 @@ defmodule ESI.API.Sovereignty do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Sovereignty/get_sovereignty_structures)
 
   """
-  @spec structures(opts :: structures_opts) :: ESI.Request.t
-  def structures(opts \\ []) do
+  @spec structures() :: ESI.Request.t
+  def structures() do
     %ESI.Request{
       verb: :get,
-      path: "sovereignty/structures",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/sovereignty/structures/",
+
     }
   end
 end

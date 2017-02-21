@@ -1,17 +1,7 @@
 defmodule ESI.API.Incursion do
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type incursions_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return a list of current incursions
+  Return a list of current incursions.
 
   ## Swagger Source
 
@@ -23,12 +13,12 @@ defmodule ESI.API.Incursion do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Incursions/get_incursions)
 
   """
-  @spec incursions(opts :: incursions_opts) :: ESI.Request.t
-  def incursions(opts \\ []) do
+  @spec incursions() :: ESI.Request.t
+  def incursions() do
     %ESI.Request{
       verb: :get,
-      path: "incursions",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/incursions/",
+
     }
   end
 end

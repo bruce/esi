@@ -1,19 +1,7 @@
 defmodule ESI.API.Character do
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type bookmarks_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  List your character's personal bookmarks
+  List your character's personal bookmarks.
 
   ## Swagger Source
 
@@ -25,29 +13,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Bookmarks/get_characters_character_id_bookmarks)
 
   """
-  @spec bookmarks(character_id :: integer, opts :: bookmarks_opts) :: ESI.Request.t
-  def bookmarks(character_id, opts \\ []) do
+  @spec bookmarks(character_id :: integer) :: ESI.Request.t
+  def bookmarks(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/bookmarks",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/bookmarks/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type fittings_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return fittings of a character
+  Return fittings of a character.
 
   ## Swagger Source
 
@@ -59,31 +35,25 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fittings/get_characters_character_id_fittings)
 
   """
-  @spec fittings(character_id :: integer, opts :: fittings_opts) :: ESI.Request.t
-  def fittings(character_id, opts \\ []) do
+  @spec fittings(character_id :: integer) :: ESI.Request.t
+  def fittings(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/fittings",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/fittings/",
+
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:fitting` -- Details about the new fitting
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_fittings_opts :: [
-    datasource: nil | :tranquility | :singularity,
     fitting: nil | [description: nil | String.t, items: nil | [nil | [flag: nil | integer, quantity: nil | integer, type_id: nil | integer]], name: nil | String.t, ship_type_id: nil | integer],
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Save a new fitting for a character
+  Save a new fitting for a character.
 
   ## Swagger Source
 
@@ -99,26 +69,13 @@ defmodule ESI.API.Character do
   def create_fittings(character_id, opts \\ []) do
     %ESI.Request{
       verb: :post,
-      path: "characters/#{character_id}/fittings",
+      path: "/characters/#{character_id}/fittings/",
       body_opts: Keyword.take(opts, [:fitting]),
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type ship_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get the current ship type, name and id
+  Get the current ship type, name and id.
 
   ## Swagger Source
 
@@ -130,37 +87,31 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Location/get_characters_character_id_ship)
 
   """
-  @spec ship(character_id :: integer, opts :: ship_opts) :: ESI.Request.t
-  def ship(character_id, opts \\ []) do
+  @spec ship(character_id :: integer) :: ESI.Request.t
+  def ship(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/ship",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/ship/",
+
     }
   end
 
   @typedoc """
   - `:categories` (REQUIRED) -- Type of entities to search for
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Search locale
   - `:search` (REQUIRED) -- The string to search on
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type search_opts :: [
     categories: [nil | :agent | :alliance | :character | :constellation | :corporation | :faction | :inventorytype | :region | :solarsystem | :station | :structure | :wormhole],
-    datasource: nil | :tranquility | :singularity,
     language: nil | :"en-us" | :de | :fr | :ru | :ja | :zh,
     search: String.t,
     strict: nil | boolean,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Search for entities that match a given sub-string.
+  Search for entities that match a given sub-string..
 
   ## Swagger Source
 
@@ -176,25 +127,21 @@ defmodule ESI.API.Character do
   def search(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/search",
-      query_opts: Keyword.take(opts, [:categories, :datasource, :language, :search, :strict, :token, :user_agent]),
+      path: "/characters/#{character_id}/search/",
+      query_opts: Keyword.take(opts, [:categories, :language, :search, :strict]),
     }
   end
 
   @typedoc """
   - `:character_ids` (REQUIRED) -- A comma separated list of character IDs
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type names_opts :: [
     character_ids: [nil | integer],
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Resolve a set of character IDs to character names
+  Resolve a set of character IDs to character names.
 
   ## Swagger Source
 
@@ -210,25 +157,13 @@ defmodule ESI.API.Character do
   def names(opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "characters/names",
-      query_opts: Keyword.take(opts, [:character_ids, :datasource, :user_agent]),
+      path: "/characters/names/",
+      query_opts: Keyword.take(opts, [:character_ids]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type delete_mail_label_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Delete a mail label
+  Delete a mail label.
 
   ## Swagger Source
 
@@ -240,29 +175,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/delete_characters_character_id_mail_labels_label_id)
 
   """
-  @spec delete_mail_label(character_id :: integer, label_id :: integer, opts :: delete_mail_label_opts) :: ESI.Request.t
-  def delete_mail_label(character_id, label_id, opts \\ []) do
+  @spec delete_mail_label(character_id :: integer, label_id :: integer) :: ESI.Request.t
+  def delete_mail_label(character_id, label_id) do
     %ESI.Request{
       verb: :delete,
-      path: "characters/#{character_id}/mail/labels/#{label_id}",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/mail/labels/#{label_id}/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type bookmark_folders_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  List your character's personal bookmark folders
+  List your character's personal bookmark folders.
 
   ## Swagger Source
 
@@ -274,29 +197,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Bookmarks/get_characters_character_id_bookmarks_folders)
 
   """
-  @spec bookmark_folders(character_id :: integer, opts :: bookmark_folders_opts) :: ESI.Request.t
-  def bookmark_folders(character_id, opts \\ []) do
+  @spec bookmark_folders(character_id :: integer) :: ESI.Request.t
+  def bookmark_folders(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/bookmarks/folders",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/bookmarks/folders/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type assets_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return a list of the characters assets
+  Return a list of the characters assets.
 
   ## Swagger Source
 
@@ -308,29 +219,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Assets/get_characters_character_id_assets)
 
   """
-  @spec assets(character_id :: integer, opts :: assets_opts) :: ESI.Request.t
-  def assets(character_id, opts \\ []) do
+  @spec assets(character_id :: integer) :: ESI.Request.t
+  def assets(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/assets",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/assets/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type skillqueue_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  List the configured skill queue for the given character
+  List the configured skill queue for the given character.
 
   ## Swagger Source
 
@@ -342,27 +241,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Skills/get_characters_character_id_skillqueue)
 
   """
-  @spec skillqueue(character_id :: integer, opts :: skillqueue_opts) :: ESI.Request.t
-  def skillqueue(character_id, opts \\ []) do
+  @spec skillqueue(character_id :: integer) :: ESI.Request.t
+  def skillqueue(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/skillqueue",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/skillqueue/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type character_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Public information about a character
+  Public information about a character.
 
   ## Swagger Source
 
@@ -374,29 +263,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_character_id)
 
   """
-  @spec character(character_id :: integer, opts :: character_opts) :: ESI.Request.t
-  def character(character_id, opts \\ []) do
+  @spec character(character_id :: integer) :: ESI.Request.t
+  def character(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/characters/#{character_id}/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type planets_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Returns a list of all planetary colonies owned by a character.
+  Returns a list of all planetary colonies owned by a character..
 
   ## Swagger Source
 
@@ -408,31 +285,25 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Planetary Interaction/get_characters_character_id_planets)
 
   """
-  @spec planets(character_id :: integer, opts :: planets_opts) :: ESI.Request.t
-  def planets(character_id, opts \\ []) do
+  @spec planets(character_id :: integer) :: ESI.Request.t
+  def planets(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/planets",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/planets/",
+
     }
   end
 
   @typedoc """
   - `:characters` (REQUIRED) -- The target characters to calculate the charge for
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_cspa_opts :: [
     characters: [characters: nil | [nil | integer]],
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Takes a source character ID in the url and a set of target character ID's in the body, returns a CSPA charge cost
+  Takes a source character ID in the url and a set of target character ID's in the body, returns a CSPA charge cost.
 
   ## Swagger Source
 
@@ -448,28 +319,21 @@ defmodule ESI.API.Character do
   def create_cspa(character_id, opts \\ []) do
     %ESI.Request{
       verb: :post,
-      path: "characters/#{character_id}/cspa",
+      path: "/characters/#{character_id}/cspa/",
       body_opts: Keyword.take(opts, [:characters]),
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
     }
   end
 
   @typedoc """
   - `:contact_ids` (REQUIRED) -- A list of contacts to edit
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type delete_contacts_opts :: [
     contact_ids: [nil | integer],
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Bulk delete contacts
+  Bulk delete contacts.
 
   ## Swagger Source
 
@@ -485,28 +349,21 @@ defmodule ESI.API.Character do
   def delete_contacts(character_id, opts \\ []) do
     %ESI.Request{
       verb: :delete,
-      path: "characters/#{character_id}/contacts",
+      path: "/characters/#{character_id}/contacts/",
       body_opts: Keyword.take(opts, [:contact_ids]),
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:page` (DEFAULT: `1`) -- page integer
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type contacts_opts :: [
-    datasource: nil | :tranquility | :singularity,
     page: nil | integer,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Return contacts of a character
+  Return contacts of a character.
 
   ## Swagger Source
 
@@ -522,33 +379,27 @@ defmodule ESI.API.Character do
   def contacts(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/contacts",
-      query_opts: Keyword.take(opts, [:datasource, :page, :token, :user_agent]),
+      path: "/characters/#{character_id}/contacts/",
+      query_opts: Keyword.take(opts, [:page]),
     }
   end
 
   @typedoc """
   - `:contact_ids` (REQUIRED) -- A list of contacts to add
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:label_id` (DEFAULT: `0`) -- Add a custom label to the new contact
   - `:standing` (REQUIRED) -- Standing for the new contact
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   - `:watched` (DEFAULT: `false`) -- Whether the new contact should be watched, note this is only effective on characters
   """
   @type create_contacts_opts :: [
     contact_ids: [nil | integer],
-    datasource: nil | :tranquility | :singularity,
     label_id: nil | integer,
     standing: float,
-    token: nil | String.t,
-    user_agent: nil | String.t,
     watched: nil | boolean,
   ]
 
 
   @doc """
-  Bulk add contacts with same settings
+  Bulk add contacts with same settings.
 
   ## Swagger Source
 
@@ -564,34 +415,28 @@ defmodule ESI.API.Character do
   def create_contacts(character_id, opts \\ []) do
     %ESI.Request{
       verb: :post,
-      path: "characters/#{character_id}/contacts",
+      path: "/characters/#{character_id}/contacts/",
       body_opts: Keyword.take(opts, [:contact_ids]),
-      query_opts: Keyword.take(opts, [:datasource, :label_id, :standing, :token, :user_agent, :watched]),
+      query_opts: Keyword.take(opts, [:label_id, :standing, :watched]),
     }
   end
 
   @typedoc """
   - `:contact_ids` (REQUIRED) -- A list of contacts to edit
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:label_id` (DEFAULT: `0`) -- Add a custom label to the contact, use 0 for clearing label
   - `:standing` (REQUIRED) -- Standing for the contact
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   - `:watched` (DEFAULT: `false`) -- Whether the contact should be watched, note this is only effective on characters
   """
   @type update_contacts_opts :: [
     contact_ids: [nil | integer],
-    datasource: nil | :tranquility | :singularity,
     label_id: nil | integer,
     standing: float,
-    token: nil | String.t,
-    user_agent: nil | String.t,
     watched: nil | boolean,
   ]
 
 
   @doc """
-  Bulk edit contacts with same settings
+  Bulk edit contacts with same settings.
 
   ## Swagger Source
 
@@ -607,26 +452,14 @@ defmodule ESI.API.Character do
   def update_contacts(character_id, opts \\ []) do
     %ESI.Request{
       verb: :put,
-      path: "characters/#{character_id}/contacts",
+      path: "/characters/#{character_id}/contacts/",
       body_opts: Keyword.take(opts, [:contact_ids]),
-      query_opts: Keyword.take(opts, [:datasource, :label_id, :standing, :token, :user_agent, :watched]),
+      query_opts: Keyword.take(opts, [:label_id, :standing, :watched]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type clones_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  A list of the character's clones
+  A list of the character's clones.
 
   ## Swagger Source
 
@@ -638,29 +471,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Clones/get_characters_character_id_clones)
 
   """
-  @spec clones(character_id :: integer, opts :: clones_opts) :: ESI.Request.t
-  def clones(character_id, opts \\ []) do
+  @spec clones(character_id :: integer) :: ESI.Request.t
+  def clones(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/clones",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/clones/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type mail_lists_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return all mailing lists that the character is subscribed to
+  Return all mailing lists that the character is subscribed to.
 
   ## Swagger Source
 
@@ -672,29 +493,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/get_characters_character_id_mail_lists)
 
   """
-  @spec mail_lists(character_id :: integer, opts :: mail_lists_opts) :: ESI.Request.t
-  def mail_lists(character_id, opts \\ []) do
+  @spec mail_lists(character_id :: integer) :: ESI.Request.t
+  def mail_lists(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/mail/lists",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/mail/lists/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type contact_labels_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return custom labels for contacts the character defined
+  Return custom labels for contacts the character defined.
 
   ## Swagger Source
 
@@ -706,29 +515,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Contacts/get_characters_character_id_contacts_labels)
 
   """
-  @spec contact_labels(character_id :: integer, opts :: contact_labels_opts) :: ESI.Request.t
-  def contact_labels(character_id, opts \\ []) do
+  @spec contact_labels(character_id :: integer) :: ESI.Request.t
+  def contact_labels(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/contacts/labels",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/contacts/labels/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type skills_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  List all trained skills for the given character
+  List all trained skills for the given character.
 
   ## Swagger Source
 
@@ -740,34 +537,28 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Skills/get_characters_character_id_skills)
 
   """
-  @spec skills(character_id :: integer, opts :: skills_opts) :: ESI.Request.t
-  def skills(character_id, opts \\ []) do
+  @spec skills(character_id :: integer) :: ESI.Request.t
+  def skills(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/skills",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/skills/",
+
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:max_count` (DEFAULT: `50`) -- How many killmails to return at maximum
   - `:max_kill_id` -- Only return killmails with ID smaller than this.
 
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type killmail_recent_opts :: [
-    datasource: nil | :tranquility | :singularity,
     max_count: nil | integer,
     max_kill_id: nil | integer,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Return a list of character's recent kills and losses
+  Return a list of character's recent kills and losses.
 
   ## Swagger Source
 
@@ -783,27 +574,21 @@ defmodule ESI.API.Character do
   def killmail_recent(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/killmails/recent",
-      query_opts: Keyword.take(opts, [:datasource, :max_count, :max_kill_id, :token, :user_agent]),
+      path: "/characters/#{character_id}/killmails/recent/",
+      query_opts: Keyword.take(opts, [:max_count, :max_kill_id]),
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:from_event` -- The event ID to retrieve events from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type calendar_opts :: [
-    datasource: nil | :tranquility | :singularity,
     from_event: nil | integer,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Get 50 event summaries from the calendar. If no event ID is given,
+  Get 50 event summaries from the calendar. If no event ID is given,.
 
   ## Swagger Source
 
@@ -819,25 +604,13 @@ defmodule ESI.API.Character do
   def calendar(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/calendar",
-      query_opts: Keyword.take(opts, [:datasource, :from_event, :token, :user_agent]),
+      path: "/characters/#{character_id}/calendar/",
+      query_opts: Keyword.take(opts, [:from_event]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type planet_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Returns full details on the layout of a single planetary colony, including links, pins and routes. Note: Planetary information is only recalculated when the colony is viewed through the client. Information on this endpoint will not update until this criteria is met.
+  Returns full details on the layout of a single planetary colony, including links, pins and routes. Note: Planetary information is only recalculated when the colony is viewed through the client. Information on this endpoint will not update until this criteria is met..
 
   ## Swagger Source
 
@@ -849,27 +622,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Planetary Interaction/get_characters_character_id_planets_planet_id)
 
   """
-  @spec planet(character_id :: integer, planet_id :: integer, opts :: planet_opts) :: ESI.Request.t
-  def planet(character_id, planet_id, opts \\ []) do
+  @spec planet(character_id :: integer, planet_id :: integer) :: ESI.Request.t
+  def planet(character_id, planet_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/planets/#{planet_id}",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/planets/#{planet_id}/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type portrait_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get portrait urls for a character
+  Get portrait urls for a character.
 
   ## Swagger Source
 
@@ -881,33 +644,27 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_character_id_portrait)
 
   """
-  @spec portrait(character_id :: integer, opts :: portrait_opts) :: ESI.Request.t
-  def portrait(character_id, opts \\ []) do
+  @spec portrait(character_id :: integer) :: ESI.Request.t
+  def portrait(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/portrait",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/characters/#{character_id}/portrait/",
+
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:labels` -- Fetch only mails that match one or more of the given labels
   - `:last_mail_id` -- List only mail with an ID lower than the given ID, if present
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type mail_opts :: [
-    datasource: nil | :tranquility | :singularity,
     labels: nil | [nil | integer],
     last_mail_id: nil | integer,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards.
+  Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards..
 
   ## Swagger Source
 
@@ -923,27 +680,21 @@ defmodule ESI.API.Character do
   def mail(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/mail",
-      query_opts: Keyword.take(opts, [:datasource, :labels, :last_mail_id, :token, :user_agent]),
+      path: "/characters/#{character_id}/mail/",
+      query_opts: Keyword.take(opts, [:labels, :last_mail_id]),
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:mail` (REQUIRED) -- The mail to send
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_mail_opts :: [
-    datasource: nil | :tranquility | :singularity,
     mail: [approved_cost: nil | integer, body: nil | String.t, recipients: nil | [nil | [recipient_id: nil | integer, recipient_type: nil | :alliance | :character | :corporation | :mailing_list]], subject: nil | String.t],
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Create and send a new mail
+  Create and send a new mail.
 
   ## Swagger Source
 
@@ -959,26 +710,13 @@ defmodule ESI.API.Character do
   def create_mail(character_id, opts \\ []) do
     %ESI.Request{
       verb: :post,
-      path: "characters/#{character_id}/mail",
+      path: "/characters/#{character_id}/mail/",
       body_opts: Keyword.take(opts, [:mail]),
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type delete_fitting_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Delete a fitting from a character
+  Delete a fitting from a character.
 
   ## Swagger Source
 
@@ -990,29 +728,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fittings/delete_characters_character_id_fittings_fitting_id)
 
   """
-  @spec delete_fitting(character_id :: integer, fitting_id :: integer, opts :: delete_fitting_opts) :: ESI.Request.t
-  def delete_fitting(character_id, fitting_id, opts \\ []) do
+  @spec delete_fitting(character_id :: integer, fitting_id :: integer) :: ESI.Request.t
+  def delete_fitting(character_id, fitting_id) do
     %ESI.Request{
       verb: :delete,
-      path: "characters/#{character_id}/fittings/#{fitting_id}",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/fittings/#{fitting_id}/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type calendar_event_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get all the information for a specific event
+  Get all the information for a specific event.
 
   ## Swagger Source
 
@@ -1024,31 +750,25 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Calendar/get_characters_character_id_calendar_event_id)
 
   """
-  @spec calendar_event(character_id :: integer, event_id :: integer, opts :: calendar_event_opts) :: ESI.Request.t
-  def calendar_event(character_id, event_id, opts \\ []) do
+  @spec calendar_event(character_id :: integer, event_id :: integer) :: ESI.Request.t
+  def calendar_event(character_id, event_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/calendar/#{event_id}",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/calendar/#{event_id}/",
+
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:response` (REQUIRED) -- The response value to set, overriding current value.
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_calendar_event_opts :: [
-    datasource: nil | :tranquility | :singularity,
     response: [response: nil | :accepted | :declined | :tentative],
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Set your response status to an event
+  Set your response status to an event.
 
   ## Swagger Source
 
@@ -1064,26 +784,13 @@ defmodule ESI.API.Character do
   def update_calendar_event(character_id, event_id, opts \\ []) do
     %ESI.Request{
       verb: :put,
-      path: "characters/#{character_id}/calendar/#{event_id}",
+      path: "/characters/#{character_id}/calendar/#{event_id}/",
       body_opts: Keyword.take(opts, [:response]),
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type wallets_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  List your wallets and their balances. Characters typically have only one wallet, with wallet_id 1000 being the master wallet.
+  List your wallets and their balances. Characters typically have only one wallet, with wallet_id 1000 being the master wallet..
 
   ## Swagger Source
 
@@ -1095,27 +802,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Wallet/get_characters_character_id_wallets)
 
   """
-  @spec wallets(character_id :: integer, opts :: wallets_opts) :: ESI.Request.t
-  def wallets(character_id, opts \\ []) do
+  @spec wallets(character_id :: integer) :: ESI.Request.t
+  def wallets(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/wallets",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/wallets/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type corporation_history_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get a list of all the corporations a character has been a member of
+  Get a list of all the corporations a character has been a member of.
 
   ## Swagger Source
 
@@ -1127,29 +824,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_character_id_corporationhistory)
 
   """
-  @spec corporation_history(character_id :: integer, opts :: corporation_history_opts) :: ESI.Request.t
-  def corporation_history(character_id, opts \\ []) do
+  @spec corporation_history(character_id :: integer) :: ESI.Request.t
+  def corporation_history(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/corporationhistory",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/characters/#{character_id}/corporationhistory/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type location_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable.
+  Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable..
 
   ## Swagger Source
 
@@ -1161,29 +846,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Location/get_characters_character_id_location)
 
   """
-  @spec location(character_id :: integer, opts :: location_opts) :: ESI.Request.t
-  def location(character_id, opts \\ []) do
+  @spec location(character_id :: integer) :: ESI.Request.t
+  def location(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/location",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/location/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type mail_labels_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return a list of the users mail labels, unread counts for each label and a total unread count.
+  Return a list of the users mail labels, unread counts for each label and a total unread count..
 
   ## Swagger Source
 
@@ -1195,31 +868,25 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/get_characters_character_id_mail_labels)
 
   """
-  @spec mail_labels(character_id :: integer, opts :: mail_labels_opts) :: ESI.Request.t
-  def mail_labels(character_id, opts \\ []) do
+  @spec mail_labels(character_id :: integer) :: ESI.Request.t
+  def mail_labels(character_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/mail/labels",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/mail/labels/",
+
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:label` -- Label to create
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_mail_labels_opts :: [
-    datasource: nil | :tranquility | :singularity,
     label: nil | [color: nil | :"#ffffff" | :"#ffff01" | :"#ff6600" | :"#fe0000" | :"#9a0000" | :"#660066" | :"#0000fe" | :"#0099ff" | :"#01ffff" | :"#00ff33" | :"#349800" | :"#006634" | :"#666666" | :"#999999" | :"#e6e6e6" | :"#ffffcd" | :"#99ffff" | :"#ccff9a", name: nil | String.t],
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Create a mail label
+  Create a mail label.
 
   ## Swagger Source
 
@@ -1235,26 +902,13 @@ defmodule ESI.API.Character do
   def create_mail_labels(character_id, opts \\ []) do
     %ESI.Request{
       verb: :post,
-      path: "characters/#{character_id}/mail/labels",
+      path: "/characters/#{character_id}/mail/labels/",
       body_opts: Keyword.take(opts, [:label]),
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type delete_mail_item_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Delete a mail
+  Delete a mail.
 
   ## Swagger Source
 
@@ -1266,29 +920,17 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/delete_characters_character_id_mail_mail_id)
 
   """
-  @spec delete_mail_item(character_id :: integer, mail_id :: integer, opts :: delete_mail_item_opts) :: ESI.Request.t
-  def delete_mail_item(character_id, mail_id, opts \\ []) do
+  @spec delete_mail_item(character_id :: integer, mail_id :: integer) :: ESI.Request.t
+  def delete_mail_item(character_id, mail_id) do
     %ESI.Request{
       verb: :delete,
-      path: "characters/#{character_id}/mail/#{mail_id}",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/mail/#{mail_id}/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type mail_item_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return the contents of an EVE mail
+  Return the contents of an EVE mail.
 
   ## Swagger Source
 
@@ -1300,31 +942,25 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/get_characters_character_id_mail_mail_id)
 
   """
-  @spec mail_item(character_id :: integer, mail_id :: integer, opts :: mail_item_opts) :: ESI.Request.t
-  def mail_item(character_id, mail_id, opts \\ []) do
+  @spec mail_item(character_id :: integer, mail_id :: integer) :: ESI.Request.t
+  def mail_item(character_id, mail_id) do
     %ESI.Request{
       verb: :get,
-      path: "characters/#{character_id}/mail/#{mail_id}",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/characters/#{character_id}/mail/#{mail_id}/",
+
     }
   end
 
   @typedoc """
   - `:contents` (REQUIRED) -- Data used to update the mail
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_mail_item_opts :: [
     contents: [labels: nil | [nil | integer], read: nil | boolean],
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Update metadata about a mail
+  Update metadata about a mail.
 
   ## Swagger Source
 
@@ -1340,9 +976,8 @@ defmodule ESI.API.Character do
   def update_mail_item(character_id, mail_id, opts \\ []) do
     %ESI.Request{
       verb: :put,
-      path: "characters/#{character_id}/mail/#{mail_id}",
+      path: "/characters/#{character_id}/mail/#{mail_id}/",
       body_opts: Keyword.take(opts, [:contents]),
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
     }
   end
 end

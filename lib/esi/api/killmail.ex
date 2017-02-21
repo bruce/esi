@@ -1,17 +1,7 @@
 defmodule ESI.API.Killmail do
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type killmail_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return a single killmail from its ID and hash
+  Return a single killmail from its ID and hash.
 
   ## Swagger Source
 
@@ -23,12 +13,12 @@ defmodule ESI.API.Killmail do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Killmails/get_killmails_killmail_id_killmail_hash)
 
   """
-  @spec killmail(killmail_id :: integer, killmail_hash :: String.t, opts :: killmail_opts) :: ESI.Request.t
-  def killmail(killmail_id, killmail_hash, opts \\ []) do
+  @spec killmail(killmail_id :: integer, killmail_hash :: String.t) :: ESI.Request.t
+  def killmail(killmail_id, killmail_hash) do
     %ESI.Request{
       verb: :get,
-      path: "killmails/#{killmail_id}/#{killmail_hash}",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/killmails/#{killmail_id}/#{killmail_hash}/",
+
     }
   end
 end

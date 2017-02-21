@@ -2,18 +2,14 @@ defmodule ESI.API.Alliance do
 
   @typedoc """
   - `:alliance_ids` (REQUIRED) -- A comma separated list of alliance IDs
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type names_opts :: [
     alliance_ids: [nil | integer],
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Resolve a set of alliance IDs to alliance names
+  Resolve a set of alliance IDs to alliance names.
 
   ## Swagger Source
 
@@ -29,23 +25,13 @@ defmodule ESI.API.Alliance do
   def names(opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "alliances/names",
-      query_opts: Keyword.take(opts, [:alliance_ids, :datasource, :user_agent]),
+      path: "/alliances/names/",
+      query_opts: Keyword.take(opts, [:alliance_ids]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type corporations_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  List all current member corporations of an alliance
+  List all current member corporations of an alliance.
 
   ## Swagger Source
 
@@ -57,27 +43,17 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id_corporations)
 
   """
-  @spec corporations(alliance_id :: integer, opts :: corporations_opts) :: ESI.Request.t
-  def corporations(alliance_id, opts \\ []) do
+  @spec corporations(alliance_id :: integer) :: ESI.Request.t
+  def corporations(alliance_id) do
     %ESI.Request{
       verb: :get,
-      path: "alliances/#{alliance_id}/corporations",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/alliances/#{alliance_id}/corporations/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type icons_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get the icon urls for a alliance
+  Get the icon urls for a alliance.
 
   ## Swagger Source
 
@@ -89,27 +65,17 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id_icons)
 
   """
-  @spec icons(alliance_id :: integer, opts :: icons_opts) :: ESI.Request.t
-  def icons(alliance_id, opts \\ []) do
+  @spec icons(alliance_id :: integer) :: ESI.Request.t
+  def icons(alliance_id) do
     %ESI.Request{
       verb: :get,
-      path: "alliances/#{alliance_id}/icons",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/alliances/#{alliance_id}/icons/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type alliance_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Public information about an alliance
+  Public information about an alliance.
 
   ## Swagger Source
 
@@ -121,27 +87,17 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id)
 
   """
-  @spec alliance(alliance_id :: integer, opts :: alliance_opts) :: ESI.Request.t
-  def alliance(alliance_id, opts \\ []) do
+  @spec alliance(alliance_id :: integer) :: ESI.Request.t
+  def alliance(alliance_id) do
     %ESI.Request{
       verb: :get,
-      path: "alliances/#{alliance_id}",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/alliances/#{alliance_id}/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type alliances_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  List all active player alliances
+  List all active player alliances.
 
   ## Swagger Source
 
@@ -153,12 +109,12 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances)
 
   """
-  @spec alliances(opts :: alliances_opts) :: ESI.Request.t
-  def alliances(opts \\ []) do
+  @spec alliances() :: ESI.Request.t
+  def alliances() do
     %ESI.Request{
       verb: :get,
-      path: "alliances",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/alliances/",
+
     }
   end
 end

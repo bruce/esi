@@ -36,7 +36,7 @@ defmodule ESI.Generator do
       tag = function.tags |> hd
       [
         ~S(  @doc """),
-        ["  ", doc],
+        ["  ", doc, "."],
         "",
         "  ## Swagger Source",
         "",
@@ -63,10 +63,7 @@ defmodule ESI.Generator do
   end
 
   def write_function(function) do
-    [
-      "\n",
-      write_opts_typedoc(function),
-      write_opts_type(function),
+    write_opts_type_info(function) ++ [
       "\n",
       write_doc(function),
       "  @spec #{function.name}(#{write_spec_args(function)}) :: ESI.Request.t",
@@ -74,6 +71,19 @@ defmodule ESI.Generator do
       write_request(function),
       "  end"
     ] |> flow
+  end
+
+  def write_opts_type_info(function) do
+    case opts_params(function) do
+      [] ->
+        []
+      _ ->
+        [
+          "\n",
+          write_opts_typedoc(function),
+          write_opts_type(function),
+        ]
+    end
   end
 
   defp write_request(function) do
@@ -87,11 +97,13 @@ defmodule ESI.Generator do
     ] |> flow
   end
 
-  @ignore_params ~w(path header)
-
+  @ignore_params_in ~w(path header)
+  @ignore_params_named ~w(token user_agent datasource)
   defp opts_params(function) do
     Map.values(function.params)
-    |> Enum.filter(fn v -> !Enum.member?(@ignore_params, v["in"]) end)
+    |> Enum.filter(fn v ->
+      !Enum.member?(@ignore_params_in, v["in"]) && !Enum.member?(@ignore_params_named, v["name"])
+    end)
   end
 
   defp split_opts(function) do
@@ -120,7 +132,12 @@ defmodule ESI.Generator do
     |> do_write_spec_args(function)
   end
   defp do_write_spec_args([], function) do
-    "opts :: #{function.name}_opts"
+    case opts_params(function) do
+      [] ->
+        nil
+      _ ->
+        "opts :: #{function.name}_opts"
+    end
   end
   defp do_write_spec_args(args, function) do
     list = args
@@ -129,7 +146,13 @@ defmodule ESI.Generator do
       ~s(#{param} :: #{param_type(function.params[param])})
     end)
     |> Enum.join(", ")
-    list <> ", " <> do_write_spec_args([], function)
+    opts_args = do_write_spec_args([], function)
+    [
+      list,
+      opts_args
+    ]
+    |> Enum.filter(&(!is_nil(&1)))
+    |> Enum.join(", ")
   end
 
   defp write_args(function) do
@@ -137,14 +160,25 @@ defmodule ESI.Generator do
     |> Endpoint.args
     |> do_write_args(function)
   end
-  defp do_write_args([], _) do
-    "opts \\\\ []"
+  defp do_write_args([], function) do
+    case opts_params(function) do
+      [] ->
+        nil
+      _ ->
+        "opts \\\\ []"
+    end
   end
   defp do_write_args(args, function) do
     list = args
     |> Enum.map(&Macro.underscore/1)
     |> Enum.join(", ")
-    list <> ", " <> do_write_args([], function)
+    opts_args = do_write_args([], function)
+    [
+      list,
+      opts_args
+    ]
+    |> Enum.filter(&(!is_nil(&1)))
+    |> Enum.join(", ")
   end
 
   defp flow(block) do

@@ -1,17 +1,7 @@
 defmodule ESI.API.Corporation do
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type alliance_history_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get a list of all the alliances a corporation has been a member of
+  Get a list of all the alliances a corporation has been a member of.
 
   ## Swagger Source
 
@@ -23,27 +13,17 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_alliancehistory)
 
   """
-  @spec alliance_history(corporation_id :: integer, opts :: alliance_history_opts) :: ESI.Request.t
-  def alliance_history(corporation_id, opts \\ []) do
+  @spec alliance_history(corporation_id :: integer) :: ESI.Request.t
+  def alliance_history(corporation_id) do
     %ESI.Request{
       verb: :get,
-      path: "corporations/#{corporation_id}/alliancehistory",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/corporations/#{corporation_id}/alliancehistory/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type corporation_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Public information about a corporation
+  Public information about a corporation.
 
   ## Swagger Source
 
@@ -55,29 +35,17 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id)
 
   """
-  @spec corporation(corporation_id :: integer, opts :: corporation_opts) :: ESI.Request.t
-  def corporation(corporation_id, opts \\ []) do
+  @spec corporation(corporation_id :: integer) :: ESI.Request.t
+  def corporation(corporation_id) do
     %ESI.Request{
       verb: :get,
-      path: "corporations/#{corporation_id}",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/corporations/#{corporation_id}/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type members_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Read the current list of members if the calling character is a member.
+  Read the current list of members if the calling character is a member..
 
   ## Swagger Source
 
@@ -89,29 +57,17 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_members)
 
   """
-  @spec members(corporation_id :: integer, opts :: members_opts) :: ESI.Request.t
-  def members(corporation_id, opts \\ []) do
+  @spec members(corporation_id :: integer) :: ESI.Request.t
+  def members(corporation_id) do
     %ESI.Request{
       verb: :get,
-      path: "corporations/#{corporation_id}/members",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/corporations/#{corporation_id}/members/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type roles_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    token: nil | String.t,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Return the roles of all members if the character has the personnel manager role or any grantable role.
+  Return the roles of all members if the character has the personnel manager role or any grantable role..
 
   ## Swagger Source
 
@@ -123,29 +79,25 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_roles)
 
   """
-  @spec roles(corporation_id :: integer, opts :: roles_opts) :: ESI.Request.t
-  def roles(corporation_id, opts \\ []) do
+  @spec roles(corporation_id :: integer) :: ESI.Request.t
+  def roles(corporation_id) do
     %ESI.Request{
       verb: :get,
-      path: "corporations/#{corporation_id}/roles",
-      query_opts: Keyword.take(opts, [:datasource, :token, :user_agent]),
+      path: "/corporations/#{corporation_id}/roles/",
+
     }
   end
 
   @typedoc """
   - `:corporation_ids` (REQUIRED) -- A comma separated list of corporation IDs
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type names_opts :: [
     corporation_ids: [nil | integer],
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Resolve a set of corporation IDs to corporation names
+  Resolve a set of corporation IDs to corporation names.
 
   ## Swagger Source
 
@@ -161,29 +113,23 @@ defmodule ESI.API.Corporation do
   def names(opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "corporations/names",
-      query_opts: Keyword.take(opts, [:corporation_ids, :datasource, :user_agent]),
+      path: "/corporations/names/",
+      query_opts: Keyword.take(opts, [:corporation_ids]),
     }
   end
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   - `:page` -- Which page to query, 250 structures per page
-  - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type structures_opts :: [
-    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
     page: nil | integer,
-    token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Get a list of corporation structures
+  Get a list of corporation structures.
 
   ## Swagger Source
 
@@ -199,23 +145,13 @@ defmodule ESI.API.Corporation do
   def structures(corporation_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "corporations/#{corporation_id}/structures",
-      query_opts: Keyword.take(opts, [:datasource, :language, :page, :token, :user_agent]),
+      path: "/corporations/#{corporation_id}/structures/",
+      query_opts: Keyword.take(opts, [:language, :page]),
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type icons_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get the icon urls for a corporation
+  Get the icon urls for a corporation.
 
   ## Swagger Source
 
@@ -227,27 +163,17 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_icons)
 
   """
-  @spec icons(corporation_id :: integer, opts :: icons_opts) :: ESI.Request.t
-  def icons(corporation_id, opts \\ []) do
+  @spec icons(corporation_id :: integer) :: ESI.Request.t
+  def icons(corporation_id) do
     %ESI.Request{
       verb: :get,
-      path: "corporations/#{corporation_id}/icons",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/corporations/#{corporation_id}/icons/",
+
     }
   end
 
-  @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type npccorps_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
-  Get a list of npc corporations
+  Get a list of npc corporations.
 
   ## Swagger Source
 
@@ -259,12 +185,12 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_npccorps)
 
   """
-  @spec npccorps(opts :: npccorps_opts) :: ESI.Request.t
-  def npccorps(opts \\ []) do
+  @spec npccorps() :: ESI.Request.t
+  def npccorps() do
     %ESI.Request{
       verb: :get,
-      path: "corporations/npccorps",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+      path: "/corporations/npccorps/",
+
     }
   end
 end

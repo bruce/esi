@@ -128,7 +128,7 @@ defmodule ESI.Generator.Endpoint do
         value
     end)
     |> Path.join
-    ~S<"> <> inside <> ~S<">
+    ~S<"/> <> inside <> ~S</">
   end
 
   @spec ends_as?(endpoint :: t, structure :: [component_kind]) :: boolean

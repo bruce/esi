@@ -1,19 +1,15 @@
 defmodule ESI.API.Insurance do
 
   @typedoc """
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type prices_opts :: [
-    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-    user_agent: nil | String.t,
   ]
 
 
   @doc """
-  Return available insurance levels for all ship types
+  Return available insurance levels for all ship types.
 
   ## Swagger Source
 
@@ -29,8 +25,8 @@ defmodule ESI.API.Insurance do
   def prices(opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "insurance/prices",
-      query_opts: Keyword.take(opts, [:datasource, :language, :user_agent]),
+      path: "/insurance/prices/",
+      query_opts: Keyword.take(opts, [:language]),
     }
   end
 end
