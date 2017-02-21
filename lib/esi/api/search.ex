@@ -1,14 +1,6 @@
 defmodule ESI.API.Search do
 
-  @doc """
-  Search for entities that match a given sub-string.
-
-  ## Swagger
-
-  The Swagger Operation ID for this function is `get_search`
-
-  ## Options
-
+  @typedoc """
   - `:categories` (REQUIRED) -- Type of entities to search for
   - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Search locale
@@ -24,12 +16,26 @@ defmodule ESI.API.Search do
     strict: nil | boolean,
     user_agent: nil | String.t,
   ]
-  # []
+
+
+  @doc """
+  Search for entities that match a given sub-string.
+
+  ## Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_search`
+  - `path` -- `/search/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Search/get_search)
+
+  """
   @spec search(opts :: search_opts) :: ESI.Request.t
   def search(opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "/search/",
+      path: "search",
       query_opts: Keyword.take(opts, [:categories, :datasource, :language, :search, :strict, :user_agent]),
     }
   end

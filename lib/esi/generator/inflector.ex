@@ -1,4 +1,5 @@
 defmodule ESI.Generator.Inflector do
+  @moduledoc false
 
   @custom_titleize %{
     "ui" => "UI"

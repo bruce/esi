@@ -1,18 +1,18 @@
 defmodule ESI.Generator do
+  @moduledoc false
 
-  alias ESI.Generator.Inflector
+  alias ESI.Generator.{Endpoint, Function}
 
   def run(swagger) do
     swagger
     |> Map.get("paths", [])
     |> Enum.flat_map(fn {path, requests} ->
-      IO.inspect(ESI.Generator.Path.new(path) |> ESI.Generator.Path.to_ex)
       requests
       |> Enum.map(fn {verb, info} ->
-        ESI.Generator.Function.new(path, verb, info)
+        Function.new(path, String.to_atom(verb), info)
       end)
     end)
-    |> Enum.group_by(&Map.get(&1, :module_name))
+    |> Enum.group_by(&(&1.module_name))
     |> Enum.each(fn {module_name, functions} ->
       content = write_module(module_name, functions)
       name = Macro.underscore(module_name)
@@ -30,114 +30,72 @@ defmodule ESI.Generator do
     ]
   end
 
-  def write_doc(ident) do
-    doc = ident.doc |> String.split("\n") |> Enum.take(1)
+  def write_doc(function) do
+    doc = function.doc |> String.split("\n") |> Enum.take(1)
     if doc do
+      tag = function.tags |> hd
       [
         ~S(  @doc """),
         ["  ", doc],
         "",
-        "  ## Swagger",
+        "  ## Swagger Source",
         "",
-        "  The Swagger Operation ID for this function is `#{ident.operation}`",
+        "  This function was generated from the following Swagger operation:",
         "",
-        "  ## Options",
+        "  - `operationId` -- `#{function.operation}`",
+        "  - `path` -- `#{function.endpoint.source}`",
         "",
-        Enum.map(opts_params(ident), fn param ->
-          "  - `:#{param["name"]}` #{param_req_tag(param)}-- #{param["description"]}"
-        end) |> flow,
+        "  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/#{tag}/#{function.operation})",
+        "",
         ~S(  """)
       ] |> flow
     end
   end
 
-  def write_function(ident) do
-    ident = Map.put(ident, :function_name, function_name(ident) |> rename_function(ident.form))
+  def write_opts_typedoc(function) do
+    [
+      ~S(  @typedoc """),
+      Enum.map(opts_params(function), fn param ->
+        "  - `:#{param["name"]}` #{param_req_tag(param)}-- #{param["description"]}"
+      end) |> flow,
+      ~S(  """)
+    ] |> flow
+  end
+
+  def write_function(function) do
     [
       "\n",
-      write_doc(ident),
-      write_opts_type(ident),
-      "  # #{inspect(ident.form)}",
-      "  @spec #{ident.function_name}(#{write_spec_args(ident)}) :: ESI.Request.t",
-      "  def #{ident.function_name}(#{write_args(ident)}) do",
-      write_request(ident),
+      write_opts_typedoc(function),
+      write_opts_type(function),
+      "\n",
+      write_doc(function),
+      "  @spec #{function.name}(#{write_spec_args(function)}) :: ESI.Request.t",
+      "  def #{function.name}(#{write_args(function)}) do",
+      write_request(function),
       "  end"
     ] |> flow
   end
 
-  def function_name(%{verb: "delete"} = ident) do
-    "delete_" <> Inflector.singularize(function_name(%{ident | verb: "get"}))
-  end
-  def function_name(%{verb: "put"} = ident) do
-    "update_" <> Inflector.singularize(function_name(%{ident | verb: "get"}))
-  end
-  def function_name(%{verb: "post"} = ident) do
-    "create_" <> Inflector.singularize(function_name(%{ident | verb: "get"}))
-  end
-  def function_name(ident) do
-    cond do
-      ident.form == [] ->
-        ident.parts |> List.first
-      ident.args == [] && length(Enum.uniq(ident.form)) == 1 ->
-        Enum.join(ident.words, "_")
-      ident.form == [:word, :arg] ->
-        List.last(ident.words)
-      Enum.take(ident.form, 2) == [:word, :word] ->
-        # /characters/{character_id}/bookmarks/labels -> bookmark_labels
-        [category, items] = Enum.take(Enum.reverse(ident.words), 2)
-        |> Enum.reverse
-        Inflector.singularize(category) <> "_" <> items
-      ident.form == [:arg, :word] ->
-        last_arg = List.last(ident.args)
-        last_word = List.last(ident.words)
-        if Inflector.singularize(last_word) <> "_id" == last_arg do
-          # /characters/{character_id}/planets/{planet_id}/ -> planet
-          Inflector.singularize(last_word)
-        else
-          # /characters/{character_id}/calendar/{event_id}/ -> calendar_event
-          Inflector.singularize(last_word) <> "_" <> String.replace_suffix(last_arg, "_id", "")
-        end
-      Enum.take(ident.form, 3) == [:arg, :word, :word] ->
-        Enum.take(Enum.reverse(ident.words), 2)
-        |> Enum.reverse
-        |> Enum.join("_")
-        |> Inflector.singularize
-      ident.form == [:arg] ->
-        Inflector.singularize(ident.parts |> List.first)
-      true ->
-        ident.operation
-    end
-  end
-
-  @function_renames %{
-    {"corporationhistory", [:word, :arg]} => "corporation_history",
-    {"mail", [:arg, :word, :arg]} => "mail_item"
-  }
-  for {{old, form}, new} <- @function_renames do
-    defp rename_function(unquote(old), unquote(form)), do: unquote(new)
-  end
-  defp rename_function(name, _), do: name
-
-  defp write_request(ident) do
+  defp write_request(function) do
     spaces = "    "
     [
       [spaces, "%ESI.Request{"],
-      [spaces, "  ", ~s(verb: :#{ident.verb},)],
-      [spaces, "  ", ~s(path: #{write_path(ident)},)],
-      Enum.map(split_opts(ident), &[spaces, "  ", &1, ","]) |> flow,
+      [spaces, "  ", ~s(verb: :#{function.verb},)],
+      [spaces, "  ", ~s(path: #{Endpoint.to_ex(function.endpoint)},)],
+      Enum.map(split_opts(function), &[spaces, "  ", &1, ","]) |> flow,
       [spaces, "}"]
     ] |> flow
   end
 
   @ignore_params ~w(path header)
 
-  defp opts_params(ident) do
-    Map.values(ident.params)
+  defp opts_params(function) do
+    Map.values(function.params)
     |> Enum.filter(fn v -> !Enum.member?(@ignore_params, v["in"]) end)
   end
 
-  defp split_opts(ident) do
-    opts_params(ident)
+  defp split_opts(function) do
+    opts_params(function)
     |> Enum.group_by(fn v -> v["in"] end)
     |> Enum.map(fn {section, params} ->
       contents = Enum.map(params, fn %{"name" => name} -> ":#{name}" end)
@@ -146,42 +104,47 @@ defmodule ESI.Generator do
     end)
   end
 
-  defp write_path(identity) do
-    value = Regex.replace(~r/\{(.*?)\}/, identity.path, ~S(#{) <> "\\1" <> "}")
-    ~s("#{value}")
-  end
-
-  defp write_opts_type(ident) do
+  defp write_opts_type(function) do
     [
-      "  @type #{ident.function_name}_opts :: [",
-      Enum.map(opts_params(ident), fn param ->
+      "  @type #{function.name}_opts :: [",
+      Enum.map(opts_params(function), fn param ->
         ~s<    #{param["name"]}: #{param_type(param)},>
       end) |> flow,
       "  ]"
     ] |> flow
   end
 
-  defp write_spec_args(%{args: []} = identity) do
-    "opts :: #{identity.function_name}_opts"
+  defp write_spec_args(function) do
+    function.endpoint
+    |> Endpoint.args()
+    |> do_write_spec_args(function)
   end
-  defp write_spec_args(ident) do
-    list = ident.args
+  defp do_write_spec_args([], function) do
+    "opts :: #{function.name}_opts"
+  end
+  defp do_write_spec_args(args, function) do
+    list = args
     |> Enum.map(&Macro.underscore/1)
     |> Enum.map(fn param ->
-      ~s(#{param} :: #{param_type(ident.params[param])})
+      ~s(#{param} :: #{param_type(function.params[param])})
     end)
     |> Enum.join(", ")
-    list <> ", " <> write_spec_args(%{ident | args: []})
+    list <> ", " <> do_write_spec_args([], function)
   end
 
-  defp write_args(%{args: []}) do
+  defp write_args(function) do
+    function.endpoint
+    |> Endpoint.args
+    |> do_write_args(function)
+  end
+  defp do_write_args([], _) do
     "opts \\\\ []"
   end
-  defp write_args(ident) do
-    list = ident.args
+  defp do_write_args(args, function) do
+    list = args
     |> Enum.map(&Macro.underscore/1)
     |> Enum.join(", ")
-    list <> ", " <> write_args(%{ident | args: []})
+    list <> ", " <> do_write_args([], function)
   end
 
   defp flow(block) do

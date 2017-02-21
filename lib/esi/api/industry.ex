@@ -1,14 +1,6 @@
 defmodule ESI.API.Industry do
 
-  @doc """
-  Return a list of industry facilities
-
-  ## Swagger
-
-  The Swagger Operation ID for this function is `get_industry_facilities`
-
-  ## Options
-
+  @typedoc """
   - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:user_agent` -- Client identifier, takes precedence over headers
   """
@@ -16,25 +8,31 @@ defmodule ESI.API.Industry do
     datasource: nil | :tranquility | :singularity,
     user_agent: nil | String.t,
   ]
-  # [:word]
+
+
+  @doc """
+  Return a list of industry facilities
+
+  ## Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_industry_facilities`
+  - `path` -- `/industry/facilities/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Industry/get_industry_facilities)
+
+  """
   @spec facilities(opts :: facilities_opts) :: ESI.Request.t
   def facilities(opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "/industry/facilities/",
+      path: "industry/facilities",
       query_opts: Keyword.take(opts, [:datasource, :user_agent]),
     }
   end
 
-  @doc """
-  Return cost indices for solar systems
-
-  ## Swagger
-
-  The Swagger Operation ID for this function is `get_industry_systems`
-
-  ## Options
-
+  @typedoc """
   - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:user_agent` -- Client identifier, takes precedence over headers
   """
@@ -42,12 +40,26 @@ defmodule ESI.API.Industry do
     datasource: nil | :tranquility | :singularity,
     user_agent: nil | String.t,
   ]
-  # [:word]
+
+
+  @doc """
+  Return cost indices for solar systems
+
+  ## Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_industry_systems`
+  - `path` -- `/industry/systems/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Industry/get_industry_systems)
+
+  """
   @spec systems(opts :: systems_opts) :: ESI.Request.t
   def systems(opts \\ []) do
     %ESI.Request{
       verb: :get,
-      path: "/industry/systems/",
+      path: "industry/systems",
       query_opts: Keyword.take(opts, [:datasource, :user_agent]),
     }
   end

@@ -4,6 +4,7 @@ defmodule Mix.Tasks.Esi.Generate do
   @shortdoc "Regenerates modules based on the Swagger definition"
 
   @moduledoc """
+  Regenerates the ESI.API.* modules based on a priv/swagger.json definition.
   """
 
   def run(_) do
