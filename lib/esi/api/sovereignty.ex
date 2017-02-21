@@ -1,54 +1,46 @@
 defmodule ESI.API.Sovereignty do
 
   @doc """
-  Shows sovereignty data for campaigns.
+  Shows sovereignty data for campaigns..
 
-  ## Swagger
+  ## Swagger Source
 
-  The Swagger Operation ID for this function is `get_sovereignty_campaigns`
+  This function was generated from the following Swagger operation:
 
-  ## Options
+  - `operationId` -- `get_sovereignty_campaigns`
+  - `path` -- `/sovereignty/campaigns/`
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Sovereignty/get_sovereignty_campaigns)
+
   """
-  @type campaigns_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-  # [:word]
-  @spec campaigns(opts :: campaigns_opts) :: ESI.Request.t
-  def campaigns(opts \\ []) do
+  @spec campaigns() :: ESI.Request.t
+  def campaigns() do
     %ESI.Request{
       verb: :get,
       path: "/sovereignty/campaigns/",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+
     }
   end
 
   @doc """
-  Shows sovereignty data for structures.
+  Shows sovereignty data for structures..
 
-  ## Swagger
+  ## Swagger Source
 
-  The Swagger Operation ID for this function is `get_sovereignty_structures`
+  This function was generated from the following Swagger operation:
 
-  ## Options
+  - `operationId` -- `get_sovereignty_structures`
+  - `path` -- `/sovereignty/structures/`
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Sovereignty/get_sovereignty_structures)
+
   """
-  @type structures_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-  # [:word]
-  @spec structures(opts :: structures_opts) :: ESI.Request.t
-  def structures(opts \\ []) do
+  @spec structures() :: ESI.Request.t
+  def structures() do
     %ESI.Request{
       verb: :get,
       path: "/sovereignty/structures/",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+
     }
   end
 end

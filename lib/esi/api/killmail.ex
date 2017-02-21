@@ -1,28 +1,24 @@
 defmodule ESI.API.Killmail do
 
   @doc """
-  Return a single killmail from its ID and hash
+  Return a single killmail from its ID and hash.
 
-  ## Swagger
+  ## Swagger Source
 
-  The Swagger Operation ID for this function is `get_killmails_killmail_id_killmail_hash`
+  This function was generated from the following Swagger operation:
 
-  ## Options
+  - `operationId` -- `get_killmails_killmail_id_killmail_hash`
+  - `path` -- `/killmails/{killmail_id}/{killmail_hash}/`
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Killmails/get_killmails_killmail_id_killmail_hash)
+
   """
-  @type get_killmails_killmail_id_killmail_hash_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-  # [:arg, :arg]
-  @spec get_killmails_killmail_id_killmail_hash(killmail_id :: integer, killmail_hash :: String.t, opts :: get_killmails_killmail_id_killmail_hash_opts) :: ESI.Request.t
-  def get_killmails_killmail_id_killmail_hash(killmail_id, killmail_hash, opts \\ []) do
+  @spec killmail(killmail_id :: integer, killmail_hash :: String.t) :: ESI.Request.t
+  def killmail(killmail_id, killmail_hash) do
     %ESI.Request{
       verb: :get,
       path: "/killmails/#{killmail_id}/#{killmail_hash}/",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+
     }
   end
 end

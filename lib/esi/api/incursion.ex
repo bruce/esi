@@ -1,28 +1,24 @@
 defmodule ESI.API.Incursion do
 
   @doc """
-  Return a list of current incursions
+  Return a list of current incursions.
 
-  ## Swagger
+  ## Swagger Source
 
-  The Swagger Operation ID for this function is `get_incursions`
+  This function was generated from the following Swagger operation:
 
-  ## Options
+  - `operationId` -- `get_incursions`
+  - `path` -- `/incursions/`
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Incursions/get_incursions)
+
   """
-  @type incursions_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-  # []
-  @spec incursions(opts :: incursions_opts) :: ESI.Request.t
-  def incursions(opts \\ []) do
+  @spec incursions() :: ESI.Request.t
+  def incursions() do
     %ESI.Request{
       verb: :get,
       path: "/incursions/",
-      query_opts: Keyword.take(opts, [:datasource, :user_agent]),
+
     }
   end
 end
