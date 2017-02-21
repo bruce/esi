@@ -21,7 +21,7 @@ defmodule ESI.API.Search do
   @doc """
   Search for entities that match a given sub-string.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

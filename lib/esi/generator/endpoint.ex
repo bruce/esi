@@ -110,6 +110,13 @@ defmodule ESI.Generator.Endpoint do
 
   @doc """
   Convert to Elixir source (a string literal with interpolation)
+
+  ## Examples
+
+      Endpoint.new("/universe/items/{item_id}/things")
+      |> Endpoint.to_ex
+      # => "\"/universe/items/\#{item_id}/things\""
+
   """
   @spec to_ex(t) :: String.t
   def to_ex(endpoint) do

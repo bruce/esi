@@ -15,7 +15,7 @@ defmodule ESI.API.Universe do
   @doc """
   Returns information on requested structure, if you are on the ACL. Otherwise, returns "Forbidden" for all inputs.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -49,7 +49,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of bloodlines
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -81,7 +81,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a planetary factory schematic
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -115,7 +115,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information of an item category
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -147,7 +147,7 @@ defmodule ESI.API.Universe do
   @doc """
   List all public structures
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -181,7 +181,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of item groups
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -215,7 +215,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of character races
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -247,7 +247,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a moon
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -281,7 +281,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a constellation
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -313,7 +313,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of item categories
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -347,7 +347,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a type
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -379,7 +379,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of solar systems
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -411,7 +411,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of constellations
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -445,7 +445,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a solar system
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -479,7 +479,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on an item group
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -513,7 +513,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of factions
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -545,7 +545,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a stargate
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -579,7 +579,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of type ids
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -613,7 +613,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a region
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -645,7 +645,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of regions
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -677,7 +677,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a planet
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -709,7 +709,7 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a station
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -743,7 +743,7 @@ defmodule ESI.API.Universe do
   @doc """
   Resolve a set of IDs to names and categories. Supported ID's for resolving are: Characters, Corporations, Alliances, Stations, Solar Systems, Constellations, Regions, Types.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

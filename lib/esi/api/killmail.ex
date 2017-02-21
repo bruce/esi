@@ -13,7 +13,7 @@ defmodule ESI.API.Killmail do
   @doc """
   Return a single killmail from its ID and hash
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

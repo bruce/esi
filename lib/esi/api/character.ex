@@ -15,7 +15,7 @@ defmodule ESI.API.Character do
   @doc """
   List your character's personal bookmarks
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -49,7 +49,7 @@ defmodule ESI.API.Character do
   @doc """
   Return fittings of a character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -85,7 +85,7 @@ defmodule ESI.API.Character do
   @doc """
   Save a new fitting for a character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -120,7 +120,7 @@ defmodule ESI.API.Character do
   @doc """
   Get the current ship type, name and id
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -162,7 +162,7 @@ defmodule ESI.API.Character do
   @doc """
   Search for entities that match a given sub-string.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -196,7 +196,7 @@ defmodule ESI.API.Character do
   @doc """
   Resolve a set of character IDs to character names
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -230,7 +230,7 @@ defmodule ESI.API.Character do
   @doc """
   Delete a mail label
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -264,7 +264,7 @@ defmodule ESI.API.Character do
   @doc """
   List your character's personal bookmark folders
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -298,7 +298,7 @@ defmodule ESI.API.Character do
   @doc """
   Return a list of the characters assets
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -332,7 +332,7 @@ defmodule ESI.API.Character do
   @doc """
   List the configured skill queue for the given character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -364,7 +364,7 @@ defmodule ESI.API.Character do
   @doc """
   Public information about a character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -398,7 +398,7 @@ defmodule ESI.API.Character do
   @doc """
   Returns a list of all planetary colonies owned by a character.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -434,7 +434,7 @@ defmodule ESI.API.Character do
   @doc """
   Takes a source character ID in the url and a set of target character ID's in the body, returns a CSPA charge cost
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -471,7 +471,7 @@ defmodule ESI.API.Character do
   @doc """
   Bulk delete contacts
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -508,7 +508,7 @@ defmodule ESI.API.Character do
   @doc """
   Return contacts of a character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -550,7 +550,7 @@ defmodule ESI.API.Character do
   @doc """
   Bulk add contacts with same settings
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -593,7 +593,7 @@ defmodule ESI.API.Character do
   @doc """
   Bulk edit contacts with same settings
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -628,7 +628,7 @@ defmodule ESI.API.Character do
   @doc """
   A list of the character's clones
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -662,7 +662,7 @@ defmodule ESI.API.Character do
   @doc """
   Return all mailing lists that the character is subscribed to
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -696,7 +696,7 @@ defmodule ESI.API.Character do
   @doc """
   Return custom labels for contacts the character defined
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -730,7 +730,7 @@ defmodule ESI.API.Character do
   @doc """
   List all trained skills for the given character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -769,7 +769,7 @@ defmodule ESI.API.Character do
   @doc """
   Return a list of character's recent kills and losses
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -805,7 +805,7 @@ defmodule ESI.API.Character do
   @doc """
   Get 50 event summaries from the calendar. If no event ID is given,
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -839,7 +839,7 @@ defmodule ESI.API.Character do
   @doc """
   Returns full details on the layout of a single planetary colony, including links, pins and routes. Note: Planetary information is only recalculated when the colony is viewed through the client. Information on this endpoint will not update until this criteria is met.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -871,7 +871,7 @@ defmodule ESI.API.Character do
   @doc """
   Get portrait urls for a character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -909,7 +909,7 @@ defmodule ESI.API.Character do
   @doc """
   Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -945,7 +945,7 @@ defmodule ESI.API.Character do
   @doc """
   Create and send a new mail
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -980,7 +980,7 @@ defmodule ESI.API.Character do
   @doc """
   Delete a fitting from a character
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1014,7 +1014,7 @@ defmodule ESI.API.Character do
   @doc """
   Get all the information for a specific event
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1050,7 +1050,7 @@ defmodule ESI.API.Character do
   @doc """
   Set your response status to an event
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1085,7 +1085,7 @@ defmodule ESI.API.Character do
   @doc """
   List your wallets and their balances. Characters typically have only one wallet, with wallet_id 1000 being the master wallet.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1117,7 +1117,7 @@ defmodule ESI.API.Character do
   @doc """
   Get a list of all the corporations a character has been a member of
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1151,7 +1151,7 @@ defmodule ESI.API.Character do
   @doc """
   Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1185,7 +1185,7 @@ defmodule ESI.API.Character do
   @doc """
   Return a list of the users mail labels, unread counts for each label and a total unread count.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1221,7 +1221,7 @@ defmodule ESI.API.Character do
   @doc """
   Create a mail label
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1256,7 +1256,7 @@ defmodule ESI.API.Character do
   @doc """
   Delete a mail
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1290,7 +1290,7 @@ defmodule ESI.API.Character do
   @doc """
   Return the contents of an EVE mail
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -1326,7 +1326,7 @@ defmodule ESI.API.Character do
   @doc """
   Update metadata about a mail
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

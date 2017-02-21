@@ -13,7 +13,7 @@ defmodule ESI.API.Industry do
   @doc """
   Return a list of industry facilities
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -45,7 +45,7 @@ defmodule ESI.API.Industry do
   @doc """
   Return cost indices for solar systems
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

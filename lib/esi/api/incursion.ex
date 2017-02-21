@@ -13,7 +13,7 @@ defmodule ESI.API.Incursion do
   @doc """
   Return a list of current incursions
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

@@ -15,7 +15,7 @@ defmodule ESI.API.War do
   @doc """
   Return a list of wars
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -49,7 +49,7 @@ defmodule ESI.API.War do
   @doc """
   Return a list of kills related to a war
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -81,7 +81,7 @@ defmodule ESI.API.War do
   @doc """
   Return details about a war
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

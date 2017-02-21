@@ -13,7 +13,7 @@ defmodule ESI.API.Sovereignty do
   @doc """
   Shows sovereignty data for campaigns.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -45,7 +45,7 @@ defmodule ESI.API.Sovereignty do
   @doc """
   Shows sovereignty data for structures.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

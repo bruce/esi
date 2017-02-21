@@ -17,7 +17,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Return information about fleet members
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -53,7 +53,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Invite a character into the fleet, if a character has a CSPA charge set, it is not possible to invite them to the fleet using ESI
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -88,7 +88,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Delete a fleet squad, only empty squads can be deleted
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -124,7 +124,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Rename a fleet squad
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -159,7 +159,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Create a new squad in a fleet
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -193,7 +193,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Return details about a fleet
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -229,7 +229,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Update settings about a fleet
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -264,7 +264,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Kick a fleet member
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -300,7 +300,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Move a fleet member around
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -337,7 +337,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Return information about wings in a fleet
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -371,7 +371,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Create a new wing in a fleet
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -405,7 +405,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Delete a fleet wing, only empty wings can be deleted. The wing may contain squads, but the squads must be empty
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -441,7 +441,7 @@ defmodule ESI.API.Fleet do
   @doc """
   Rename a fleet wing
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

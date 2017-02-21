@@ -13,7 +13,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Get a list of all the alliances a corporation has been a member of
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -45,7 +45,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Public information about a corporation
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -79,7 +79,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Read the current list of members if the calling character is a member.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -113,7 +113,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Return the roles of all members if the character has the personnel manager role or any grantable role.
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -147,7 +147,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Resolve a set of corporation IDs to corporation names
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -185,7 +185,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Get a list of corporation structures
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -217,7 +217,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Get the icon urls for a corporation
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -249,7 +249,7 @@ defmodule ESI.API.Corporation do
   @doc """
   Get a list of npc corporations
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

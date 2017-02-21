@@ -15,7 +15,7 @@ defmodule ESI.API.Alliance do
   @doc """
   Resolve a set of alliance IDs to alliance names
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -47,7 +47,7 @@ defmodule ESI.API.Alliance do
   @doc """
   List all current member corporations of an alliance
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -79,7 +79,7 @@ defmodule ESI.API.Alliance do
   @doc """
   Get the icon urls for a alliance
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -111,7 +111,7 @@ defmodule ESI.API.Alliance do
   @doc """
   Public information about an alliance
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -143,7 +143,7 @@ defmodule ESI.API.Alliance do
   @doc """
   List all active player alliances
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

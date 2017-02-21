@@ -15,7 +15,7 @@ defmodule ESI.API.Insurance do
   @doc """
   Return available insurance levels for all ship types
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 

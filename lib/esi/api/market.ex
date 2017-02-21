@@ -21,7 +21,7 @@ defmodule ESI.API.Market do
   @doc """
   Return a list of orders in a region
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -53,7 +53,7 @@ defmodule ESI.API.Market do
   @doc """
   Return a list of prices
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -89,7 +89,7 @@ defmodule ESI.API.Market do
   @doc """
   Return all orders in a structure
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
@@ -123,7 +123,7 @@ defmodule ESI.API.Market do
   @doc """
   Return a list of historical market statistics for the specified type in a region
 
-  ## Source
+  ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
