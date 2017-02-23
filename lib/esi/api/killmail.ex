@@ -1,7 +1,14 @@
 defmodule ESI.API.Killmail do
 
+  @type killmail_result :: [attackers: [[alliance_id: nil | integer, character_id: nil | integer, corporation_id: nil | integer, damage_done: integer, faction_id: nil | integer, final_blow: boolean, security_status: float, ship_type_id: nil | integer, weapon_type_id: nil | integer]], killmail_id: integer, killmail_time: String.t, moon_id: nil | integer, solar_system_id: integer, victim: [alliance_id: nil | integer, character_id: nil | integer, corporation_id: nil | integer, damage_taken: integer, faction_id: nil | integer, items: nil | [[flag: integer, item_type_id: integer, items: nil | [[flag: integer, item_type_id: integer, quantity_destroyed: nil | integer, quantity_dropped: nil | integer, singleton: integer]], quantity_destroyed: nil | integer, quantity_dropped: nil | integer, singleton: integer]], position: nil | [x: float, y: float, z: float], ship_type_id: integer], war_id: nil | integer]
+
+
   @doc """
   Return a single killmail from its ID and hash.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`killmail_result`](#t:killmail_result/0) type.
 
   ## Swagger Source
 

@@ -4,8 +4,8 @@ defmodule ESI.Generator do
   alias ESI.Generator.{Endpoint, Function, SwaggerType}
 
   def run(swagger) do
-    swagger
-    |> Map.get("paths", [])
+    info = swagger
+    functions_by_module = Map.get(info, "paths", [])
     |> Enum.flat_map(fn {path, requests} ->
       requests
       |> Enum.map(fn {verb, info} ->
@@ -13,13 +13,38 @@ defmodule ESI.Generator do
       end)
     end)
     |> Enum.group_by(&(&1.module_name))
-    |> Enum.each(fn {module_name, functions} ->
+    functions_by_module |> Enum.each(fn {module_name, functions} ->
       content = write_module(module_name, functions)
       name = Macro.underscore(module_name)
       path = Path.join([File.cwd!, "lib/esi/api", "#{name}.ex"])
       File.write!(path, content, [:write])
       Mix.shell.info(path)
     end)
+
+    content = write_api_module(info, functions_by_module)
+    path = Path.join([File.cwd!, "lib/esi/api.ex"])
+    File.write!(path, content, [:write])
+    Mix.shell.info(path)
+  end
+
+  defp write_api_module(info, functions_by_module) do
+    version = get_in(info, ~w(info version))
+    result_types =
+      for {module_name, functions} <- functions_by_module, function <- functions do
+        "ESI.API." <> module_name <> "." <> function.name <> "_result"
+      end
+    result_type = result_types |> Enum.join("\n                | ")
+    [
+      "defmodule ESI.API do",
+      "",
+      "  @version #{inspect(version)}",
+      "",
+      "  def version, do: @version",
+      "",
+      "  @type result :: #{result_type}",
+      "",
+      "end"
+    ] |> flow
   end
 
   defp write_module(name, functions) do
@@ -32,11 +57,16 @@ defmodule ESI.Generator do
 
   def write_doc(function) do
     doc = function.doc |> String.split("\n") |> Enum.take(1)
+    result_type = function.name <> "_result"
     if doc do
       tag = function.tags |> hd
       [
         ~S(  @doc """),
         ["  ", doc, "."],
+        "",
+        "  ## Request Result",
+        "",
+        "  See `ESI.request/2` and `ESI.request!/2`, which can return a [`#{result_type}`](#t:#{result_type}/0) type.",
         "",
         "  ## Swagger Source",
         "",
@@ -63,7 +93,7 @@ defmodule ESI.Generator do
   end
 
   def write_function(function) do
-    write_opts_type_info(function) ++ [
+    write_opts_type_info(function) ++ write_result_type_info(function) ++ [
       "\n",
       write_doc(function),
       "  @spec #{function.name}(#{write_spec_args(function)}) :: ESI.Request.t",
@@ -76,7 +106,7 @@ defmodule ESI.Generator do
   def write_opts_type_info(function) do
     case opts_params(function) do
       [] ->
-        []
+        [""]
       _ ->
         [
           "\n",
@@ -114,6 +144,17 @@ defmodule ESI.Generator do
       |> Enum.join(", ")
       "#{section}_opts: Keyword.take(opts, [#{contents}])"
     end)
+  end
+
+  def write_result_type_info(function) do
+    value = case Function.response_schema(function) do
+      nil ->
+        "any"
+      other ->
+        SwaggerType.new(other)
+        |> Map.put(:force_required, true)
+    end
+    ["\n  @type #{function.name}_result :: #{value}"]
   end
 
   defp write_opts_type(function) do

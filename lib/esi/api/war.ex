@@ -7,9 +7,15 @@ defmodule ESI.API.War do
     max_war_id: nil | integer,
   ]
 
+  @type wars_result :: [integer]
+
 
   @doc """
   Return a list of wars.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`wars_result`](#t:wars_result/0) type.
 
   ## Swagger Source
 
@@ -37,9 +43,15 @@ defmodule ESI.API.War do
     page: nil | integer,
   ]
 
+  @type killmails_result :: [[killmail_hash: String.t, killmail_id: integer]]
+
 
   @doc """
   Return a list of kills related to a war.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`killmails_result`](#t:killmails_result/0) type.
 
   ## Swagger Source
 
@@ -60,8 +72,15 @@ defmodule ESI.API.War do
     }
   end
 
+  @type war_result :: [aggressor: [alliance_id: nil | integer, corporation_id: nil | integer, isk_destroyed: float, ships_killed: integer], allies: nil | [[alliance_id: nil | integer, corporation_id: nil | integer]], declared: String.t, defender: [alliance_id: nil | integer, corporation_id: nil | integer, isk_destroyed: float, ships_killed: integer], finished: nil | String.t, id: integer, mutual: boolean, open_for_allies: boolean, retracted: nil | String.t, started: nil | String.t]
+
+
   @doc """
   Return details about a war.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`war_result`](#t:war_result/0) type.
 
   ## Swagger Source
 

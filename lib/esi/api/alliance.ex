@@ -7,9 +7,15 @@ defmodule ESI.API.Alliance do
     alliance_ids: [integer],
   ]
 
+  @type names_result :: [[alliance_id: integer, alliance_name: String.t]]
+
 
   @doc """
   Resolve a set of alliance IDs to alliance names.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`names_result`](#t:names_result/0) type.
 
   ## Swagger Source
 
@@ -30,8 +36,15 @@ defmodule ESI.API.Alliance do
     }
   end
 
+  @type corporations_result :: [integer]
+
+
   @doc """
   List all current member corporations of an alliance.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`corporations_result`](#t:corporations_result/0) type.
 
   ## Swagger Source
 
@@ -52,8 +65,15 @@ defmodule ESI.API.Alliance do
     }
   end
 
+  @type icons_result :: [px128x128: nil | String.t, px64x64: nil | String.t]
+
+
   @doc """
   Get the icon urls for a alliance.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`icons_result`](#t:icons_result/0) type.
 
   ## Swagger Source
 
@@ -74,8 +94,15 @@ defmodule ESI.API.Alliance do
     }
   end
 
+  @type alliance_result :: [alliance_name: String.t, date_founded: String.t, executor_corp: nil | integer, ticker: String.t]
+
+
   @doc """
   Public information about an alliance.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`alliance_result`](#t:alliance_result/0) type.
 
   ## Swagger Source
 
@@ -96,8 +123,15 @@ defmodule ESI.API.Alliance do
     }
   end
 
+  @type alliances_result :: [integer]
+
+
   @doc """
   List all active player alliances.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`alliances_result`](#t:alliances_result/0) type.
 
   ## Swagger Source
 

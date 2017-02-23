@@ -7,9 +7,15 @@ defmodule ESI.API.Fleet do
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
 
+  @type members_result :: [[character_id: integer, join_time: String.t, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, role_name: String.t, ship_type_id: integer, solar_system_id: integer, squad_id: integer, station_id: nil | integer, takes_fleet_warp: boolean, wing_id: integer]]
+
 
   @doc """
   Return information about fleet members.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`members_result`](#t:members_result/0) type.
 
   ## Swagger Source
 
@@ -37,9 +43,15 @@ defmodule ESI.API.Fleet do
     invitation: [character_id: integer, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
   ]
 
+  @type create_members_result :: any
+
 
   @doc """
   Invite a character into the fleet, if a character has a CSPA charge set, it is not possible to invite them to the fleet using ESI.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_members_result`](#t:create_members_result/0) type.
 
   ## Swagger Source
 
@@ -60,8 +72,15 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @type delete_squad_result :: any
+
+
   @doc """
   Delete a fleet squad, only empty squads can be deleted.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`delete_squad_result`](#t:delete_squad_result/0) type.
 
   ## Swagger Source
 
@@ -89,9 +108,15 @@ defmodule ESI.API.Fleet do
     naming: [name: String.t],
   ]
 
+  @type update_squad_result :: any
+
 
   @doc """
   Rename a fleet squad.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`update_squad_result`](#t:update_squad_result/0) type.
 
   ## Swagger Source
 
@@ -112,8 +137,15 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @type create_squads_result :: [squad_id: integer]
+
+
   @doc """
   Create a new squad in a fleet.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_squads_result`](#t:create_squads_result/0) type.
 
   ## Swagger Source
 
@@ -134,8 +166,15 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @type fleet_result :: [is_free_move: boolean, is_registered: boolean, is_voice_enabled: boolean, motd: String.t]
+
+
   @doc """
   Return details about a fleet.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`fleet_result`](#t:fleet_result/0) type.
 
   ## Swagger Source
 
@@ -163,9 +202,15 @@ defmodule ESI.API.Fleet do
     new_settings: [is_free_move: nil | boolean, motd: nil | String.t],
   ]
 
+  @type update_fleet_result :: any
+
 
   @doc """
   Update settings about a fleet.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`update_fleet_result`](#t:update_fleet_result/0) type.
 
   ## Swagger Source
 
@@ -186,8 +231,15 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @type delete_member_result :: any
+
+
   @doc """
   Kick a fleet member.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`delete_member_result`](#t:delete_member_result/0) type.
 
   ## Swagger Source
 
@@ -215,9 +267,15 @@ defmodule ESI.API.Fleet do
     movement: [role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
   ]
 
+  @type update_member_result :: any
+
 
   @doc """
   Move a fleet member around.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`update_member_result`](#t:update_member_result/0) type.
 
   ## Swagger Source
 
@@ -245,9 +303,15 @@ defmodule ESI.API.Fleet do
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
 
+  @type wings_result :: [[id: integer, name: String.t, squads: [[id: integer, name: String.t]]]]
+
 
   @doc """
   Return information about wings in a fleet.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`wings_result`](#t:wings_result/0) type.
 
   ## Swagger Source
 
@@ -268,8 +332,15 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @type create_wings_result :: [wing_id: integer]
+
+
   @doc """
   Create a new wing in a fleet.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_wings_result`](#t:create_wings_result/0) type.
 
   ## Swagger Source
 
@@ -290,8 +361,15 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @type delete_wing_result :: any
+
+
   @doc """
   Delete a fleet wing, only empty wings can be deleted. The wing may contain squads, but the squads must be empty.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`delete_wing_result`](#t:delete_wing_result/0) type.
 
   ## Swagger Source
 
@@ -319,9 +397,15 @@ defmodule ESI.API.Fleet do
     naming: [name: String.t],
   ]
 
+  @type update_wing_result :: any
+
 
   @doc """
   Rename a fleet wing.
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`update_wing_result`](#t:update_wing_result/0) type.
 
   ## Swagger Source
 

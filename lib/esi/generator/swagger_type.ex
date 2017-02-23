@@ -5,13 +5,15 @@ defmodule ESI.Generator.SwaggerType do
   defstruct [
     :node,
     :ancestors,
+    force_required: false
   ]
 
   @type type_node :: any
 
   @type t :: %__MODULE__{
     node: type_node,
-    ancestors: [t]
+    ancestors: [t],
+    force_required: boolean
   }
 
   @spec new(node :: type_node, ancestors :: [t]) :: t
@@ -28,6 +30,7 @@ defmodule ESI.Generator.SwaggerType do
   end
 
   @spec nullable?(t) :: boolean
+  def nullable?(%{force_required: true}), do: false
   def nullable?(%{node: %{"required" => true}}), do: false
   def nullable?(%{ancestors: [%{node: %{"type" => "array"}} | _]}), do: false
   def nullable?(%{node: %{"name" => name}, ancestors: [%{node: %{"schema" => %{"required" => required}}} | _]}) do
@@ -63,6 +66,9 @@ defimpl String.Chars, for: ESI.Generator.SwaggerType do
   end
   def to_string(%{node: %{"type" => "number", "format" => "float"}} = swagger_type) do
     "float" |> to_alternatives(swagger_type)
+  end
+  def to_string(%{node: %{"type" => "number", "format" => "double"}} = swagger_type) do
+    "integer" |> to_alternatives(swagger_type)
   end
   def to_string(%{node: %{"type" => "array"} = param} = swagger_type) do
     internal = child(param["items"], swagger_type)

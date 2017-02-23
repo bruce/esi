@@ -13,9 +13,15 @@ defmodule ESI.API.Search do
     strict: nil | boolean,
   ]
 
+  @type search_result :: [agent: nil | [integer], alliance: nil | [integer], character: nil | [integer], constellation: nil | [integer], corporation: nil | [integer], faction: nil | [integer], inventorytype: nil | [integer], region: nil | [integer], solarsystem: nil | [integer], station: nil | [integer], wormhole: nil | [integer]]
+
 
   @doc """
   Search for entities that match a given sub-string..
+
+  ## Request Result
+
+  See `ESI.request/2` and `ESI.request!/2`, which can return a [`search_result`](#t:search_result/0) type.
 
   ## Swagger Source
 
