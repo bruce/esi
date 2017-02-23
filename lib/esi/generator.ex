@@ -1,7 +1,7 @@
 defmodule ESI.Generator do
   @moduledoc false
 
-  alias ESI.Generator.{Endpoint, Function}
+  alias ESI.Generator.{Endpoint, Function, SwaggerType}
 
   def run(swagger) do
     swagger
@@ -120,7 +120,8 @@ defmodule ESI.Generator do
     [
       "  @type #{function.name}_opts :: [",
       Enum.map(opts_params(function), fn param ->
-        ~s<    #{param["name"]}: #{param_type(param)},>
+        swagger_type = SwaggerType.new(param)
+        ~s<    #{param["name"]}: #{swagger_type},>
       end) |> flow,
       "  ]"
     ] |> flow
@@ -143,7 +144,8 @@ defmodule ESI.Generator do
     list = args
     |> Enum.map(&Macro.underscore/1)
     |> Enum.map(fn param ->
-      ~s(#{param} :: #{param_type(function.params[param])})
+      swagger_type = SwaggerType.new(function.params[param])
+      ~s(#{param} :: #{swagger_type})
     end)
     |> Enum.join(", ")
     opts_args = do_write_spec_args([], function)
@@ -196,60 +198,6 @@ defmodule ESI.Generator do
   end
   defp param_req_tag(_) do
     ""
-  end
-
-  @param_types %{
-    "string" => "String.t",
-    "integer" => "integer",
-    "boolean" => "boolean",
-  }
-  defp param_type(nil) do
-    raise "No param type provided"
-  end
-  defp param_type(%{"enum" => values} = param) do
-    Enum.map(values, fn v ->
-      String.to_atom(v) |> inspect
-    end)
-    |> Enum.join(" | ")
-    |> nullable(param)
-  end
-  for {pattern, type} <- @param_types do
-    defp param_type(%{"type" => unquote(pattern)} = param), do: unquote(type) |> nullable(param)
-  end
-  defp param_type(%{"type" => "number", "format" => "float"} = param) do
-    "float" |> nullable(param)
-  end
-  defp param_type(%{"type" => "array"} = param) do
-    internal = param_type(param["items"])
-    "[#{internal}]" |> nullable(param)
-  end
-  defp param_type(%{"schema" => %{"properties" => props}} = param) do
-    internal = Enum.map(props, fn {name, prop} ->
-      ~s<#{name}: #{param_type(prop)}>
-    end)
-    |> Enum.join(", ")
-    "[#{internal}]" |> nullable(param)
-  end
-  defp param_type(%{"schema" => %{"items" => items}} = param) do
-    internal = param_type(items)
-    "[#{internal}]" |> nullable(param)
-  end
-  defp param_type(%{"properties" => props} = param) do
-    internal = Enum.map(props, fn {name, prop} ->
-      ~s<#{name}: #{param_type(prop)}>
-    end)
-    |> Enum.join(", ")
-    "[#{internal}]" |> nullable(param)
-  end
-  defp param_type(%{"type" => _} = param) do
-    raise "Unknown param type: #{inspect(param)}"
-  end
-
-  defp nullable(spec, %{"required" => true}) do
-    spec
-  end
-  defp nullable(spec, _) do
-    "nil | #{spec}"
   end
 
 

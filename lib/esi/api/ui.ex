@@ -64,7 +64,7 @@ defmodule ESI.API.UI do
   - `:new_mail` (REQUIRED) -- The details of mail to create
   """
   @type open_new_mail_window_opts :: [
-    new_mail: [body: nil | String.t, recipients: nil | [nil | integer], subject: nil | String.t, to_corp_or_alliance_id: nil | integer, to_mailing_list_id: nil | integer],
+    new_mail: [body: String.t, recipients: [integer], subject: String.t, to_corp_or_alliance_id: nil | integer, to_mailing_list_id: nil | integer],
   ]
 
 

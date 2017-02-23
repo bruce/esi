@@ -4,7 +4,7 @@ defmodule ESI.API.Alliance do
   - `:alliance_ids` (REQUIRED) -- A comma separated list of alliance IDs
   """
   @type names_opts :: [
-    alliance_ids: [nil | integer],
+    alliance_ids: [integer],
   ]
 
 

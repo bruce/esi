@@ -92,7 +92,7 @@ defmodule ESI.API.Corporation do
   - `:corporation_ids` (REQUIRED) -- A comma separated list of corporation IDs
   """
   @type names_opts :: [
-    corporation_ids: [nil | integer],
+    corporation_ids: [integer],
   ]
 
 

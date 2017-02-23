@@ -34,7 +34,7 @@ defmodule ESI.API.Fleet do
   - `:invitation` (REQUIRED) -- Details of the invitation
   """
   @type create_members_opts :: [
-    invitation: [character_id: nil | integer, role: nil | :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
+    invitation: [character_id: integer, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
   ]
 
 
@@ -86,7 +86,7 @@ defmodule ESI.API.Fleet do
   - `:naming` (REQUIRED) -- New name of the squad
   """
   @type update_squad_opts :: [
-    naming: [name: nil | String.t],
+    naming: [name: String.t],
   ]
 
 
@@ -212,7 +212,7 @@ defmodule ESI.API.Fleet do
   - `:movement` (REQUIRED) -- Details of the invitation
   """
   @type update_member_opts :: [
-    movement: [role: nil | :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
+    movement: [role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
   ]
 
 
@@ -316,7 +316,7 @@ defmodule ESI.API.Fleet do
   - `:naming` (REQUIRED) -- New name of the wing
   """
   @type update_wing_opts :: [
-    naming: [name: nil | String.t],
+    naming: [name: String.t],
   ]
 
 

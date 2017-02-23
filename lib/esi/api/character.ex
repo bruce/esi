@@ -48,7 +48,7 @@ defmodule ESI.API.Character do
   - `:fitting` -- Details about the new fitting
   """
   @type create_fittings_opts :: [
-    fitting: nil | [description: nil | String.t, items: nil | [nil | [flag: nil | integer, quantity: nil | integer, type_id: nil | integer]], name: nil | String.t, ship_type_id: nil | integer],
+    fitting: nil | [description: String.t, items: [[flag: integer, quantity: integer, type_id: integer]], name: String.t, ship_type_id: integer],
   ]
 
 
@@ -103,7 +103,7 @@ defmodule ESI.API.Character do
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
   """
   @type search_opts :: [
-    categories: [nil | :agent | :alliance | :character | :constellation | :corporation | :faction | :inventorytype | :region | :solarsystem | :station | :structure | :wormhole],
+    categories: [:agent | :alliance | :character | :constellation | :corporation | :faction | :inventorytype | :region | :solarsystem | :station | :structure | :wormhole],
     language: nil | :"en-us" | :de | :fr | :ru | :ja | :zh,
     search: String.t,
     strict: nil | boolean,
@@ -136,7 +136,7 @@ defmodule ESI.API.Character do
   - `:character_ids` (REQUIRED) -- A comma separated list of character IDs
   """
   @type names_opts :: [
-    character_ids: [nil | integer],
+    character_ids: [integer],
   ]
 
 
@@ -298,7 +298,7 @@ defmodule ESI.API.Character do
   - `:characters` (REQUIRED) -- The target characters to calculate the charge for
   """
   @type create_cspa_opts :: [
-    characters: [characters: nil | [nil | integer]],
+    characters: [characters: [integer]],
   ]
 
 
@@ -658,7 +658,7 @@ defmodule ESI.API.Character do
   - `:last_mail_id` -- List only mail with an ID lower than the given ID, if present
   """
   @type mail_opts :: [
-    labels: nil | [nil | integer],
+    labels: nil | [integer],
     last_mail_id: nil | integer,
   ]
 
@@ -689,7 +689,7 @@ defmodule ESI.API.Character do
   - `:mail` (REQUIRED) -- The mail to send
   """
   @type create_mail_opts :: [
-    mail: [approved_cost: nil | integer, body: nil | String.t, recipients: nil | [nil | [recipient_id: nil | integer, recipient_type: nil | :alliance | :character | :corporation | :mailing_list]], subject: nil | String.t],
+    mail: [approved_cost: nil | integer, body: String.t, recipients: [[recipient_id: integer, recipient_type: :alliance | :character | :corporation | :mailing_list]], subject: String.t],
   ]
 
 
@@ -763,7 +763,7 @@ defmodule ESI.API.Character do
   - `:response` (REQUIRED) -- The response value to set, overriding current value.
   """
   @type update_calendar_event_opts :: [
-    response: [response: nil | :accepted | :declined | :tentative],
+    response: [response: :accepted | :declined | :tentative],
   ]
 
 
@@ -881,7 +881,7 @@ defmodule ESI.API.Character do
   - `:label` -- Label to create
   """
   @type create_mail_labels_opts :: [
-    label: nil | [color: nil | :"#ffffff" | :"#ffff01" | :"#ff6600" | :"#fe0000" | :"#9a0000" | :"#660066" | :"#0000fe" | :"#0099ff" | :"#01ffff" | :"#00ff33" | :"#349800" | :"#006634" | :"#666666" | :"#999999" | :"#e6e6e6" | :"#ffffcd" | :"#99ffff" | :"#ccff9a", name: nil | String.t],
+    label: nil | [color: nil | :"#ffffff" | :"#ffff01" | :"#ff6600" | :"#fe0000" | :"#9a0000" | :"#660066" | :"#0000fe" | :"#0099ff" | :"#01ffff" | :"#00ff33" | :"#349800" | :"#006634" | :"#666666" | :"#999999" | :"#e6e6e6" | :"#ffffcd" | :"#99ffff" | :"#ccff9a", name: String.t],
   ]
 
 
@@ -955,7 +955,7 @@ defmodule ESI.API.Character do
   - `:contents` (REQUIRED) -- Data used to update the mail
   """
   @type update_mail_item_opts :: [
-    contents: [labels: nil | [nil | integer], read: nil | boolean],
+    contents: [labels: nil | [integer], read: nil | boolean],
   ]
 
 
