@@ -8,12 +8,12 @@ defmodule ESI.API.Market do
   - `:type_id` -- Return orders only for this type
   """
   @type orders_opts :: [
-    order_type: :buy | :sell | :all,
+    order_type: String.t,
     page: nil | integer,
     type_id: nil | integer,
   ]
 
-  @type orders_result :: [[duration: integer, is_buy_order: boolean, issued: String.t, location_id: integer, min_volume: integer, order_id: integer, price: float, range: :station | :region | :solarsystem | :"1" | :"2" | :"3" | :"4" | :"5" | :"10" | :"20" | :"30" | :"40", type_id: integer, volume_remain: integer, volume_total: integer]]
+  @type orders_result :: [[duration: integer, is_buy_order: boolean, issued: String.t, location_id: integer, min_volume: integer, order_id: integer, price: float, range: String.t, type_id: integer, volume_remain: integer, volume_total: integer]]
 
 
   @doc """
@@ -78,7 +78,7 @@ defmodule ESI.API.Market do
     page: nil | integer,
   ]
 
-  @type structure_result :: [[duration: integer, is_buy_order: boolean, issued: String.t, location_id: integer, min_volume: integer, order_id: integer, price: float, range: :station | :region | :solarsystem | :"1" | :"2" | :"3" | :"4" | :"5" | :"10" | :"20" | :"30" | :"40", type_id: integer, volume_remain: integer, volume_total: integer]]
+  @type structure_result :: [[duration: integer, is_buy_order: boolean, issued: String.t, location_id: integer, min_volume: integer, order_id: integer, price: float, range: String.t, type_id: integer, volume_remain: integer, volume_total: integer]]
 
 
   @doc """

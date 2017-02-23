@@ -4,7 +4,7 @@ defmodule ESI.API.Insurance do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type prices_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type prices_result :: [[levels: [[cost: float, name: String.t, payout: float]], type_id: integer]]

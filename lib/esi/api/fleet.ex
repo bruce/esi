@@ -4,10 +4,10 @@ defmodule ESI.API.Fleet do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type members_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
-  @type members_result :: [[character_id: integer, join_time: String.t, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, role_name: String.t, ship_type_id: integer, solar_system_id: integer, squad_id: integer, station_id: nil | integer, takes_fleet_warp: boolean, wing_id: integer]]
+  @type members_result :: [[character_id: integer, join_time: String.t, role: String.t, role_name: String.t, ship_type_id: integer, solar_system_id: integer, squad_id: integer, station_id: nil | integer, takes_fleet_warp: boolean, wing_id: integer]]
 
 
   @doc """
@@ -40,7 +40,7 @@ defmodule ESI.API.Fleet do
   - `:invitation` (REQUIRED) -- Details of the invitation
   """
   @type create_members_opts :: [
-    invitation: [character_id: integer, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
+    invitation: [character_id: integer, role: String.t, squad_id: nil | integer, wing_id: nil | integer],
   ]
 
   @type create_members_result :: any
@@ -264,7 +264,7 @@ defmodule ESI.API.Fleet do
   - `:movement` (REQUIRED) -- Details of the invitation
   """
   @type update_member_opts :: [
-    movement: [role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
+    movement: [role: String.t, squad_id: nil | integer, wing_id: nil | integer],
   ]
 
   @type update_member_result :: any
@@ -300,7 +300,7 @@ defmodule ESI.API.Fleet do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type wings_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type wings_result :: [[id: integer, name: String.t, squads: [[id: integer, name: String.t]]]]

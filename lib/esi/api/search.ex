@@ -7,8 +7,8 @@ defmodule ESI.API.Search do
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
   """
   @type search_opts :: [
-    categories: [:agent | :alliance | :character | :constellation | :corporation | :faction | :inventorytype | :region | :solarsystem | :station | :wormhole],
-    language: nil | :"en-us" | :de | :fr | :ru | :ja | :zh,
+    categories: [String.t],
+    language: nil | String.t,
     search: String.t,
     strict: nil | boolean,
   ]

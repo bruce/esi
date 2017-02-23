@@ -130,8 +130,8 @@ defmodule ESI.API.Character do
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
   """
   @type search_opts :: [
-    categories: [:agent | :alliance | :character | :constellation | :corporation | :faction | :inventorytype | :region | :solarsystem | :station | :structure | :wormhole],
-    language: nil | :"en-us" | :de | :fr | :ru | :ja | :zh,
+    categories: [String.t],
+    language: nil | String.t,
     search: String.t,
     strict: nil | boolean,
   ]
@@ -259,7 +259,7 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type assets_result :: [[is_singleton: boolean, item_id: integer, location_flag: :AutoFit | :Cargo | :CorpseBay | :DroneBay | :FleetHangar | :Deliveries | :HiddenModifiers | :Hangar | :HangarAll | :LoSlot0 | :LoSlot1 | :LoSlot2 | :LoSlot3 | :LoSlot4 | :LoSlot5 | :LoSlot6 | :LoSlot7 | :MedSlot0 | :MedSlot1 | :MedSlot2 | :MedSlot3 | :MedSlot4 | :MedSlot5 | :MedSlot6 | :MedSlot7 | :HiSlot0 | :HiSlot1 | :HiSlot2 | :HiSlot3 | :HiSlot4 | :HiSlot5 | :HiSlot6 | :HiSlot7 | :AssetSafety | :Locked | :Unlocked | :Implant | :QuafeBay | :RigSlot0 | :RigSlot1 | :RigSlot2 | :RigSlot3 | :RigSlot4 | :RigSlot5 | :RigSlot6 | :RigSlot7 | :ShipHangar | :SpecializedFuelBay | :SpecializedOreHold | :SpecializedGasHold | :SpecializedMineralHold | :SpecializedSalvageHold | :SpecializedShipHold | :SpecializedSmallShipHold | :SpecializedMediumShipHold | :SpecializedLargeShipHold | :SpecializedIndustrialShipHold | :SpecializedAmmoHold | :SpecializedCommandCenterHold | :SpecializedPlanetaryCommoditiesHold | :SpecializedMaterialBay | :SubSystemSlot0 | :SubSystemSlot1 | :SubSystemSlot2 | :SubSystemSlot3 | :SubSystemSlot4 | :SubSystemSlot5 | :SubSystemSlot6 | :SubSystemSlot7 | :FighterBay | :FighterTube0 | :FighterTube1 | :FighterTube2 | :FighterTube3 | :FighterTube4 | :Module, location_id: integer, location_type: :station | :solar_system | :other, quantity: nil | integer, type_id: integer]]
+  @type assets_result :: [[is_singleton: boolean, item_id: integer, location_flag: String.t, location_id: integer, location_type: String.t, quantity: nil | integer, type_id: integer]]
 
 
   @doc """
@@ -317,7 +317,7 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type character_result :: [alliance_id: nil | integer, ancestry_id: nil | integer, birthday: String.t, bloodline_id: integer, corporation_id: integer, description: nil | String.t, gender: :female | :male, name: String.t, race_id: integer, security_status: nil | float]
+  @type character_result :: [alliance_id: nil | integer, ancestry_id: nil | integer, birthday: String.t, bloodline_id: integer, corporation_id: integer, description: nil | String.t, gender: String.t, name: String.t, race_id: integer, security_status: nil | float]
 
 
   @doc """
@@ -346,7 +346,7 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type planets_result :: [[last_update: String.t, num_pins: integer, owner_id: integer, planet_id: integer, planet_type: :temperate | :barren | :oceanic | :ice | :gas | :lava | :storm | :plasma, solar_system_id: integer, upgrade_level: integer]]
+  @type planets_result :: [[last_update: String.t, num_pins: integer, owner_id: integer, planet_id: integer, planet_type: String.t, solar_system_id: integer, upgrade_level: integer]]
 
 
   @doc """
@@ -454,7 +454,7 @@ defmodule ESI.API.Character do
     page: nil | integer,
   ]
 
-  @type contacts_result :: [[contact_id: integer, contact_type: :character | :corporation | :alliance | :faction, is_blocked: nil | boolean, is_watched: nil | boolean, label_id: nil | integer, standing: float]]
+  @type contacts_result :: [[contact_id: integer, contact_type: String.t, is_blocked: nil | boolean, is_watched: nil | boolean, label_id: nil | integer, standing: float]]
 
 
   @doc """
@@ -569,7 +569,7 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type clones_result :: [home_location: nil | [location_id: nil | integer, location_type: nil | :station | :structure], jump_clones: [[implants: nil | [integer], location_id: nil | integer, location_type: nil | :station | :structure]], last_jump_date: nil | String.t]
+  @type clones_result :: [home_location: nil | [location_id: nil | integer, location_type: nil | String.t], jump_clones: [[implants: nil | [integer], location_id: nil | integer, location_type: nil | String.t]], last_jump_date: nil | String.t]
 
 
   @doc """
@@ -731,7 +731,7 @@ defmodule ESI.API.Character do
     from_event: nil | integer,
   ]
 
-  @type calendar_result :: [[event_date: nil | String.t, event_id: nil | integer, event_response: nil | :declined | :not_responded | :accepted | :tentative, importance: nil | integer, title: nil | String.t]]
+  @type calendar_result :: [[event_date: nil | String.t, event_id: nil | integer, event_response: nil | String.t, importance: nil | integer, title: nil | String.t]]
 
 
   @doc """
@@ -827,7 +827,7 @@ defmodule ESI.API.Character do
     last_mail_id: nil | integer,
   ]
 
-  @type mail_result :: [[from: nil | integer, is_read: nil | boolean, labels: nil | [integer], mail_id: nil | integer, recipients: nil | [[recipient_id: integer, recipient_type: :alliance | :character | :corporation | :mailing_list]], subject: nil | String.t, timestamp: nil | String.t]]
+  @type mail_result :: [[from: nil | integer, is_read: nil | boolean, labels: nil | [integer], mail_id: nil | integer, recipients: nil | [[recipient_id: integer, recipient_type: String.t]], subject: nil | String.t, timestamp: nil | String.t]]
 
 
   @doc """
@@ -860,7 +860,7 @@ defmodule ESI.API.Character do
   - `:mail` (REQUIRED) -- The mail to send
   """
   @type create_mail_opts :: [
-    mail: [approved_cost: nil | integer, body: String.t, recipients: [[recipient_id: integer, recipient_type: :alliance | :character | :corporation | :mailing_list]], subject: String.t],
+    mail: [approved_cost: nil | integer, body: String.t, recipients: [[recipient_id: integer, recipient_type: String.t]], subject: String.t],
   ]
 
   @type create_mail_result :: integer
@@ -921,7 +921,7 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type calendar_event_result :: [date: String.t, duration: integer, event_id: integer, importance: integer, owner_id: integer, owner_name: String.t, owner_type: :eve_server | :corporation | :faction | :character | :alliance, response: String.t, text: String.t, title: String.t]
+  @type calendar_event_result :: [date: String.t, duration: integer, event_id: integer, importance: integer, owner_id: integer, owner_name: String.t, owner_type: String.t, response: String.t, text: String.t, title: String.t]
 
 
   @doc """
@@ -954,7 +954,7 @@ defmodule ESI.API.Character do
   - `:response` (REQUIRED) -- The response value to set, overriding current value.
   """
   @type update_calendar_event_opts :: [
-    response: [response: :accepted | :declined | :tentative],
+    response: [response: String.t],
   ]
 
   @type update_calendar_event_result :: any
@@ -1073,7 +1073,7 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type mail_labels_result :: [labels: nil | [[color: nil | :"#ffffff" | :"#ffff01" | :"#ff6600" | :"#fe0000" | :"#9a0000" | :"#660066" | :"#0000fe" | :"#0099ff" | :"#01ffff" | :"#00ff33" | :"#349800" | :"#006634" | :"#666666" | :"#999999" | :"#e6e6e6" | :"#ffffcd" | :"#99ffff" | :"#ccff9a", label_id: nil | integer, name: nil | String.t, unread_count: nil | integer]], total_unread_count: nil | integer]
+  @type mail_labels_result :: [labels: nil | [[color: nil | String.t, label_id: nil | integer, name: nil | String.t, unread_count: nil | integer]], total_unread_count: nil | integer]
 
 
   @doc """
@@ -1106,7 +1106,7 @@ defmodule ESI.API.Character do
   - `:label` -- Label to create
   """
   @type create_mail_labels_opts :: [
-    label: nil | [color: nil | :"#ffffff" | :"#ffff01" | :"#ff6600" | :"#fe0000" | :"#9a0000" | :"#660066" | :"#0000fe" | :"#0099ff" | :"#01ffff" | :"#00ff33" | :"#349800" | :"#006634" | :"#666666" | :"#999999" | :"#e6e6e6" | :"#ffffcd" | :"#99ffff" | :"#ccff9a", name: String.t],
+    label: nil | [color: nil | String.t, name: String.t],
   ]
 
   @type create_mail_labels_result :: integer
@@ -1167,7 +1167,7 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type mail_item_result :: [body: nil | String.t, from: nil | integer, labels: nil | [integer], read: nil | boolean, recipients: nil | [[recipient_id: integer, recipient_type: :alliance | :character | :corporation | :mailing_list]], subject: nil | String.t, timestamp: nil | String.t]
+  @type mail_item_result :: [body: nil | String.t, from: nil | integer, labels: nil | [integer], read: nil | boolean, recipients: nil | [[recipient_id: integer, recipient_type: String.t]], subject: nil | String.t, timestamp: nil | String.t]
 
 
   @doc """

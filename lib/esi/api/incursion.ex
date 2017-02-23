@@ -1,6 +1,6 @@
 defmodule ESI.API.Incursion do
 
-  @type incursions_result :: [[constellation_id: integer, faction_id: integer, has_boss: boolean, infested_solar_systems: [integer], influence: float, staging_solar_system_id: integer, state: :withdrawing | :mobilizing | :established, type: String.t]]
+  @type incursions_result :: [[constellation_id: integer, faction_id: integer, has_boss: boolean, infested_solar_systems: [integer], influence: float, staging_solar_system_id: integer, state: String.t, type: String.t]]
 
 
   @doc """

@@ -29,7 +29,7 @@ defmodule ESI.API.Industry do
     }
   end
 
-  @type systems_result :: [[cost_indices: [[activity: :none | :manufacturing | :researching_technology | :researching_time_efficiency | :researching_material_efficiency | :copying | :duplicating | :invention | :reverse_engineering, cost_index: float]], solar_system_id: integer]]
+  @type systems_result :: [[cost_indices: [[activity: String.t, cost_index: float]], solar_system_id: integer]]
 
 
   @doc """

@@ -1,10 +1,11 @@
 defmodule ESI.Generator.SwaggerType do
 
-  @enforce_keys [:node, :ancestors]
+  @enforce_keys [:node, :ancestors, :kind]
 
   defstruct [
     :node,
     :ancestors,
+    :kind,
     force_required: false
   ]
 
@@ -13,13 +14,15 @@ defmodule ESI.Generator.SwaggerType do
   @type t :: %__MODULE__{
     node: type_node,
     ancestors: [t],
+    kind: :parameter | :result,
     force_required: boolean
   }
 
-  @spec new(node :: type_node, ancestors :: [t]) :: t
-  def new(node, ancestors \\ []) do
+  @spec new(node :: type_node, kind :: :parameter | :result, ancestors :: [t]) :: t
+  def new(node, kind, ancestors \\ []) do
     %__MODULE__{
       node: node,
+      kind: kind,
       ancestors: ancestors,
     }
   end
@@ -54,8 +57,12 @@ defimpl String.Chars, for: ESI.Generator.SwaggerType do
   }
 
   @spec to_string(Swagger.Type.t) :: [SwaggerType.t]
-  def to_string(%{node: %{"enum" => values}} = swagger_type) do
+  def to_string(%{kind: :parameter, node: %{"enum" => values}} = swagger_type) do
     Enum.map(values, &(String.to_atom(&1) |> inspect))
+    |> to_alternatives(swagger_type)
+  end
+  def to_string(%{kind: :result, node: %{"enum" => values}} = swagger_type) do
+    "String.t"
     |> to_alternatives(swagger_type)
   end
   for {pattern, type} <- @param_types do
@@ -102,6 +109,7 @@ defimpl String.Chars, for: ESI.Generator.SwaggerType do
   defp child(value, swagger_type) do
     ESI.Generator.SwaggerType.new(
       value,
+      swagger_type.kind,
       [swagger_type | swagger_type.ancestors]
     )
   end

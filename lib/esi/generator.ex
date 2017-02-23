@@ -151,7 +151,7 @@ defmodule ESI.Generator do
       nil ->
         "any"
       other ->
-        SwaggerType.new(other)
+        SwaggerType.new(other, :result)
         |> Map.put(:force_required, true)
     end
     ["\n  @type #{function.name}_result :: #{value}"]
@@ -161,7 +161,7 @@ defmodule ESI.Generator do
     [
       "  @type #{function.name}_opts :: [",
       Enum.map(opts_params(function), fn param ->
-        swagger_type = SwaggerType.new(param)
+        swagger_type = SwaggerType.new(param, :parameters)
         ~s<    #{param["name"]}: #{swagger_type},>
       end) |> flow,
       "  ]"
@@ -185,7 +185,7 @@ defmodule ESI.Generator do
     list = args
     |> Enum.map(&Macro.underscore/1)
     |> Enum.map(fn param ->
-      swagger_type = SwaggerType.new(function.params[param])
+      swagger_type = SwaggerType.new(function.params[param], :parameter)
       ~s(#{param} :: #{swagger_type})
     end)
     |> Enum.join(", ")

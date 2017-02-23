@@ -33,7 +33,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type bloodlines_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type bloodlines_result :: [[bloodline_id: integer, charisma: integer, corporation_id: integer, description: String.t, intelligence: integer, memory: integer, name: String.t, perception: integer, race_id: integer, ship_type_id: integer, willpower: integer]]
@@ -98,7 +98,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type category_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type category_result :: [category_id: integer, groups: [integer], name: String.t, published: boolean]
@@ -199,7 +199,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type races_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type races_result :: [[alliance_id: integer, description: String.t, name: String.t, race_id: integer]]
@@ -264,7 +264,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type constellation_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type constellation_result :: [constellation_id: integer, name: String.t, position: [x: float, y: float, z: float], region_id: integer, systems: [integer]]
@@ -329,7 +329,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type type_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type type_result :: [capacity: nil | float, description: String.t, dogma_attributes: nil | [[attribute_id: integer, value: float]], dogma_effects: nil | [[effect_id: integer, is_default: boolean]], graphic_id: nil | integer, group_id: integer, icon_id: nil | integer, mass: nil | float, name: String.t, portion_size: nil | integer, published: boolean, radius: nil | float, type_id: integer, volume: nil | float]
@@ -423,7 +423,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type system_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type system_result :: [constellation_id: integer, name: String.t, planets: [[moons: nil | [integer], planet_id: integer]], position: [x: float, y: float, z: float], security_class: nil | String.t, security_status: float, stargates: [integer], system_id: integer]
@@ -459,7 +459,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type group_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type group_result :: [category_id: float, group_id: integer, name: String.t, published: boolean, types: [integer]]
@@ -495,7 +495,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type factions_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type factions_result :: [[corporation_id: integer, description: String.t, faction_id: integer, is_unique: boolean, militia_corporation_id: nil | integer, name: String.t, size_factor: float, solar_system_id: integer, station_count: integer, station_system_count: integer]]
@@ -596,7 +596,7 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type region_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    language: nil | String.t,
   ]
 
   @type region_result :: [constellations: [integer], description: nil | String.t, name: String.t, region_id: integer]
@@ -686,7 +686,7 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type station_result :: [max_dockable_ship_volume: float, name: String.t, office_rental_cost: float, owner: nil | integer, position: [x: float, y: float, z: float], race_id: nil | integer, reprocessing_efficiency: float, reprocessing_stations_take: float, services: [:"bounty-missions" | :"assasination-missions" | :"courier-missions" | :interbus | :"reprocessing-plant" | :refinery | :market | :"black-market" | :"stock-exchange" | :cloning | :surgery | :"dna-therapy" | :"repair-facilities" | :factory | :labratory | :gambling | :fitting | :paintshop | :news | :storage | :insurance | :docking | :"office-rental" | :"jump-clone-facility" | :"loyalty-point-store" | :"navy-offices" | :"security-offices"], station_id: integer, system_id: integer, type_id: integer]
+  @type station_result :: [max_dockable_ship_volume: float, name: String.t, office_rental_cost: float, owner: nil | integer, position: [x: float, y: float, z: float], race_id: nil | integer, reprocessing_efficiency: float, reprocessing_stations_take: float, services: [String.t], station_id: integer, system_id: integer, type_id: integer]
 
 
   @doc """
@@ -722,7 +722,7 @@ defmodule ESI.API.Universe do
     ids: [nil | integer],
   ]
 
-  @type create_names_result :: [[category: :alliance | :character | :constellation | :corporation | :inventory_type | :region | :solar_system | :station, id: integer, name: String.t]]
+  @type create_names_result :: [[category: String.t, id: integer, name: String.t]]
 
 
   @doc """

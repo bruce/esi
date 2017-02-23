@@ -1,6 +1,6 @@
 defmodule ESI.API.Sovereignty do
 
-  @type campaigns_result :: [[attackers_score: nil | float, campaign_id: integer, constellation_id: integer, defender_id: nil | integer, defender_score: nil | float, event_type: :tcu_defense | :ihub_defense | :station_defense | :station_freeport, participants: nil | [[alliance_id: integer, score: float]], solar_system_id: integer, start_time: String.t, structure_id: integer]]
+  @type campaigns_result :: [[attackers_score: nil | float, campaign_id: integer, constellation_id: integer, defender_id: nil | integer, defender_score: nil | float, event_type: String.t, participants: nil | [[alliance_id: integer, score: float]], solar_system_id: integer, start_time: String.t, structure_id: integer]]
 
 
   @doc """
