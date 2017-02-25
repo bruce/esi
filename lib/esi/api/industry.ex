@@ -1,14 +1,7 @@
 defmodule ESI.API.Industry do
 
-  @type facilities_result :: [[facility_id: integer, owner_id: integer, region_id: integer, solar_system_id: integer, tax: nil | float, type_id: integer]]
-
-
   @doc """
   Return a list of industry facilities.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`facilities_result`](#t:facilities_result/0) type.
 
   ## Swagger Source
 
@@ -29,15 +22,8 @@ defmodule ESI.API.Industry do
     }
   end
 
-  @type systems_result :: [[cost_indices: [[activity: String.t, cost_index: float]], solar_system_id: integer]]
-
-
   @doc """
   Return cost indices for solar systems.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`systems_result`](#t:systems_result/0) type.
 
   ## Swagger Source
 

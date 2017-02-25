@@ -1,14 +1,7 @@
 defmodule ESI.API.Corporation do
 
-  @type alliance_history_result :: [[alliance: nil | [alliance_id: integer, is_deleted: boolean], record_id: integer, start_date: String.t]]
-
-
   @doc """
   Get a list of all the alliances a corporation has been a member of.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`alliance_history_result`](#t:alliance_history_result/0) type.
 
   ## Swagger Source
 
@@ -29,15 +22,8 @@ defmodule ESI.API.Corporation do
     }
   end
 
-  @type corporation_result :: [alliance_id: nil | integer, ceo_id: integer, corporation_name: String.t, member_count: integer, ticker: String.t]
-
-
   @doc """
   Public information about a corporation.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`corporation_result`](#t:corporation_result/0) type.
 
   ## Swagger Source
 
@@ -58,15 +44,8 @@ defmodule ESI.API.Corporation do
     }
   end
 
-  @type members_result :: [[character_id: integer]]
-
-
   @doc """
   Read the current list of members if the calling character is a member..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`members_result`](#t:members_result/0) type.
 
   ## Swagger Source
 
@@ -87,15 +66,8 @@ defmodule ESI.API.Corporation do
     }
   end
 
-  @type roles_result :: [[character_id: integer, grantable_roles: nil | [String.t], grantable_roles_at_base: nil | [String.t], grantable_roles_at_hq: nil | [String.t], grantable_roles_at_other: nil | [String.t], roles: nil | [String.t], roles_at_base: nil | [String.t], roles_at_hq: nil | [String.t], roles_at_other: nil | [String.t]]]
-
-
   @doc """
   Return the roles of all members if the character has the personnel manager role or any grantable role..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`roles_result`](#t:roles_result/0) type.
 
   ## Swagger Source
 
@@ -123,15 +95,9 @@ defmodule ESI.API.Corporation do
     corporation_ids: [integer],
   ]
 
-  @type names_result :: [[corporation_id: integer, corporation_name: String.t]]
-
 
   @doc """
   Resolve a set of corporation IDs to corporation names.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`names_result`](#t:names_result/0) type.
 
   ## Swagger Source
 
@@ -157,19 +123,13 @@ defmodule ESI.API.Corporation do
   - `:page` -- Which page to query, 250 structures per page
   """
   @type structures_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
     page: nil | integer,
   ]
-
-  @type structures_result :: [[corporation_id: integer, current_vul: String.t, fuel_expires: nil | String.t, next_vul: String.t, profile_id: integer, services: nil | String.t, state_timer_end: nil | String.t, state_timer_start: nil | String.t, structure_id: integer, system_id: integer, type_id: integer, unanchors_at: nil | String.t]]
 
 
   @doc """
   Get a list of corporation structures.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`structures_result`](#t:structures_result/0) type.
 
   ## Swagger Source
 
@@ -190,15 +150,8 @@ defmodule ESI.API.Corporation do
     }
   end
 
-  @type icons_result :: [px128x128: nil | String.t, px256x256: nil | String.t, px64x64: nil | String.t]
-
-
   @doc """
   Get the icon urls for a corporation.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`icons_result`](#t:icons_result/0) type.
 
   ## Swagger Source
 
@@ -219,15 +172,8 @@ defmodule ESI.API.Corporation do
     }
   end
 
-  @type npccorps_result :: [integer]
-
-
   @doc """
   Get a list of npc corporations.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`npccorps_result`](#t:npccorps_result/0) type.
 
   ## Swagger Source
 

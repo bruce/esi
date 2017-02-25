@@ -1,14 +1,7 @@
 defmodule ESI.API.Sovereignty do
 
-  @type campaigns_result :: [[attackers_score: nil | float, campaign_id: integer, constellation_id: integer, defender_id: nil | integer, defender_score: nil | float, event_type: String.t, participants: nil | [[alliance_id: integer, score: float]], solar_system_id: integer, start_time: String.t, structure_id: integer]]
-
-
   @doc """
   Shows sovereignty data for campaigns..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`campaigns_result`](#t:campaigns_result/0) type.
 
   ## Swagger Source
 
@@ -29,15 +22,8 @@ defmodule ESI.API.Sovereignty do
     }
   end
 
-  @type structures_result :: [[alliance_id: integer, solar_system_id: integer, structure_id: integer, structure_type_id: integer, vulnerability_occupancy_level: nil | float, vulnerable_end_time: nil | String.t, vulnerable_start_time: nil | String.t]]
-
-
   @doc """
   Shows sovereignty data for structures..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`structures_result`](#t:structures_result/0) type.
 
   ## Swagger Source
 

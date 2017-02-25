@@ -1,14 +1,7 @@
 defmodule ESI.API.Universe do
 
-  @type structure_result :: [name: String.t, position: nil | [x: float, y: float, z: float], solar_system_id: integer, type_id: nil | integer]
-
-
   @doc """
   Returns information on requested structure, if you are on the ACL. Otherwise, returns "Forbidden" for all inputs..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`structure_result`](#t:structure_result/0) type.
 
   ## Swagger Source
 
@@ -33,18 +26,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type bloodlines_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type bloodlines_result :: [[bloodline_id: integer, charisma: integer, corporation_id: integer, description: String.t, intelligence: integer, memory: integer, name: String.t, perception: integer, race_id: integer, ship_type_id: integer, willpower: integer]]
 
 
   @doc """
   Get a list of bloodlines.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`bloodlines_result`](#t:bloodlines_result/0) type.
 
   ## Swagger Source
 
@@ -65,15 +52,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type schematic_result :: [cycle_time: integer, schematic_name: String.t]
-
-
   @doc """
   Get information on a planetary factory schematic.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`schematic_result`](#t:schematic_result/0) type.
 
   ## Swagger Source
 
@@ -98,18 +78,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type category_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type category_result :: [category_id: integer, groups: [integer], name: String.t, published: boolean]
 
 
   @doc """
   Get information of an item category.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`category_result`](#t:category_result/0) type.
 
   ## Swagger Source
 
@@ -130,15 +104,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type structures_result :: [integer]
-
-
   @doc """
   List all public structures.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`structures_result`](#t:structures_result/0) type.
 
   ## Swagger Source
 
@@ -166,15 +133,9 @@ defmodule ESI.API.Universe do
     page: nil | integer,
   ]
 
-  @type groups_result :: [integer]
-
 
   @doc """
   Get a list of item groups.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`groups_result`](#t:groups_result/0) type.
 
   ## Swagger Source
 
@@ -199,18 +160,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type races_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type races_result :: [[alliance_id: integer, description: String.t, name: String.t, race_id: integer]]
 
 
   @doc """
   Get a list of character races.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`races_result`](#t:races_result/0) type.
 
   ## Swagger Source
 
@@ -231,15 +186,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type moon_result :: [moon_id: integer, name: String.t, position: [x: float, y: float, z: float], system_id: integer]
-
-
   @doc """
   Get information on a moon.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`moon_result`](#t:moon_result/0) type.
 
   ## Swagger Source
 
@@ -264,18 +212,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type constellation_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type constellation_result :: [constellation_id: integer, name: String.t, position: [x: float, y: float, z: float], region_id: integer, systems: [integer]]
 
 
   @doc """
   Get information on a constellation.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`constellation_result`](#t:constellation_result/0) type.
 
   ## Swagger Source
 
@@ -296,15 +238,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type categories_result :: [integer]
-
-
   @doc """
   Get a list of item categories.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`categories_result`](#t:categories_result/0) type.
 
   ## Swagger Source
 
@@ -329,18 +264,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type type_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type type_result :: [capacity: nil | float, description: String.t, dogma_attributes: nil | [[attribute_id: integer, value: float]], dogma_effects: nil | [[effect_id: integer, is_default: boolean]], graphic_id: nil | integer, group_id: integer, icon_id: nil | integer, mass: nil | float, name: String.t, portion_size: nil | integer, published: boolean, radius: nil | float, type_id: integer, volume: nil | float]
 
 
   @doc """
   Get information on a type.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`type_result`](#t:type_result/0) type.
 
   ## Swagger Source
 
@@ -361,15 +290,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type systems_result :: [integer]
-
-
   @doc """
   Get a list of solar systems.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`systems_result`](#t:systems_result/0) type.
 
   ## Swagger Source
 
@@ -390,15 +312,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type constellations_result :: [integer]
-
-
   @doc """
   Get a list of constellations.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`constellations_result`](#t:constellations_result/0) type.
 
   ## Swagger Source
 
@@ -423,18 +338,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type system_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type system_result :: [constellation_id: integer, name: String.t, planets: [[moons: nil | [integer], planet_id: integer]], position: [x: float, y: float, z: float], security_class: nil | String.t, security_status: float, stargates: [integer], system_id: integer]
 
 
   @doc """
   Get information on a solar system.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`system_result`](#t:system_result/0) type.
 
   ## Swagger Source
 
@@ -459,18 +368,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type group_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type group_result :: [category_id: float, group_id: integer, name: String.t, published: boolean, types: [integer]]
 
 
   @doc """
   Get information on an item group.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`group_result`](#t:group_result/0) type.
 
   ## Swagger Source
 
@@ -495,18 +398,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type factions_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type factions_result :: [[corporation_id: integer, description: String.t, faction_id: integer, is_unique: boolean, militia_corporation_id: nil | integer, name: String.t, size_factor: float, solar_system_id: integer, station_count: integer, station_system_count: integer]]
 
 
   @doc """
   Get a list of factions.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`factions_result`](#t:factions_result/0) type.
 
   ## Swagger Source
 
@@ -527,15 +424,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type stargate_result :: [destination: [stargate_id: integer, system_id: integer], name: String.t, position: [x: float, y: float, z: float], stargate_id: integer, system_id: integer, type_id: integer]
-
-
   @doc """
   Get information on a stargate.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`stargate_result`](#t:stargate_result/0) type.
 
   ## Swagger Source
 
@@ -563,15 +453,9 @@ defmodule ESI.API.Universe do
     page: nil | integer,
   ]
 
-  @type types_result :: [integer]
-
 
   @doc """
   Get a list of type ids.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`types_result`](#t:types_result/0) type.
 
   ## Swagger Source
 
@@ -596,18 +480,12 @@ defmodule ESI.API.Universe do
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
   @type region_opts :: [
-    language: nil | String.t,
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
   ]
-
-  @type region_result :: [constellations: [integer], description: nil | String.t, name: String.t, region_id: integer]
 
 
   @doc """
   Get information on a region.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`region_result`](#t:region_result/0) type.
 
   ## Swagger Source
 
@@ -628,15 +506,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type regions_result :: [integer]
-
-
   @doc """
   Get a list of regions.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`regions_result`](#t:regions_result/0) type.
 
   ## Swagger Source
 
@@ -657,15 +528,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type planet_result :: [name: String.t, planet_id: integer, position: [x: float, y: float, z: float], system_id: integer, type_id: integer]
-
-
   @doc """
   Get information on a planet.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`planet_result`](#t:planet_result/0) type.
 
   ## Swagger Source
 
@@ -686,15 +550,8 @@ defmodule ESI.API.Universe do
     }
   end
 
-  @type station_result :: [max_dockable_ship_volume: float, name: String.t, office_rental_cost: float, owner: nil | integer, position: [x: float, y: float, z: float], race_id: nil | integer, reprocessing_efficiency: float, reprocessing_stations_take: float, services: [String.t], station_id: integer, system_id: integer, type_id: integer]
-
-
   @doc """
   Get information on a station.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`station_result`](#t:station_result/0) type.
 
   ## Swagger Source
 
@@ -722,15 +579,9 @@ defmodule ESI.API.Universe do
     ids: [nil | integer],
   ]
 
-  @type create_names_result :: [[category: String.t, id: integer, name: String.t]]
-
 
   @doc """
   Resolve a set of IDs to names and categories. Supported ID's for resolving are: Characters, Corporations, Alliances, Stations, Solar Systems, Constellations, Regions, Types..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_names_result`](#t:create_names_result/0) type.
 
   ## Swagger Source
 

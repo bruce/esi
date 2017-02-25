@@ -22,14 +22,14 @@ defmodule ESI do
     %{req | query_opts: Keyword.merge(req.query_opts, opts)}
   end
 
-  @spec request!(req :: ESI.Request.t, opts :: request_opts) :: {:ok, ESI.API.result} | {:error, any}
+  @spec request!(req :: ESI.Request.t, opts :: request_opts) :: {:ok, any} | {:error, any}
   def request(req, opts \\ []) do
     req
     |> options(opts)
     |> do_request
   end
 
-  @spec request!(req :: ESI.Request.t, opts :: request_opts) :: ESI.API.result
+  @spec request!(req :: ESI.Request.t, opts :: request_opts) :: any
   def request!(req, opts \\ []) do
     case request(req, opts) do
       {:ok, result} ->

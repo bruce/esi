@@ -8,20 +8,14 @@ defmodule ESI.API.Market do
   - `:type_id` -- Return orders only for this type
   """
   @type orders_opts :: [
-    order_type: String.t,
+    order_type: :buy | :sell | :all,
     page: nil | integer,
     type_id: nil | integer,
   ]
 
-  @type orders_result :: [[duration: integer, is_buy_order: boolean, issued: String.t, location_id: integer, min_volume: integer, order_id: integer, price: float, range: String.t, type_id: integer, volume_remain: integer, volume_total: integer]]
-
 
   @doc """
   Return a list of orders in a region.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`orders_result`](#t:orders_result/0) type.
 
   ## Swagger Source
 
@@ -42,15 +36,8 @@ defmodule ESI.API.Market do
     }
   end
 
-  @type prices_result :: [[adjusted_price: nil | float, average_price: nil | float, type_id: integer]]
-
-
   @doc """
   Return a list of prices.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`prices_result`](#t:prices_result/0) type.
 
   ## Swagger Source
 
@@ -78,15 +65,9 @@ defmodule ESI.API.Market do
     page: nil | integer,
   ]
 
-  @type structure_result :: [[duration: integer, is_buy_order: boolean, issued: String.t, location_id: integer, min_volume: integer, order_id: integer, price: float, range: String.t, type_id: integer, volume_remain: integer, volume_total: integer]]
-
 
   @doc """
   Return all orders in a structure.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`structure_result`](#t:structure_result/0) type.
 
   ## Swagger Source
 
@@ -114,15 +95,9 @@ defmodule ESI.API.Market do
     type_id: integer,
   ]
 
-  @type history_result :: [[average: float, date: String.t, highest: float, lowest: float, order_count: integer, volume: integer]]
-
 
   @doc """
   Return a list of historical market statistics for the specified type in a region.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`history_result`](#t:history_result/0) type.
 
   ## Swagger Source
 

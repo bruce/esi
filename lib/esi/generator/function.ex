@@ -30,7 +30,6 @@ defmodule ESI.Generator.Function do
     :verb,
     :name,
     :tags,
-    :responses,
   ]
 
   @type t :: %__MODULE__{
@@ -41,8 +40,7 @@ defmodule ESI.Generator.Function do
     params: %{String.t => map},
     verb: atom,
     name: String.t,
-    tags: [String.t],
-    responses: map,
+    tags: [String.t]
   }
 
   def new(path, verb, info) do
@@ -55,7 +53,6 @@ defmodule ESI.Generator.Function do
       doc: info["description"],
       params: param_mapping(info["parameters"]),
       tags: info["tags"],
-      responses: info["responses"]
     } |> add_name
   end
 
@@ -78,19 +75,6 @@ defmodule ESI.Generator.Function do
     for param <- params, into: %{} do
       {param["name"], param}
     end
-  end
-
-  @spec response_schema(function :: t) :: nil | map
-  def response_schema(function) do
-    function.responses
-    |> Enum.find_value(fn {code_string, info} ->
-      case String.to_integer(code_string) do
-        code when code in 200..299 ->
-          info["schema"]
-        _ ->
-          nil
-      end
-    end)
   end
 
   @verb_prefix [

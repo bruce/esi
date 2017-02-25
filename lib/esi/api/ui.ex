@@ -7,15 +7,9 @@ defmodule ESI.API.UI do
     target_id: integer,
   ]
 
-  @type open_information_window_result :: any
-
 
   @doc """
   Open the information window for a character, corporation or alliance inside the client.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`open_information_window_result`](#t:open_information_window_result/0) type.
 
   ## Swagger Source
 
@@ -43,15 +37,9 @@ defmodule ESI.API.UI do
     type_id: integer,
   ]
 
-  @type open_market_details_window_result :: any
-
 
   @doc """
   Open the market details window for a specific typeID inside the client.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`open_market_details_window_result`](#t:open_market_details_window_result/0) type.
 
   ## Swagger Source
 
@@ -79,15 +67,9 @@ defmodule ESI.API.UI do
     new_mail: [body: String.t, recipients: [integer], subject: String.t, to_corp_or_alliance_id: nil | integer, to_mailing_list_id: nil | integer],
   ]
 
-  @type open_new_mail_window_result :: any
-
 
   @doc """
   Open the New Mail window, according to settings from the request if applicable.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`open_new_mail_window_result`](#t:open_new_mail_window_result/0) type.
 
   ## Swagger Source
 
@@ -119,15 +101,9 @@ defmodule ESI.API.UI do
     destination_id: integer,
   ]
 
-  @type set_autopilot_waypoint_result :: any
-
 
   @doc """
   Set a solar system as autopilot waypoint.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`set_autopilot_waypoint_result`](#t:set_autopilot_waypoint_result/0) type.
 
   ## Swagger Source
 
@@ -155,15 +131,9 @@ defmodule ESI.API.UI do
     contract_id: integer,
   ]
 
-  @type open_contract_window_result :: any
-
 
   @doc """
   Open the contract window inside the client.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`open_contract_window_result`](#t:open_contract_window_result/0) type.
 
   ## Swagger Source
 

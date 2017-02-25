@@ -1,14 +1,7 @@
 defmodule ESI.API.Character do
 
-  @type bookmarks_result :: [[bookmark_id: integer, create_date: String.t, creator_id: integer, folder_id: nil | integer, memo: String.t, note: String.t, owner_id: integer, target: [coordinates: nil | [x: integer, y: integer, z: integer], item: nil | [item_id: integer, type_id: integer], location_id: integer]]]
-
-
   @doc """
   List your character's personal bookmarks.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`bookmarks_result`](#t:bookmarks_result/0) type.
 
   ## Swagger Source
 
@@ -29,15 +22,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type fittings_result :: [[description: String.t, fitting_id: integer, items: [[flag: integer, quantity: integer, type_id: integer]], name: String.t, ship_type_id: integer]]
-
-
   @doc """
   Return fittings of a character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`fittings_result`](#t:fittings_result/0) type.
 
   ## Swagger Source
 
@@ -65,15 +51,9 @@ defmodule ESI.API.Character do
     fitting: nil | [description: String.t, items: [[flag: integer, quantity: integer, type_id: integer]], name: String.t, ship_type_id: integer],
   ]
 
-  @type create_fittings_result :: [fitting_id: integer]
-
 
   @doc """
   Save a new fitting for a character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_fittings_result`](#t:create_fittings_result/0) type.
 
   ## Swagger Source
 
@@ -94,15 +74,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type ship_result :: [ship_item_id: integer, ship_name: String.t, ship_type_id: integer]
-
-
   @doc """
   Get the current ship type, name and id.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`ship_result`](#t:ship_result/0) type.
 
   ## Swagger Source
 
@@ -130,21 +103,15 @@ defmodule ESI.API.Character do
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
   """
   @type search_opts :: [
-    categories: [String.t],
-    language: nil | String.t,
+    categories: [:agent | :alliance | :character | :constellation | :corporation | :faction | :inventorytype | :region | :solarsystem | :station | :structure | :wormhole],
+    language: nil | :"en-us" | :de | :fr | :ru | :ja | :zh,
     search: String.t,
     strict: nil | boolean,
   ]
 
-  @type search_result :: [agent: nil | [integer], alliance: nil | [integer], character: nil | [integer], constellation: nil | [integer], corporation: nil | [integer], faction: nil | [integer], inventorytype: nil | [integer], region: nil | [integer], solarsystem: nil | [integer], station: nil | [integer], structure: nil | [integer], wormhole: nil | [integer]]
-
 
   @doc """
   Search for entities that match a given sub-string..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`search_result`](#t:search_result/0) type.
 
   ## Swagger Source
 
@@ -172,15 +139,9 @@ defmodule ESI.API.Character do
     character_ids: [integer],
   ]
 
-  @type names_result :: [[character_id: integer, character_name: String.t]]
-
 
   @doc """
   Resolve a set of character IDs to character names.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`names_result`](#t:names_result/0) type.
 
   ## Swagger Source
 
@@ -201,15 +162,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type delete_mail_label_result :: any
-
-
   @doc """
   Delete a mail label.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`delete_mail_label_result`](#t:delete_mail_label_result/0) type.
 
   ## Swagger Source
 
@@ -230,15 +184,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type bookmark_folders_result :: [[folder_id: nil | integer, name: nil | String.t, owner_id: nil | integer]]
-
-
   @doc """
   List your character's personal bookmark folders.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`bookmark_folders_result`](#t:bookmark_folders_result/0) type.
 
   ## Swagger Source
 
@@ -259,15 +206,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type assets_result :: [[is_singleton: boolean, item_id: integer, location_flag: String.t, location_id: integer, location_type: String.t, quantity: nil | integer, type_id: integer]]
-
-
   @doc """
   Return a list of the characters assets.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`assets_result`](#t:assets_result/0) type.
 
   ## Swagger Source
 
@@ -288,15 +228,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type skillqueue_result :: [[finish_date: nil | String.t, finished_level: integer, level_end_sp: nil | integer, level_start_sp: nil | integer, queue_position: integer, skill_id: integer, start_date: nil | String.t, training_start_sp: nil | integer]]
-
-
   @doc """
   List the configured skill queue for the given character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`skillqueue_result`](#t:skillqueue_result/0) type.
 
   ## Swagger Source
 
@@ -317,15 +250,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type character_result :: [alliance_id: nil | integer, ancestry_id: nil | integer, birthday: String.t, bloodline_id: integer, corporation_id: integer, description: nil | String.t, gender: String.t, name: String.t, race_id: integer, security_status: nil | float]
-
-
   @doc """
   Public information about a character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`character_result`](#t:character_result/0) type.
 
   ## Swagger Source
 
@@ -346,15 +272,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type planets_result :: [[last_update: String.t, num_pins: integer, owner_id: integer, planet_id: integer, planet_type: String.t, solar_system_id: integer, upgrade_level: integer]]
-
-
   @doc """
   Returns a list of all planetary colonies owned by a character..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`planets_result`](#t:planets_result/0) type.
 
   ## Swagger Source
 
@@ -382,15 +301,9 @@ defmodule ESI.API.Character do
     characters: [characters: [integer]],
   ]
 
-  @type create_cspa_result :: [cost: nil | integer]
-
 
   @doc """
   Takes a source character ID in the url and a set of target character ID's in the body, returns a CSPA charge cost.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_cspa_result`](#t:create_cspa_result/0) type.
 
   ## Swagger Source
 
@@ -418,15 +331,9 @@ defmodule ESI.API.Character do
     contact_ids: [nil | integer],
   ]
 
-  @type delete_contacts_result :: any
-
 
   @doc """
   Bulk delete contacts.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`delete_contacts_result`](#t:delete_contacts_result/0) type.
 
   ## Swagger Source
 
@@ -454,15 +361,9 @@ defmodule ESI.API.Character do
     page: nil | integer,
   ]
 
-  @type contacts_result :: [[contact_id: integer, contact_type: String.t, is_blocked: nil | boolean, is_watched: nil | boolean, label_id: nil | integer, standing: float]]
-
 
   @doc """
   Return contacts of a character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`contacts_result`](#t:contacts_result/0) type.
 
   ## Swagger Source
 
@@ -496,15 +397,9 @@ defmodule ESI.API.Character do
     watched: nil | boolean,
   ]
 
-  @type create_contacts_result :: [integer]
-
 
   @doc """
   Bulk add contacts with same settings.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_contacts_result`](#t:create_contacts_result/0) type.
 
   ## Swagger Source
 
@@ -539,15 +434,9 @@ defmodule ESI.API.Character do
     watched: nil | boolean,
   ]
 
-  @type update_contacts_result :: any
-
 
   @doc """
   Bulk edit contacts with same settings.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`update_contacts_result`](#t:update_contacts_result/0) type.
 
   ## Swagger Source
 
@@ -569,15 +458,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type clones_result :: [home_location: nil | [location_id: nil | integer, location_type: nil | String.t], jump_clones: [[implants: nil | [integer], location_id: nil | integer, location_type: nil | String.t]], last_jump_date: nil | String.t]
-
-
   @doc """
   A list of the character's clones.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`clones_result`](#t:clones_result/0) type.
 
   ## Swagger Source
 
@@ -598,15 +480,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type mail_lists_result :: [[mailing_list_id: integer, name: String.t]]
-
-
   @doc """
   Return all mailing lists that the character is subscribed to.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`mail_lists_result`](#t:mail_lists_result/0) type.
 
   ## Swagger Source
 
@@ -627,15 +502,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type contact_labels_result :: [[label_id: integer, label_name: String.t]]
-
-
   @doc """
   Return custom labels for contacts the character defined.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`contact_labels_result`](#t:contact_labels_result/0) type.
 
   ## Swagger Source
 
@@ -656,15 +524,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type skills_result :: [skills: nil | [[current_skill_level: nil | integer, skill_id: nil | integer, skillpoints_in_skill: nil | integer]], total_sp: nil | integer]
-
-
   @doc """
   List all trained skills for the given character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`skills_result`](#t:skills_result/0) type.
 
   ## Swagger Source
 
@@ -695,15 +556,9 @@ defmodule ESI.API.Character do
     max_kill_id: nil | integer,
   ]
 
-  @type killmail_recent_result :: [[killmail_hash: String.t, killmail_id: integer]]
-
 
   @doc """
   Return a list of character's recent kills and losses.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`killmail_recent_result`](#t:killmail_recent_result/0) type.
 
   ## Swagger Source
 
@@ -731,15 +586,9 @@ defmodule ESI.API.Character do
     from_event: nil | integer,
   ]
 
-  @type calendar_result :: [[event_date: nil | String.t, event_id: nil | integer, event_response: nil | String.t, importance: nil | integer, title: nil | String.t]]
-
 
   @doc """
   Get 50 event summaries from the calendar. If no event ID is given,.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`calendar_result`](#t:calendar_result/0) type.
 
   ## Swagger Source
 
@@ -760,15 +609,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type planet_result :: [links: [[destination_pin_id: integer, link_level: integer, source_pin_id: integer]], pins: [[expiry_time: nil | String.t, extractor_details: nil | [cycle_time: integer, head_radius: float, heads: [[head_id: integer, latitude: float, longitude: float]], product_type_id: integer, qty_per_cycle: integer], factory_details: nil | [schematic_id: integer], install_time: nil | String.t, last_cycle_start: nil | String.t, latitude: float, longitude: float, pin_id: integer, schematic_id: nil | integer, type_id: integer]], routes: [[content_type_id: integer, destination_pin_id: integer, quantity: integer, route_id: integer, source_pin_id: integer, waypoints: nil | [[order: integer, pin_id: integer]]]]]
-
-
   @doc """
   Returns full details on the layout of a single planetary colony, including links, pins and routes. Note: Planetary information is only recalculated when the colony is viewed through the client. Information on this endpoint will not update until this criteria is met..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`planet_result`](#t:planet_result/0) type.
 
   ## Swagger Source
 
@@ -789,15 +631,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type portrait_result :: [px128x128: nil | String.t, px256x256: nil | String.t, px512x512: nil | String.t, px64x64: nil | String.t]
-
-
   @doc """
   Get portrait urls for a character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`portrait_result`](#t:portrait_result/0) type.
 
   ## Swagger Source
 
@@ -827,15 +662,9 @@ defmodule ESI.API.Character do
     last_mail_id: nil | integer,
   ]
 
-  @type mail_result :: [[from: nil | integer, is_read: nil | boolean, labels: nil | [integer], mail_id: nil | integer, recipients: nil | [[recipient_id: integer, recipient_type: String.t]], subject: nil | String.t, timestamp: nil | String.t]]
-
 
   @doc """
   Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`mail_result`](#t:mail_result/0) type.
 
   ## Swagger Source
 
@@ -860,18 +689,12 @@ defmodule ESI.API.Character do
   - `:mail` (REQUIRED) -- The mail to send
   """
   @type create_mail_opts :: [
-    mail: [approved_cost: nil | integer, body: String.t, recipients: [[recipient_id: integer, recipient_type: String.t]], subject: String.t],
+    mail: [approved_cost: nil | integer, body: String.t, recipients: [[recipient_id: integer, recipient_type: :alliance | :character | :corporation | :mailing_list]], subject: String.t],
   ]
-
-  @type create_mail_result :: integer
 
 
   @doc """
   Create and send a new mail.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_mail_result`](#t:create_mail_result/0) type.
 
   ## Swagger Source
 
@@ -892,15 +715,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type delete_fitting_result :: any
-
-
   @doc """
   Delete a fitting from a character.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`delete_fitting_result`](#t:delete_fitting_result/0) type.
 
   ## Swagger Source
 
@@ -921,15 +737,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type calendar_event_result :: [date: String.t, duration: integer, event_id: integer, importance: integer, owner_id: integer, owner_name: String.t, owner_type: String.t, response: String.t, text: String.t, title: String.t]
-
-
   @doc """
   Get all the information for a specific event.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`calendar_event_result`](#t:calendar_event_result/0) type.
 
   ## Swagger Source
 
@@ -954,18 +763,12 @@ defmodule ESI.API.Character do
   - `:response` (REQUIRED) -- The response value to set, overriding current value.
   """
   @type update_calendar_event_opts :: [
-    response: [response: String.t],
+    response: [response: :accepted | :declined | :tentative],
   ]
-
-  @type update_calendar_event_result :: any
 
 
   @doc """
   Set your response status to an event.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`update_calendar_event_result`](#t:update_calendar_event_result/0) type.
 
   ## Swagger Source
 
@@ -986,15 +789,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type wallets_result :: [[balance: nil | integer, wallet_id: nil | integer]]
-
-
   @doc """
   List your wallets and their balances. Characters typically have only one wallet, with wallet_id 1000 being the master wallet..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`wallets_result`](#t:wallets_result/0) type.
 
   ## Swagger Source
 
@@ -1015,15 +811,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type corporation_history_result :: [[corporation_id: nil | integer, is_deleted: nil | boolean, record_id: nil | integer, start_date: nil | String.t]]
-
-
   @doc """
   Get a list of all the corporations a character has been a member of.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`corporation_history_result`](#t:corporation_history_result/0) type.
 
   ## Swagger Source
 
@@ -1044,15 +833,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type location_result :: [solar_system_id: integer, station_id: nil | integer, structure_id: nil | integer]
-
-
   @doc """
   Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`location_result`](#t:location_result/0) type.
 
   ## Swagger Source
 
@@ -1073,15 +855,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type mail_labels_result :: [labels: nil | [[color: nil | String.t, label_id: nil | integer, name: nil | String.t, unread_count: nil | integer]], total_unread_count: nil | integer]
-
-
   @doc """
   Return a list of the users mail labels, unread counts for each label and a total unread count..
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`mail_labels_result`](#t:mail_labels_result/0) type.
 
   ## Swagger Source
 
@@ -1106,18 +881,12 @@ defmodule ESI.API.Character do
   - `:label` -- Label to create
   """
   @type create_mail_labels_opts :: [
-    label: nil | [color: nil | String.t, name: String.t],
+    label: nil | [color: nil | :"#ffffff" | :"#ffff01" | :"#ff6600" | :"#fe0000" | :"#9a0000" | :"#660066" | :"#0000fe" | :"#0099ff" | :"#01ffff" | :"#00ff33" | :"#349800" | :"#006634" | :"#666666" | :"#999999" | :"#e6e6e6" | :"#ffffcd" | :"#99ffff" | :"#ccff9a", name: String.t],
   ]
-
-  @type create_mail_labels_result :: integer
 
 
   @doc """
   Create a mail label.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`create_mail_labels_result`](#t:create_mail_labels_result/0) type.
 
   ## Swagger Source
 
@@ -1138,15 +907,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type delete_mail_item_result :: any
-
-
   @doc """
   Delete a mail.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`delete_mail_item_result`](#t:delete_mail_item_result/0) type.
 
   ## Swagger Source
 
@@ -1167,15 +929,8 @@ defmodule ESI.API.Character do
     }
   end
 
-  @type mail_item_result :: [body: nil | String.t, from: nil | integer, labels: nil | [integer], read: nil | boolean, recipients: nil | [[recipient_id: integer, recipient_type: String.t]], subject: nil | String.t, timestamp: nil | String.t]
-
-
   @doc """
   Return the contents of an EVE mail.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`mail_item_result`](#t:mail_item_result/0) type.
 
   ## Swagger Source
 
@@ -1203,15 +958,9 @@ defmodule ESI.API.Character do
     contents: [labels: nil | [integer], read: nil | boolean],
   ]
 
-  @type update_mail_item_result :: any
-
 
   @doc """
   Update metadata about a mail.
-
-  ## Request Result
-
-  See `ESI.request/2` and `ESI.request!/2`, which can return a [`update_mail_item_result`](#t:update_mail_item_result/0) type.
 
   ## Swagger Source
 
