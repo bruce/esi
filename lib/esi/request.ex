@@ -132,4 +132,41 @@ defmodule ESI.Request do
   defp encode_options(:query, opts) when map_size(opts) == 0, do: ""
   defp encode_options(:query, opts), do: "?" <> URI.encode_query(opts)
 
+  def stream!(%{opts_schema: %{page: _}} = request) do
+
+    request_fun = fn page ->
+      options(request, page: page)
+      |> run
+    end
+
+    first_page = Map.get(request.opts, :page, 1)
+
+    Stream.resource(fn -> {request_fun, first_page} end, fn
+      :quit ->
+        {:halt, nil}
+      {fun, page} -> case fun.(page) do
+        {:ok, []} ->
+          {[], :quit}
+        {:ok, data} when is_list(data) ->
+          {data, {fun, page + 1}}
+        {:ok, data} ->
+          {[data], :quit}
+        {:error, err} ->
+          raise err
+      end
+    end, &(&1))
+  end
+  def stream!(request) do
+    Stream.resource(fn -> request end, fn
+      :quit ->
+        {:halt, nil}
+      request -> case run(request) do
+        {:ok, data} ->
+          {List.wrap(data), :quit}
+        {:error, err} ->
+          raise err
+      end
+    end, &(&1))
+  end
+
 end
