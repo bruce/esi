@@ -1,5 +1,19 @@
 defmodule ESI.API.Character do
 
+  @typedoc """
+Options for [`Character.bookmarks/2`](#bookmarks/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type bookmarks_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   List your character's personal bookmarks.
 
@@ -23,15 +37,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Bookmarks/get_characters_character_id_bookmarks)
 
   """
-  @spec bookmarks(character_id :: integer) :: ESI.Request.t
-  def bookmarks(character_id) do
+  @spec bookmarks(character_id :: integer, opts :: bookmarks_opts) :: ESI.Request.t
+  def bookmarks(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/bookmarks/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.fittings/2`](#fittings/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type fittings_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return fittings of a character.
@@ -54,21 +82,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fittings/get_characters_character_id_fittings)
 
   """
-  @spec fittings(character_id :: integer) :: ESI.Request.t
-  def fittings(character_id) do
+  @spec fittings(character_id :: integer, opts :: fittings_opts) :: ESI.Request.t
+  def fittings(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/fittings/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.create_fittings/2`](#create_fittings/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:fitting` -- Details about the new fitting
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_fittings_opts :: [
+    datasource: nil | :tranquility | :singularity,
     fitting: nil | [description: String.t, items: [[flag: integer, quantity: integer, type_id: integer]], name: String.t, ship_type_id: integer],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -101,6 +137,20 @@ defmodule ESI.API.Character do
     }
   end
 
+  @typedoc """
+Options for [`Character.ship/2`](#ship/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type ship_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get the current ship type, name and id.
 
@@ -121,27 +171,35 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Location/get_characters_character_id_ship)
 
   """
-  @spec ship(character_id :: integer) :: ESI.Request.t
-  def ship(character_id) do
+  @spec ship(character_id :: integer, opts :: ship_opts) :: ESI.Request.t
+  def ship(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/ship/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.search/2`](#search/2).
+
   - `:categories` (REQUIRED) -- Type of entities to search for
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Search locale
   - `:search` (REQUIRED) -- The string to search on
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type search_opts :: [
     categories: [:agent | :alliance | :character | :constellation | :corporation | :faction | :inventorytype | :region | :solarsystem | :station | :structure | :wormhole],
+    datasource: nil | :tranquility | :singularity,
     language: nil | :"en-us" | :de | :fr | :ru | :ja | :zh,
     search: String.t,
     strict: nil | boolean,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -177,10 +235,16 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+Options for [`Character.names/1`](#names/1).
+
   - `:character_ids` (REQUIRED) -- A comma separated list of character IDs
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type names_opts :: [
     character_ids: [integer],
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
   ]
 
 
@@ -213,6 +277,20 @@ defmodule ESI.API.Character do
     }
   end
 
+  @typedoc """
+Options for [`Character.delete_mail_label/3`](#delete_mail_label/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type delete_mail_label_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Delete a mail label.
 
@@ -230,15 +308,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/delete_characters_character_id_mail_labels_label_id)
 
   """
-  @spec delete_mail_label(character_id :: integer, label_id :: integer) :: ESI.Request.t
-  def delete_mail_label(character_id, label_id) do
+  @spec delete_mail_label(character_id :: integer, label_id :: integer, opts :: delete_mail_label_opts) :: ESI.Request.t
+  def delete_mail_label(character_id, label_id, opts \\ []) do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/mail/labels/#{label_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.bookmark_folders/2`](#bookmark_folders/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type bookmark_folders_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   List your character's personal bookmark folders.
@@ -259,15 +351,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Bookmarks/get_characters_character_id_bookmarks_folders)
 
   """
-  @spec bookmark_folders(character_id :: integer) :: ESI.Request.t
-  def bookmark_folders(character_id) do
+  @spec bookmark_folders(character_id :: integer, opts :: bookmark_folders_opts) :: ESI.Request.t
+  def bookmark_folders(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/bookmarks/folders/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.assets/2`](#assets/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type assets_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return a list of the characters assets.
@@ -290,15 +396,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Assets/get_characters_character_id_assets)
 
   """
-  @spec assets(character_id :: integer) :: ESI.Request.t
-  def assets(character_id) do
+  @spec assets(character_id :: integer, opts :: assets_opts) :: ESI.Request.t
+  def assets(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/assets/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.skillqueue/2`](#skillqueue/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type skillqueue_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   List the configured skill queue for the given character.
@@ -327,15 +447,27 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Skills/get_characters_character_id_skillqueue)
 
   """
-  @spec skillqueue(character_id :: integer) :: ESI.Request.t
-  def skillqueue(character_id) do
+  @spec skillqueue(character_id :: integer, opts :: skillqueue_opts) :: ESI.Request.t
+  def skillqueue(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/skillqueue/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.character/2`](#character/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type character_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Public information about a character.
@@ -358,15 +490,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_character_id)
 
   """
-  @spec character(character_id :: integer) :: ESI.Request.t
-  def character(character_id) do
+  @spec character(character_id :: integer, opts :: character_opts) :: ESI.Request.t
+  def character(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.planets/2`](#planets/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type planets_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Returns a list of all planetary colonies owned by a character..
@@ -392,21 +538,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Planetary Interaction/get_characters_character_id_planets)
 
   """
-  @spec planets(character_id :: integer) :: ESI.Request.t
-  def planets(character_id) do
+  @spec planets(character_id :: integer, opts :: planets_opts) :: ESI.Request.t
+  def planets(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/planets/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.create_cspa/2`](#create_cspa/2).
+
   - `:characters` (REQUIRED) -- The target characters to calculate the charge for
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_cspa_opts :: [
     characters: [characters: [integer]],
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -440,10 +594,18 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+Options for [`Character.delete_contacts/2`](#delete_contacts/2).
+
   - `:contact_ids` (REQUIRED) -- A list of contacts to edit
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type delete_contacts_opts :: [
     contact_ids: [nil | integer],
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -475,10 +637,18 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+Options for [`Character.contacts/2`](#contacts/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:page` (DEFAULT: `1`) -- page integer
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type contacts_opts :: [
+    datasource: nil | :tranquility | :singularity,
     page: nil | integer,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -513,15 +683,23 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+Options for [`Character.create_contacts/2`](#create_contacts/2).
+
   - `:contact_ids` (REQUIRED) -- A list of contacts to add
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:label_id` (DEFAULT: `0`) -- Add a custom label to the new contact
   - `:standing` (REQUIRED) -- Standing for the new contact
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   - `:watched` (DEFAULT: `false`) -- Whether the new contact should be watched, note this is only effective on characters
   """
   @type create_contacts_opts :: [
     contact_ids: [nil | integer],
+    datasource: nil | :tranquility | :singularity,
     label_id: nil | integer,
     standing: float,
+    token: nil | String.t,
+    user_agent: nil | String.t,
     watched: nil | boolean,
   ]
 
@@ -556,15 +734,23 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+Options for [`Character.update_contacts/2`](#update_contacts/2).
+
   - `:contact_ids` (REQUIRED) -- A list of contacts to edit
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:label_id` (DEFAULT: `0`) -- Add a custom label to the contact, use 0 for clearing label
   - `:standing` (REQUIRED) -- Standing for the contact
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   - `:watched` (DEFAULT: `false`) -- Whether the contact should be watched, note this is only effective on characters
   """
   @type update_contacts_opts :: [
     contact_ids: [nil | integer],
+    datasource: nil | :tranquility | :singularity,
     label_id: nil | integer,
     standing: float,
+    token: nil | String.t,
+    user_agent: nil | String.t,
     watched: nil | boolean,
   ]
 
@@ -596,6 +782,20 @@ defmodule ESI.API.Character do
     }
   end
 
+  @typedoc """
+Options for [`Character.clones/2`](#clones/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type clones_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   A list of the character's clones.
 
@@ -620,15 +820,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Clones/get_characters_character_id_clones)
 
   """
-  @spec clones(character_id :: integer) :: ESI.Request.t
-  def clones(character_id) do
+  @spec clones(character_id :: integer, opts :: clones_opts) :: ESI.Request.t
+  def clones(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/clones/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.mail_lists/2`](#mail_lists/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type mail_lists_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return all mailing lists that the character is subscribed to.
@@ -649,15 +863,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/get_characters_character_id_mail_lists)
 
   """
-  @spec mail_lists(character_id :: integer) :: ESI.Request.t
-  def mail_lists(character_id) do
+  @spec mail_lists(character_id :: integer, opts :: mail_lists_opts) :: ESI.Request.t
+  def mail_lists(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/lists/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.contact_labels/2`](#contact_labels/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type contact_labels_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return custom labels for contacts the character defined.
@@ -678,15 +906,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Contacts/get_characters_character_id_contacts_labels)
 
   """
-  @spec contact_labels(character_id :: integer) :: ESI.Request.t
-  def contact_labels(character_id) do
+  @spec contact_labels(character_id :: integer, opts :: contact_labels_opts) :: ESI.Request.t
+  def contact_labels(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/contacts/labels/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.skills/2`](#skills/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type skills_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   List all trained skills for the given character.
@@ -710,24 +952,32 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Skills/get_characters_character_id_skills)
 
   """
-  @spec skills(character_id :: integer) :: ESI.Request.t
-  def skills(character_id) do
+  @spec skills(character_id :: integer, opts :: skills_opts) :: ESI.Request.t
+  def skills(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/skills/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.killmail_recent/2`](#killmail_recent/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:max_count` (DEFAULT: `50`) -- How many killmails to return at maximum
   - `:max_kill_id` -- Only return killmails with ID smaller than this.
 
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type killmail_recent_opts :: [
+    datasource: nil | :tranquility | :singularity,
     max_count: nil | integer,
     max_kill_id: nil | integer,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -764,10 +1014,18 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+Options for [`Character.calendar/2`](#calendar/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:from_event` -- The event ID to retrieve events from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type calendar_opts :: [
+    datasource: nil | :tranquility | :singularity,
     from_event: nil | integer,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -802,6 +1060,20 @@ defmodule ESI.API.Character do
     }
   end
 
+  @typedoc """
+Options for [`Character.planet/3`](#planet/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type planet_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Returns full details on the layout of a single planetary colony, including links, pins and routes. Note: Planetary information is only recalculated when the colony is viewed through the client. Information on this endpoint will not update until this criteria is met..
 
@@ -831,15 +1103,27 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Planetary Interaction/get_characters_character_id_planets_planet_id)
 
   """
-  @spec planet(character_id :: integer, planet_id :: integer) :: ESI.Request.t
-  def planet(character_id, planet_id) do
+  @spec planet(character_id :: integer, planet_id :: integer, opts :: planet_opts) :: ESI.Request.t
+  def planet(character_id, planet_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/planets/#{planet_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.portrait/2`](#portrait/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type portrait_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Get portrait urls for a character.
@@ -863,23 +1147,31 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_character_id_portrait)
 
   """
-  @spec portrait(character_id :: integer) :: ESI.Request.t
-  def portrait(character_id) do
+  @spec portrait(character_id :: integer, opts :: portrait_opts) :: ESI.Request.t
+  def portrait(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/portrait/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.mail/2`](#mail/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:labels` -- Fetch only mails that match one or more of the given labels
   - `:last_mail_id` -- List only mail with an ID lower than the given ID, if present
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type mail_opts :: [
+    datasource: nil | :tranquility | :singularity,
     labels: nil | [integer],
     last_mail_id: nil | integer,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -916,10 +1208,18 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+Options for [`Character.create_mail/2`](#create_mail/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:mail` (REQUIRED) -- The mail to send
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_mail_opts :: [
+    datasource: nil | :tranquility | :singularity,
     mail: [approved_cost: nil | integer, body: String.t, recipients: [[recipient_id: integer, recipient_type: :alliance | :character | :corporation | :mailing_list]], subject: String.t],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -952,6 +1252,20 @@ defmodule ESI.API.Character do
     }
   end
 
+  @typedoc """
+Options for [`Character.delete_fitting/3`](#delete_fitting/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type delete_fitting_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Delete a fitting from a character.
 
@@ -969,15 +1283,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fittings/delete_characters_character_id_fittings_fitting_id)
 
   """
-  @spec delete_fitting(character_id :: integer, fitting_id :: integer) :: ESI.Request.t
-  def delete_fitting(character_id, fitting_id) do
+  @spec delete_fitting(character_id :: integer, fitting_id :: integer, opts :: delete_fitting_opts) :: ESI.Request.t
+  def delete_fitting(character_id, fitting_id, opts \\ []) do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/fittings/#{fitting_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.calendar_event/3`](#calendar_event/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type calendar_event_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Get all the information for a specific event.
@@ -1002,21 +1330,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Calendar/get_characters_character_id_calendar_event_id)
 
   """
-  @spec calendar_event(character_id :: integer, event_id :: integer) :: ESI.Request.t
-  def calendar_event(character_id, event_id) do
+  @spec calendar_event(character_id :: integer, event_id :: integer, opts :: calendar_event_opts) :: ESI.Request.t
+  def calendar_event(character_id, event_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/calendar/#{event_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.update_calendar_event/3`](#update_calendar_event/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:response` (REQUIRED) -- The response value to set, overriding current value.
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_calendar_event_opts :: [
+    datasource: nil | :tranquility | :singularity,
     response: [response: :accepted | :declined | :tentative],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -1047,6 +1383,20 @@ defmodule ESI.API.Character do
     }
   end
 
+  @typedoc """
+Options for [`Character.wallets/2`](#wallets/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type wallets_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   List your wallets and their balances. Characters typically have only one wallet, with wallet_id 1000 being the master wallet..
 
@@ -1066,15 +1416,27 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Wallet/get_characters_character_id_wallets)
 
   """
-  @spec wallets(character_id :: integer) :: ESI.Request.t
-  def wallets(character_id) do
+  @spec wallets(character_id :: integer, opts :: wallets_opts) :: ESI.Request.t
+  def wallets(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/wallets/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.corporation_history/2`](#corporation_history/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type corporation_history_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Get a list of all the corporations a character has been a member of.
@@ -1098,15 +1460,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_character_id_corporationhistory)
 
   """
-  @spec corporation_history(character_id :: integer) :: ESI.Request.t
-  def corporation_history(character_id) do
+  @spec corporation_history(character_id :: integer, opts :: corporation_history_opts) :: ESI.Request.t
+  def corporation_history(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/corporationhistory/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.location/2`](#location/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type location_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable..
@@ -1127,15 +1503,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Location/get_characters_character_id_location)
 
   """
-  @spec location(character_id :: integer) :: ESI.Request.t
-  def location(character_id) do
+  @spec location(character_id :: integer, opts :: location_opts) :: ESI.Request.t
+  def location(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/location/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.mail_labels/2`](#mail_labels/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type mail_labels_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return a list of the users mail labels, unread counts for each label and a total unread count..
@@ -1159,21 +1549,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/get_characters_character_id_mail_labels)
 
   """
-  @spec mail_labels(character_id :: integer) :: ESI.Request.t
-  def mail_labels(character_id) do
+  @spec mail_labels(character_id :: integer, opts :: mail_labels_opts) :: ESI.Request.t
+  def mail_labels(character_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/labels/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.create_mail_labels/2`](#create_mail_labels/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:label` -- Label to create
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_mail_labels_opts :: [
+    datasource: nil | :tranquility | :singularity,
     label: nil | [color: nil | :"#ffffff" | :"#ffff01" | :"#ff6600" | :"#fe0000" | :"#9a0000" | :"#660066" | :"#0000fe" | :"#0099ff" | :"#01ffff" | :"#00ff33" | :"#349800" | :"#006634" | :"#666666" | :"#999999" | :"#e6e6e6" | :"#ffffcd" | :"#99ffff" | :"#ccff9a", name: String.t],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -1206,6 +1604,20 @@ defmodule ESI.API.Character do
     }
   end
 
+  @typedoc """
+Options for [`Character.delete_mail_item/3`](#delete_mail_item/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type delete_mail_item_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Delete a mail.
 
@@ -1223,15 +1635,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/delete_characters_character_id_mail_mail_id)
 
   """
-  @spec delete_mail_item(character_id :: integer, mail_id :: integer) :: ESI.Request.t
-  def delete_mail_item(character_id, mail_id) do
+  @spec delete_mail_item(character_id :: integer, mail_id :: integer, opts :: delete_mail_item_opts) :: ESI.Request.t
+  def delete_mail_item(character_id, mail_id, opts \\ []) do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/mail/#{mail_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Character.mail_item/3`](#mail_item/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type mail_item_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return the contents of an EVE mail.
@@ -1253,21 +1679,29 @@ defmodule ESI.API.Character do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Mail/get_characters_character_id_mail_mail_id)
 
   """
-  @spec mail_item(character_id :: integer, mail_id :: integer) :: ESI.Request.t
-  def mail_item(character_id, mail_id) do
+  @spec mail_item(character_id :: integer, mail_id :: integer, opts :: mail_item_opts) :: ESI.Request.t
+  def mail_item(character_id, mail_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/#{mail_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Character.update_mail_item/3`](#update_mail_item/3).
+
   - `:contents` (REQUIRED) -- Data used to update the mail
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_mail_item_opts :: [
     contents: [labels: nil | [integer], read: nil | boolean],
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 

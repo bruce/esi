@@ -1,10 +1,18 @@
 defmodule ESI.API.Fleet do
 
   @typedoc """
+Options for [`Fleet.members/2`](#members/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type members_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -42,10 +50,18 @@ defmodule ESI.API.Fleet do
   end
 
   @typedoc """
+Options for [`Fleet.create_members/2`](#create_members/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:invitation` (REQUIRED) -- Details of the invitation
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_members_opts :: [
+    datasource: nil | :tranquility | :singularity,
     invitation: [character_id: integer, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -76,6 +92,20 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @typedoc """
+Options for [`Fleet.delete_squad/3`](#delete_squad/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type delete_squad_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Delete a fleet squad, only empty squads can be deleted.
 
@@ -93,21 +123,29 @@ defmodule ESI.API.Fleet do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fleets/delete_fleets_fleet_id_squads_squad_id)
 
   """
-  @spec delete_squad(fleet_id :: integer, squad_id :: integer) :: ESI.Request.t
-  def delete_squad(fleet_id, squad_id) do
+  @spec delete_squad(fleet_id :: integer, squad_id :: integer, opts :: delete_squad_opts) :: ESI.Request.t
+  def delete_squad(fleet_id, squad_id, opts \\ []) do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/squads/#{squad_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Fleet.update_squad/3`](#update_squad/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:naming` (REQUIRED) -- New name of the squad
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_squad_opts :: [
+    datasource: nil | :tranquility | :singularity,
     naming: [name: String.t],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -138,6 +176,20 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @typedoc """
+Options for [`Fleet.create_squads/3`](#create_squads/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type create_squads_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Create a new squad in a fleet.
 
@@ -157,15 +209,29 @@ defmodule ESI.API.Fleet do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fleets/post_fleets_fleet_id_wings_wing_id_squads)
 
   """
-  @spec create_squads(fleet_id :: integer, wing_id :: integer) :: ESI.Request.t
-  def create_squads(fleet_id, wing_id) do
+  @spec create_squads(fleet_id :: integer, wing_id :: integer, opts :: create_squads_opts) :: ESI.Request.t
+  def create_squads(fleet_id, wing_id, opts \\ []) do
     %ESI.Request{
       verb: :post,
       path: "/fleets/#{fleet_id}/wings/#{wing_id}/squads/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Fleet.fleet/2`](#fleet/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type fleet_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return details about a fleet.
@@ -187,21 +253,29 @@ defmodule ESI.API.Fleet do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fleets/get_fleets_fleet_id)
 
   """
-  @spec fleet(fleet_id :: integer) :: ESI.Request.t
-  def fleet(fleet_id) do
+  @spec fleet(fleet_id :: integer, opts :: fleet_opts) :: ESI.Request.t
+  def fleet(fleet_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/fleets/#{fleet_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Fleet.update_fleet/2`](#update_fleet/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:new_settings` (REQUIRED) -- What to update for this fleet
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_fleet_opts :: [
+    datasource: nil | :tranquility | :singularity,
     new_settings: [is_free_move: nil | boolean, motd: nil | String.t],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -232,6 +306,20 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @typedoc """
+Options for [`Fleet.delete_member/3`](#delete_member/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type delete_member_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Kick a fleet member.
 
@@ -249,21 +337,29 @@ defmodule ESI.API.Fleet do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fleets/delete_fleets_fleet_id_members_member_id)
 
   """
-  @spec delete_member(fleet_id :: integer, member_id :: integer) :: ESI.Request.t
-  def delete_member(fleet_id, member_id) do
+  @spec delete_member(fleet_id :: integer, member_id :: integer, opts :: delete_member_opts) :: ESI.Request.t
+  def delete_member(fleet_id, member_id, opts \\ []) do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/members/#{member_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Fleet.update_member/3`](#update_member/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:movement` (REQUIRED) -- Details of the invitation
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_member_opts :: [
+    datasource: nil | :tranquility | :singularity,
     movement: [role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -295,10 +391,18 @@ defmodule ESI.API.Fleet do
   end
 
   @typedoc """
+Options for [`Fleet.wings/2`](#wings/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type wings_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -332,6 +436,20 @@ defmodule ESI.API.Fleet do
     }
   end
 
+  @typedoc """
+Options for [`Fleet.create_wings/2`](#create_wings/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type create_wings_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Create a new wing in a fleet.
 
@@ -351,15 +469,29 @@ defmodule ESI.API.Fleet do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fleets/post_fleets_fleet_id_wings)
 
   """
-  @spec create_wings(fleet_id :: integer) :: ESI.Request.t
-  def create_wings(fleet_id) do
+  @spec create_wings(fleet_id :: integer, opts :: create_wings_opts) :: ESI.Request.t
+  def create_wings(fleet_id, opts \\ []) do
     %ESI.Request{
       verb: :post,
       path: "/fleets/#{fleet_id}/wings/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Fleet.delete_wing/3`](#delete_wing/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type delete_wing_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Delete a fleet wing, only empty wings can be deleted. The wing may contain squads, but the squads must be empty.
@@ -378,21 +510,29 @@ defmodule ESI.API.Fleet do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Fleets/delete_fleets_fleet_id_wings_wing_id)
 
   """
-  @spec delete_wing(fleet_id :: integer, wing_id :: integer) :: ESI.Request.t
-  def delete_wing(fleet_id, wing_id) do
+  @spec delete_wing(fleet_id :: integer, wing_id :: integer, opts :: delete_wing_opts) :: ESI.Request.t
+  def delete_wing(fleet_id, wing_id, opts \\ []) do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/wings/#{wing_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Fleet.update_wing/3`](#update_wing/3).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:naming` (REQUIRED) -- New name of the wing
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_wing_opts :: [
+    datasource: nil | :tranquility | :singularity,
     naming: [name: String.t],
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 

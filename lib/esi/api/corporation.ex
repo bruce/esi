@@ -1,5 +1,17 @@
 defmodule ESI.API.Corporation do
 
+  @typedoc """
+Options for [`Corporation.alliance_history/2`](#alliance_history/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type alliance_history_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get a list of all the alliances a corporation has been a member of.
 
@@ -21,15 +33,27 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_alliancehistory)
 
   """
-  @spec alliance_history(corporation_id :: integer) :: ESI.Request.t
-  def alliance_history(corporation_id) do
+  @spec alliance_history(corporation_id :: integer, opts :: alliance_history_opts) :: ESI.Request.t
+  def alliance_history(corporation_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/alliancehistory/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Corporation.corporation/2`](#corporation/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type corporation_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Public information about a corporation.
@@ -51,15 +75,29 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id)
 
   """
-  @spec corporation(corporation_id :: integer) :: ESI.Request.t
-  def corporation(corporation_id) do
+  @spec corporation(corporation_id :: integer, opts :: corporation_opts) :: ESI.Request.t
+  def corporation(corporation_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Corporation.members/2`](#members/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type members_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Read the current list of members if the calling character is a member..
@@ -80,15 +118,29 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_members)
 
   """
-  @spec members(corporation_id :: integer) :: ESI.Request.t
-  def members(corporation_id) do
+  @spec members(corporation_id :: integer, opts :: members_opts) :: ESI.Request.t
+  def members(corporation_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/members/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Corporation.roles/2`](#roles/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type roles_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Return the roles of all members if the character has the personnel manager role or any grantable role..
@@ -109,21 +161,27 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_roles)
 
   """
-  @spec roles(corporation_id :: integer) :: ESI.Request.t
-  def roles(corporation_id) do
+  @spec roles(corporation_id :: integer, opts :: roles_opts) :: ESI.Request.t
+  def roles(corporation_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/roles/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Corporation.names/1`](#names/1).
+
   - `:corporation_ids` (REQUIRED) -- A comma separated list of corporation IDs
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type names_opts :: [
     corporation_ids: [integer],
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
   ]
 
 
@@ -157,12 +215,20 @@ defmodule ESI.API.Corporation do
   end
 
   @typedoc """
+Options for [`Corporation.structures/2`](#structures/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   - `:page` -- Which page to query, 250 structures per page
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type structures_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
     page: nil | integer,
+    token: nil | String.t,
+    user_agent: nil | String.t,
   ]
 
 
@@ -198,6 +264,18 @@ defmodule ESI.API.Corporation do
     }
   end
 
+  @typedoc """
+Options for [`Corporation.icons/2`](#icons/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type icons_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get the icon urls for a corporation.
 
@@ -219,15 +297,27 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_icons)
 
   """
-  @spec icons(corporation_id :: integer) :: ESI.Request.t
-  def icons(corporation_id) do
+  @spec icons(corporation_id :: integer, opts :: icons_opts) :: ESI.Request.t
+  def icons(corporation_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/icons/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Corporation.npccorps/1`](#npccorps/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type npccorps_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Get a list of npc corporations.
@@ -248,13 +338,13 @@ defmodule ESI.API.Corporation do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_npccorps)
 
   """
-  @spec npccorps() :: ESI.Request.t
-  def npccorps() do
+  @spec npccorps(opts :: npccorps_opts) :: ESI.Request.t
+  def npccorps(opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/corporations/npccorps/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 end

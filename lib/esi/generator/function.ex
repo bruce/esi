@@ -32,6 +32,7 @@ defmodule ESI.Generator.Function do
     :name,
     :tags,
     :responses,
+    :arity,
   ]
 
   @type t :: %__MODULE__{
@@ -43,7 +44,8 @@ defmodule ESI.Generator.Function do
     verb: atom,
     name: String.t,
     responses: map,
-    tags: [String.t]
+    tags: [String.t],
+    arity: pos_integer,
   }
 
   def new(path, verb, info) do
@@ -57,13 +59,27 @@ defmodule ESI.Generator.Function do
       params: param_mapping(info["parameters"]),
       tags: info["tags"],
       responses: info["responses"],
-    } |> add_name
+    }
+    |> add_name
   end
 
   @spec add_name(function :: t) :: t
   defp add_name(function) do
     name = generate_name(function)
     %{function | name: name}
+  end
+
+  @doc """
+  Calculate the arity for a function
+  """
+  @spec arity(function :: t, takes_options :: boolean) :: pos_integer
+  def arity(function, takes_options) do
+    params_count = Map.values(function.params) |> Enum.count(&(&1["in"] == "path"))
+    add = case takes_options do
+      true -> 1
+      false -> 0
+    end
+    params_count + add
   end
 
   @spec generate_module_name(endpoint :: Endpoint.t) :: String.t

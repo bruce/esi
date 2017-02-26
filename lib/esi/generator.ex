@@ -53,8 +53,11 @@ defmodule ESI.Generator do
   end
 
   def write_opts_typedoc(function) do
+    arity = Function.arity(function, length(opts_params(function)) > 0)
     [
       ~S(  @typedoc """),
+      "Options for [`#{function.module_name}.#{function.name}/#{arity}`](##{function.name}/#{arity}).",
+      "",
       Enum.map(opts_params(function), fn param ->
         "  - `:#{param["name"]}` #{param_req_tag(param)}-- #{param["description"]}"
       end) |> flow,
@@ -120,7 +123,7 @@ defmodule ESI.Generator do
   end
 
   @ignore_params_in ~w(path header)
-  @ignore_opts_named ~w(token user_agent datasource)
+  @ignore_opts_named ~w()
 
   defp write_opts(function) do
     case opts_params(function) do

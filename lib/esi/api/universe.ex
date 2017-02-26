@@ -1,5 +1,19 @@
 defmodule ESI.API.Universe do
 
+  @typedoc """
+Options for [`Universe.structure/2`](#structure/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:token` -- Access token to use, if preferred over a header
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type structure_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    token: nil | String.t,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Returns information on requested structure, if you are on the ACL. Otherwise, returns "Forbidden" for all inputs..
 
@@ -19,21 +33,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_structures_structure_id)
 
   """
-  @spec structure(structure_id :: integer) :: ESI.Request.t
-  def structure(structure_id) do
+  @spec structure(structure_id :: integer, opts :: structure_opts) :: ESI.Request.t
+  def structure(structure_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/structures/#{structure_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.bloodlines/1`](#bloodlines/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type bloodlines_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -69,6 +89,18 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @typedoc """
+Options for [`Universe.schematic/2`](#schematic/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type schematic_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get information on a planetary factory schematic.
 
@@ -88,21 +120,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Planetary Interaction/get_universe_schematics_schematic_id)
 
   """
-  @spec schematic(schematic_id :: integer) :: ESI.Request.t
-  def schematic(schematic_id) do
+  @spec schematic(schematic_id :: integer, opts :: schematic_opts) :: ESI.Request.t
+  def schematic(schematic_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/schematics/#{schematic_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.category/2`](#category/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type category_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -136,6 +174,18 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @typedoc """
+Options for [`Universe.structures/1`](#structures/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type structures_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   List all public structures.
 
@@ -155,21 +205,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_structures)
 
   """
-  @spec structures() :: ESI.Request.t
-  def structures() do
+  @spec structures(opts :: structures_opts) :: ESI.Request.t
+  def structures(opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/structures/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.groups/1`](#groups/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:page` -- Which page to query
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type groups_opts :: [
+    datasource: nil | :tranquility | :singularity,
     page: nil | integer,
+    user_agent: nil | String.t,
   ]
 
 
@@ -203,10 +259,16 @@ defmodule ESI.API.Universe do
   end
 
   @typedoc """
+Options for [`Universe.races/1`](#races/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type races_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -241,6 +303,18 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @typedoc """
+Options for [`Universe.moon/2`](#moon/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type moon_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get information on a moon.
 
@@ -262,21 +336,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_moons_moon_id)
 
   """
-  @spec moon(moon_id :: integer) :: ESI.Request.t
-  def moon(moon_id) do
+  @spec moon(moon_id :: integer, opts :: moon_opts) :: ESI.Request.t
+  def moon(moon_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/moons/#{moon_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.constellation/2`](#constellation/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type constellation_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -312,6 +392,18 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @typedoc """
+Options for [`Universe.categories/1`](#categories/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type categories_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get a list of item categories.
 
@@ -331,21 +423,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_categories)
 
   """
-  @spec categories() :: ESI.Request.t
-  def categories() do
+  @spec categories(opts :: categories_opts) :: ESI.Request.t
+  def categories(opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/categories/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.type/2`](#type/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type type_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -379,6 +477,18 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @typedoc """
+Options for [`Universe.systems/1`](#systems/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type systems_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get a list of solar systems.
 
@@ -398,15 +508,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_systems)
 
   """
-  @spec systems() :: ESI.Request.t
-  def systems() do
+  @spec systems(opts :: systems_opts) :: ESI.Request.t
+  def systems(opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/systems/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Universe.constellations/1`](#constellations/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type constellations_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Get a list of constellations.
@@ -427,21 +549,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_constellations)
 
   """
-  @spec constellations() :: ESI.Request.t
-  def constellations() do
+  @spec constellations(opts :: constellations_opts) :: ESI.Request.t
+  def constellations(opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/constellations/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.system/2`](#system/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type system_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -481,10 +609,16 @@ defmodule ESI.API.Universe do
   end
 
   @typedoc """
+Options for [`Universe.group/2`](#group/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type group_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -519,10 +653,16 @@ defmodule ESI.API.Universe do
   end
 
   @typedoc """
+Options for [`Universe.factions/1`](#factions/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type factions_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -558,6 +698,18 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @typedoc """
+Options for [`Universe.stargate/2`](#stargate/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type stargate_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get information on a stargate.
 
@@ -581,21 +733,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_stargates_stargate_id)
 
   """
-  @spec stargate(stargate_id :: integer) :: ESI.Request.t
-  def stargate(stargate_id) do
+  @spec stargate(stargate_id :: integer, opts :: stargate_opts) :: ESI.Request.t
+  def stargate(stargate_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/stargates/#{stargate_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.types/1`](#types/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:page` -- Which page to query
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type types_opts :: [
+    datasource: nil | :tranquility | :singularity,
     page: nil | integer,
+    user_agent: nil | String.t,
   ]
 
 
@@ -629,10 +787,16 @@ defmodule ESI.API.Universe do
   end
 
   @typedoc """
+Options for [`Universe.region/2`](#region/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type region_opts :: [
+    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+    user_agent: nil | String.t,
   ]
 
 
@@ -667,6 +831,18 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @typedoc """
+Options for [`Universe.regions/1`](#regions/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type regions_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
+
   @doc """
   Get a list of regions.
 
@@ -686,15 +862,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_regions)
 
   """
-  @spec regions() :: ESI.Request.t
-  def regions() do
+  @spec regions(opts :: regions_opts) :: ESI.Request.t
+  def regions(opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/regions/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Universe.planet/2`](#planet/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type planet_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Get information on a planet.
@@ -717,15 +905,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_planets_planet_id)
 
   """
-  @spec planet(planet_id :: integer) :: ESI.Request.t
-  def planet(planet_id) do
+  @spec planet(planet_id :: integer, opts :: planet_opts) :: ESI.Request.t
+  def planet(planet_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/planets/#{planet_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
+
+  @typedoc """
+Options for [`Universe.station/2`](#station/2).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
+  - `:user_agent` -- Client identifier, takes precedence over headers
+  """
+  @type station_opts :: [
+    datasource: nil | :tranquility | :singularity,
+    user_agent: nil | String.t,
+  ]
+
 
   @doc """
   Get information on a station.
@@ -755,21 +955,27 @@ defmodule ESI.API.Universe do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_stations_station_id)
 
   """
-  @spec station(station_id :: integer) :: ESI.Request.t
-  def station(station_id) do
+  @spec station(station_id :: integer, opts :: station_opts) :: ESI.Request.t
+  def station(station_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/universe/stations/#{station_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts: Map.new(opts),
     }
   end
 
   @typedoc """
+Options for [`Universe.create_names/1`](#create_names/1).
+
+  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:ids` (REQUIRED) -- The ids to resolve
+  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_names_opts :: [
+    datasource: nil | :tranquility | :singularity,
     ids: [nil | integer],
+    user_agent: nil | String.t,
   ]
 
 
