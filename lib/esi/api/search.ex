@@ -17,6 +17,14 @@ defmodule ESI.API.Search do
   @doc """
   Search for entities that match a given sub-string..
 
+  ## Response Example
+
+  A list of search results:
+
+      %{"solarsystem" => [30002510],
+        "station" => [60004588, 60004594, 60005725, 60009106, 60012721, 60012724,
+         60012727]}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:

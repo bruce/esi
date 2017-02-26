@@ -19,6 +19,7 @@ defmodule ESI.Generator.Function do
     :params,
     :verb,
     :tags,
+    :responses,
   ]
 
   defstruct [
@@ -30,6 +31,7 @@ defmodule ESI.Generator.Function do
     :verb,
     :name,
     :tags,
+    :responses,
   ]
 
   @type t :: %__MODULE__{
@@ -40,6 +42,7 @@ defmodule ESI.Generator.Function do
     params: %{String.t => map},
     verb: atom,
     name: String.t,
+    responses: map,
     tags: [String.t]
   }
 
@@ -53,6 +56,7 @@ defmodule ESI.Generator.Function do
       doc: info["description"],
       params: param_mapping(info["parameters"]),
       tags: info["tags"],
+      responses: info["responses"],
     } |> add_name
   end
 
@@ -92,6 +96,21 @@ defmodule ESI.Generator.Function do
     else
       Keyword.get(@verb_prefix, function.verb, "") <> base
     end
+  end
+
+  @spec response_example(function :: t) :: nil | {String.t, any}
+  def response_example(function) do
+    Enum.find_value(function.responses, fn {code, info} ->
+      case String.to_integer(code) do
+        value when value in 200..299 ->
+          result = info["examples"]["application/json"]
+          if result do
+            {info["description"], result}
+          end
+        _ ->
+          false
+      end
+    end)
   end
 
   @spec generate_name(endpoint :: Endpoint.t) :: String.t

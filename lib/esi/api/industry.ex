@@ -3,6 +3,13 @@ defmodule ESI.API.Industry do
   @doc """
   Return a list of industry facilities.
 
+  ## Response Example
+
+  A list of prices:
+
+      [%{"facility_id" => 60012544, "owner_id" => 1000126, "region_id" => 10000001,
+         "solar_system_id" => 30000032, "tax" => 0.1, "type_id" => 2502}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -24,6 +31,13 @@ defmodule ESI.API.Industry do
 
   @doc """
   Return cost indices for solar systems.
+
+  ## Response Example
+
+  A list of cost indicies:
+
+      [%{"cost_indices" => [%{"activity" => "invention",
+            "cost_index" => 0.00480411064973412}], "solar_system_id" => 30011392}]
 
   ## Swagger Source
 

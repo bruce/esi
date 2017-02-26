@@ -11,6 +11,13 @@ defmodule ESI.API.Insurance do
   @doc """
   Return available insurance levels for all ship types.
 
+  ## Response Example
+
+  A list of insurance levels for all ship types:
+
+      [%{"levels" => [%{"cost" => 10.0, "name" => "Basic", "payout" => 20.0}],
+         "type_id" => 1}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:

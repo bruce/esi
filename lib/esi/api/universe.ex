@@ -3,6 +3,12 @@ defmodule ESI.API.Universe do
   @doc """
   Returns information on requested structure, if you are on the ACL. Otherwise, returns "Forbidden" for all inputs..
 
+  ## Response Example
+
+  Data about a structure:
+
+      %{"name" => "V-3YG7 VI - The Capital", "solar_system_id" => 30000142}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -33,6 +39,15 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of bloodlines.
 
+  ## Response Example
+
+  A list of bloodlines:
+
+      [%{"bloodline_id" => 1, "charisma" => 6, "corporation_id" => 1000006,
+         "description" => "The Deteis are regarded as ...", "intelligence" => 7,
+         "memory" => 7, "name" => "Deteis", "perception" => 5, "race_id" => 1,
+         "ship_type_id" => 601, "willpower" => 5}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -54,6 +69,12 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get information on a planetary factory schematic.
+
+  ## Response Example
+
+  Public data about a schematic:
+
+      %{"cycle_time" => 1800, "schematic_name" => "Bacteria"}
 
   ## Swagger Source
 
@@ -85,6 +106,13 @@ defmodule ESI.API.Universe do
   @doc """
   Get information of an item category.
 
+  ## Response Example
+
+  Information about an item category:
+
+      %{"category_id" => 6, "groups" => [25, 26, 27], "name" => "Ship",
+        "published" => true}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -106,6 +134,12 @@ defmodule ESI.API.Universe do
 
   @doc """
   List all public structures.
+
+  ## Response Example
+
+  List of public structure IDs:
+
+      [1000000017013, 1000000025062]
 
   ## Swagger Source
 
@@ -137,6 +171,12 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of item groups.
 
+  ## Response Example
+
+  A list of item group ids:
+
+      [1, 2, 3]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -167,6 +207,14 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of character races.
 
+  ## Response Example
+
+  A list of character races:
+
+      [%{"alliance_id" => 500001,
+         "description" => "Founded on the tenets of patriotism and hard work...",
+         "name" => "Caldari", "race_id" => 1}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -188,6 +236,14 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get information on a moon.
+
+  ## Response Example
+
+  Information about a moon:
+
+      %{"moon_id" => 40000042, "name" => "Akpivem I - Moon 1",
+        "position" => %{"x" => 58605102008, "y" => -3066616285, "z" => -55193617920},
+        "system_id" => 30000003}
 
   ## Swagger Source
 
@@ -219,6 +275,15 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a constellation.
 
+  ## Response Example
+
+  Information about a constellation:
+
+      %{"constellation_id" => 20000009, "name" => "Mekashtad",
+        "position" => %{"x" => 67796138757472320, "y" => -70591121348560960,
+          "z" => -59587016159270070}, "region_id" => 10000001,
+        "systems" => [20000302, 20000303]}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -240,6 +305,12 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get a list of item categories.
+
+  ## Response Example
+
+  A list of item category ids:
+
+      [1, 2, 3]
 
   ## Swagger Source
 
@@ -271,6 +342,13 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a type.
 
+  ## Response Example
+
+  Information about a type:
+
+      %{"description" => "The Rifter is a...", "group_id" => 25, "name" => "Rifter",
+        "published" => true, "type_id" => 587}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -293,6 +371,12 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of solar systems.
 
+  ## Response Example
+
+  A list of solar system ids:
+
+      [30000001, 30000002]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -314,6 +398,12 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get a list of constellations.
+
+  ## Response Example
+
+  A list of constellation ids:
+
+      [20000001, 20000002]
 
   ## Swagger Source
 
@@ -345,6 +435,18 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a solar system.
 
+  ## Response Example
+
+  Information about a solar system:
+
+      %{"constellation_id" => 20000001, "name" => "Akpivem",
+        "planets" => [%{"moons" => [40000042], "planet_id" => 40000041},
+         %{"planet_id" => 40000043}],
+        "position" => %{"x" => -91174141133075340, "y" => 43938227486247170,
+          "z" => -56482824383339900}, "security_class" => "B",
+        "security_status" => 0.8462923765182495, "stargates" => [50000342],
+        "system_id" => 30000003}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -374,6 +476,13 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get information on an item group.
+
+  ## Response Example
+
+  Information about an item group:
+
+      %{"category_id" => 6, "group_id" => 25, "name" => "Frigate",
+        "published" => true, "types" => [587, 586, 585]}
 
   ## Swagger Source
 
@@ -405,6 +514,15 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of factions.
 
+  ## Response Example
+
+  A list of factions:
+
+      [%{"corporation_id" => 456, "description" => "blah blah", "faction_id" => 1,
+         "is_unique" => true, "name" => "Faction", "size_factor" => 1.0,
+         "solar_system_id" => 123, "station_count" => 1000,
+         "station_system_count" => 100}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -426,6 +544,16 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get information on a stargate.
+
+  ## Response Example
+
+  Information about a stargate:
+
+      %{"destination" => %{"stargate_id" => 50000056, "system_id" => 30000001},
+        "name" => "Stargate (Tanoo)",
+        "position" => %{"x" => -101092761600, "y" => 5279539200,
+          "z" => 1550503403520}, "stargate_id" => 50000342, "system_id" => 30000003,
+        "type_id" => 29624}
 
   ## Swagger Source
 
@@ -457,6 +585,12 @@ defmodule ESI.API.Universe do
   @doc """
   Get a list of type ids.
 
+  ## Response Example
+
+  A list of type ids:
+
+      [1, 2, 3]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -487,6 +621,14 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a region.
 
+  ## Response Example
+
+  Information about a region:
+
+      %{"constellations" => [20000302, 20000303],
+        "description" => "It has long been an established fact of civilization...",
+        "name" => "Metropolis", "region_id" => 10000042}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -508,6 +650,12 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get a list of regions.
+
+  ## Response Example
+
+  A list of region ids:
+
+      [11000001, 11000002]
 
   ## Swagger Source
 
@@ -531,6 +679,14 @@ defmodule ESI.API.Universe do
   @doc """
   Get information on a planet.
 
+  ## Response Example
+
+  Information about a planet:
+
+      %{"name" => "Akpivem III", "planet_id" => 40000046,
+        "position" => %{"x" => -189226344497, "y" => 9901605317,
+          "z" => -254852632979}, "system_id" => 30000003, "type_id" => 13}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -552,6 +708,21 @@ defmodule ESI.API.Universe do
 
   @doc """
   Get information on a station.
+
+  ## Response Example
+
+  Information about a station:
+
+      %{"max_dockable_ship_volume" => 50000000,
+        "name" => "Jakanerva III - Moon 15 - Prompt Delivery Storage",
+        "office_rental_cost" => 10000, "owner" => 1000003,
+        "position" => %{"x" => 165632286720, "y" => 2771804160,
+          "z" => -2455331266560}, "race_id" => 1, "reprocessing_efficiency" => 0.5,
+        "reprocessing_stations_take" => 0.05,
+        "services" => ["courier-missions", "reprocessing-plant", "market",
+         "repair-facilities", "fitting", "news", "storage", "insurance", "docking",
+         "office-rental", "loyalty-point-store", "navy-offices"],
+        "station_id" => 60000277, "system_id" => 30000148, "type_id" => 1531}
 
   ## Swagger Source
 
@@ -582,6 +753,13 @@ defmodule ESI.API.Universe do
 
   @doc """
   Resolve a set of IDs to names and categories. Supported ID's for resolving are: Characters, Corporations, Alliances, Stations, Solar Systems, Constellations, Regions, Types..
+
+  ## Response Example
+
+  List of id/name associations for a set of ID's. ID's that cannot be resolved are not returned.:
+
+      [%{"category" => "character", "id" => 95465499, "name" => "CCP Bartender"},
+       %{"category" => "solar_system", "id" => 30000142, "name" => "Jita"}]
 
   ## Swagger Source
 

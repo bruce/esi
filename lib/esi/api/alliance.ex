@@ -11,6 +11,12 @@ defmodule ESI.API.Alliance do
   @doc """
   Resolve a set of alliance IDs to alliance names.
 
+  ## Response Example
+
+  List of id/name associations:
+
+      [%{"alliance_id" => 1000171, "alliance_name" => "Republic University"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -32,6 +38,12 @@ defmodule ESI.API.Alliance do
 
   @doc """
   List all current member corporations of an alliance.
+
+  ## Response Example
+
+  List of corporation IDs:
+
+      [98000001]
 
   ## Swagger Source
 
@@ -55,6 +67,13 @@ defmodule ESI.API.Alliance do
   @doc """
   Get the icon urls for a alliance.
 
+  ## Response Example
+
+  Urls for icons for the given alliance id and server:
+
+      %{"px128x128" => "https://imageserver.eveonline.com/Alliance/503818424_128.png",
+        "px64x64" => "https://imageserver.eveonline.com/Alliance/503818424_64.png"}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -77,6 +96,13 @@ defmodule ESI.API.Alliance do
   @doc """
   Public information about an alliance.
 
+  ## Response Example
+
+  Public data about an alliance:
+
+      %{"alliance_name" => "C C P Alliance", "date_founded" => "2016-06-26T21:00:00Z",
+        "executor_corp" => 98356193, "ticker" => "<C C P>"}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -98,6 +124,12 @@ defmodule ESI.API.Alliance do
 
   @doc """
   List all active player alliances.
+
+  ## Response Example
+
+  List of Alliance IDs:
+
+      [99000001, 99000002]
 
   ## Swagger Source
 

@@ -17,6 +17,16 @@ defmodule ESI.API.Market do
   @doc """
   Return a list of orders in a region.
 
+  ## Response Example
+
+  A list of orders:
+
+      [%{"duration" => 90, "is_buy_order" => false,
+         "issued" => "2016-09-03T05:12:25Z", "location_id" => 60005599,
+         "min_volume" => 1, "order_id" => 4623824223, "price" => 9.9,
+         "range" => "region", "type_id" => 34, "volume_remain" => 1296000,
+         "volume_total" => 2000000}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -38,6 +48,13 @@ defmodule ESI.API.Market do
 
   @doc """
   Return a list of prices.
+
+  ## Response Example
+
+  A list of prices:
+
+      [%{"adjusted_price" => 306988.09, "average_price" => 306292.67,
+         "type_id" => 32772}]
 
   ## Swagger Source
 
@@ -69,6 +86,16 @@ defmodule ESI.API.Market do
   @doc """
   Return all orders in a structure.
 
+  ## Response Example
+
+  A list of orders:
+
+      [%{"duration" => 90, "is_buy_order" => false,
+         "issued" => "2016-09-03T05:12:25Z", "location_id" => 60005599,
+         "min_volume" => 1, "order_id" => 4623824223, "price" => 9.9,
+         "range" => "region", "type_id" => 34, "volume_remain" => 1296000,
+         "volume_total" => 2000000}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -98,6 +125,13 @@ defmodule ESI.API.Market do
 
   @doc """
   Return a list of historical market statistics for the specified type in a region.
+
+  ## Response Example
+
+  A list of historical market statistics:
+
+      [%{"average" => 5.25, "date" => "2015-05-01", "highest" => 5.27,
+         "lowest" => 5.11, "order_count" => 2267, "volume" => 16276782035}]
 
   ## Swagger Source
 

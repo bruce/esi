@@ -88,7 +88,7 @@ defimpl String.Chars, for: ESI.Generator.SwaggerType do
     |> Enum.join(", ")
     "[#{internal}]" |> to_alternatives(swagger_type)
   end
-  def to_string(%{node: %{"type" => _} = param} = swagger_type) do
+  def to_string(%{node: %{"type" => _} = param}) do
     raise "Unknown param type: #{inspect(param)}"
   end
 

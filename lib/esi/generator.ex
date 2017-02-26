@@ -37,7 +37,7 @@ defmodule ESI.Generator do
       [
         ~S(  @doc """),
         ["  ", doc, "."],
-        "",
+        write_response_example(Function.response_example(function)),
         "  ## Swagger Source",
         "",
         "  This function was generated from the following Swagger operation:",
@@ -60,6 +60,27 @@ defmodule ESI.Generator do
       end) |> flow,
       ~S(  """)
     ] |> flow
+  end
+
+  def write_response_example(resp) do
+    [
+      "",
+      "  ## Response Example",
+      "",
+      do_write_response_example(resp),
+      "",
+    ] |> List.flatten |> flow
+  end
+
+  defp do_write_response_example(nil) do
+    ["  No example available."]
+  end
+  defp do_write_response_example({description, example}) do
+    [
+      "  #{description}:",
+      "",
+      "      " <> String.replace(inspect(example, pretty: true), "\n", "\n      ")
+    ]
   end
 
   def write_function(function) do

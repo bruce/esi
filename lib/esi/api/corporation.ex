@@ -3,6 +3,14 @@ defmodule ESI.API.Corporation do
   @doc """
   Get a list of all the alliances a corporation has been a member of.
 
+  ## Response Example
+
+  Alliance history for the given corporation:
+
+      [%{"alliance" => %{"alliance_id" => 99000006, "is_deleted" => false},
+         "record_id" => 23, "start_date" => "2016-10-25T14:46:00Z"},
+       %{"record_id" => 1, "start_date" => "2015-07-06T20:56:00Z"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -24,6 +32,13 @@ defmodule ESI.API.Corporation do
 
   @doc """
   Public information about a corporation.
+
+  ## Response Example
+
+  Public data about a corporation:
+
+      %{"alliance_id" => 434243723, "ceo_id" => 180548812,
+        "corporation_name" => "C C P", "member_count" => 656, "ticker" => "-CCP-"}
 
   ## Swagger Source
 
@@ -47,6 +62,12 @@ defmodule ESI.API.Corporation do
   @doc """
   Read the current list of members if the calling character is a member..
 
+  ## Response Example
+
+  List of member character IDs:
+
+      [%{"character_id" => 90000001}, %{"character_id" => 90000002}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -68,6 +89,12 @@ defmodule ESI.API.Corporation do
 
   @doc """
   Return the roles of all members if the character has the personnel manager role or any grantable role..
+
+  ## Response Example
+
+  List of member character ID's and roles:
+
+      [%{"character_id" => 1000171, "roles" => ["Director", "Station_Manager"]}]
 
   ## Swagger Source
 
@@ -98,6 +125,12 @@ defmodule ESI.API.Corporation do
 
   @doc """
   Resolve a set of corporation IDs to corporation names.
+
+  ## Response Example
+
+  List of id/name associations:
+
+      [%{"corporation_id" => 1000171, "corporation_name" => "Republic University"}]
 
   ## Swagger Source
 
@@ -131,6 +164,15 @@ defmodule ESI.API.Corporation do
   @doc """
   Get a list of corporation structures.
 
+  ## Response Example
+
+  List of corporation structures' information:
+
+      [%{"corporation_id" => 667531913, "current_vul" => "{1,2}",
+         "next_vul" => "{3,4}", "profile_id" => 11237,
+         "structure_id" => 1021975535893, "system_id" => 30004763,
+         "type_id" => 35833}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -153,6 +195,14 @@ defmodule ESI.API.Corporation do
   @doc """
   Get the icon urls for a corporation.
 
+  ## Response Example
+
+  Urls for icons for the given corporation id and server:
+
+      %{"px128x128" => "https://imageserver.eveonline.com/Corporation/1000010_128.png",
+        "px256x256" => "https://imageserver.eveonline.com/Corporation/1000010_256.png",
+        "px64x64" => "https://imageserver.eveonline.com/Corporation/1000010_64.png"}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -174,6 +224,12 @@ defmodule ESI.API.Corporation do
 
   @doc """
   Get a list of npc corporations.
+
+  ## Response Example
+
+  A list of npc corporation ids:
+
+      [1000001, 1000002, 1000003]
 
   ## Swagger Source
 

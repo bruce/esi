@@ -11,6 +11,10 @@ defmodule ESI.API.UI do
   @doc """
   Open the information window for a character, corporation or alliance inside the client.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -41,6 +45,10 @@ defmodule ESI.API.UI do
   @doc """
   Open the market details window for a specific typeID inside the client.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -70,6 +78,10 @@ defmodule ESI.API.UI do
 
   @doc """
   Open the New Mail window, according to settings from the request if applicable.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 
@@ -105,6 +117,10 @@ defmodule ESI.API.UI do
   @doc """
   Set a solar system as autopilot waypoint.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -134,6 +150,10 @@ defmodule ESI.API.UI do
 
   @doc """
   Open the contract window inside the client.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 

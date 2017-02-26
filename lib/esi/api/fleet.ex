@@ -11,6 +11,16 @@ defmodule ESI.API.Fleet do
   @doc """
   Return information about fleet members.
 
+  ## Response Example
+
+  A list of fleet members:
+
+      [%{"character_id" => 93265215, "join_time" => "2016-04-29T12:34:56Z",
+         "role" => "squad_commander", "role_name" => "Squad Commander (Boss)",
+         "ship_type_id" => 33328, "solar_system_id" => 30003729,
+         "squad_id" => 3129411261968, "station_id" => 61000180,
+         "takes_fleet_warp" => true, "wing_id" => 2073711261968}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -41,6 +51,10 @@ defmodule ESI.API.Fleet do
   @doc """
   Invite a character into the fleet, if a character has a CSPA charge set, it is not possible to invite them to the fleet using ESI.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -62,6 +76,10 @@ defmodule ESI.API.Fleet do
 
   @doc """
   Delete a fleet squad, only empty squads can be deleted.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 
@@ -93,6 +111,10 @@ defmodule ESI.API.Fleet do
   @doc """
   Rename a fleet squad.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -115,6 +137,12 @@ defmodule ESI.API.Fleet do
   @doc """
   Create a new squad in a fleet.
 
+  ## Response Example
+
+  Squad created:
+
+      %{"squad_id" => 123}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -136,6 +164,13 @@ defmodule ESI.API.Fleet do
 
   @doc """
   Return details about a fleet.
+
+  ## Response Example
+
+  Details about a fleet:
+
+      %{"is_free_move" => false, "is_registered" => false,
+        "is_voice_enabled" => false, "motd" => "This is an <b>awesome</b> fleet!"}
 
   ## Swagger Source
 
@@ -167,6 +202,10 @@ defmodule ESI.API.Fleet do
   @doc """
   Update settings about a fleet.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -188,6 +227,10 @@ defmodule ESI.API.Fleet do
 
   @doc """
   Kick a fleet member.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 
@@ -219,6 +262,10 @@ defmodule ESI.API.Fleet do
   @doc """
   Move a fleet member around.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -249,6 +296,13 @@ defmodule ESI.API.Fleet do
   @doc """
   Return information about wings in a fleet.
 
+  ## Response Example
+
+  A list of fleet wings:
+
+      [%{"id" => 2073711261968, "name" => "Wing 1",
+         "squads" => [%{"id" => 3129411261968, "name" => "Squad 1"}]}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -271,6 +325,12 @@ defmodule ESI.API.Fleet do
   @doc """
   Create a new wing in a fleet.
 
+  ## Response Example
+
+  Wing created:
+
+      %{"wing_id" => 123}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -292,6 +352,10 @@ defmodule ESI.API.Fleet do
 
   @doc """
   Delete a fleet wing, only empty wings can be deleted. The wing may contain squads, but the squads must be empty.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 
@@ -322,6 +386,10 @@ defmodule ESI.API.Fleet do
 
   @doc """
   Rename a fleet wing.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 

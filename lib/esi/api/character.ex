@@ -3,6 +3,16 @@ defmodule ESI.API.Character do
   @doc """
   List your character's personal bookmarks.
 
+  ## Response Example
+
+  A list of bookmarks:
+
+      [%{"bookmark_id" => 32, "create_date" => "2016-08-09T11:57:47Z",
+         "creator_id" => 90000001, "folder_id" => 5, "memo" => "aoeu ( Citadel )",
+         "note" => "", "owner_id" => 90000001,
+         "target" => %{"item" => %{"item_id" => 1000000012668, "type_id" => 35832},
+           "location_id" => 30000005}}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -24,6 +34,14 @@ defmodule ESI.API.Character do
 
   @doc """
   Return fittings of a character.
+
+  ## Response Example
+
+  A list of fittings:
+
+      [%{"description" => "Awesome Vindi fitting", "fitting_id" => 1,
+         "items" => [%{"flag" => 12, "quantity" => 1, "type_id" => 1234}],
+         "name" => "Best Vindicator", "ship_type_id" => 123}]
 
   ## Swagger Source
 
@@ -55,6 +73,12 @@ defmodule ESI.API.Character do
   @doc """
   Save a new fitting for a character.
 
+  ## Response Example
+
+  A list of fittings:
+
+      %{"fitting_id" => 2}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -76,6 +100,13 @@ defmodule ESI.API.Character do
 
   @doc """
   Get the current ship type, name and id.
+
+  ## Response Example
+
+  Get the current ship type, name and id:
+
+      %{"ship_item_id" => 1000000016991, "ship_name" => "SPACESHIPS!!!",
+        "ship_type_id" => 1233}
 
   ## Swagger Source
 
@@ -113,6 +144,14 @@ defmodule ESI.API.Character do
   @doc """
   Search for entities that match a given sub-string..
 
+  ## Response Example
+
+  A list of search results:
+
+      %{"solarsystem" => [30002510],
+        "station" => [60004588, 60004594, 60005725, 60009106, 60012721, 60012724,
+         60012727]}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -143,6 +182,12 @@ defmodule ESI.API.Character do
   @doc """
   Resolve a set of character IDs to character names.
 
+  ## Response Example
+
+  List of id/name associations:
+
+      [%{"character_id" => 95465499, "character_name" => "CCP Bartender"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -164,6 +209,10 @@ defmodule ESI.API.Character do
 
   @doc """
   Delete a mail label.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 
@@ -187,6 +236,12 @@ defmodule ESI.API.Character do
   @doc """
   List your character's personal bookmark folders.
 
+  ## Response Example
+
+  List of bookmark folders:
+
+      [%{"folder_id" => 5, "name" => "Icecream", "owner_id" => 90000001}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -208,6 +263,14 @@ defmodule ESI.API.Character do
 
   @doc """
   Return a list of the characters assets.
+
+  ## Response Example
+
+  A flat list of the users assets:
+
+      [%{"is_singleton" => true, "item_id" => 1000000016835,
+         "location_flag" => "Hangar", "location_id" => 60002959,
+         "location_type" => "station", "type_id" => 3516}]
 
   ## Swagger Source
 
@@ -231,6 +294,20 @@ defmodule ESI.API.Character do
   @doc """
   List the configured skill queue for the given character.
 
+  ## Response Example
+
+  The current skill queue, sorted ascending by finishing time:
+
+      [%{"finish_date" => "2016-06-29T10:47:00Z", "finished_level" => 3,
+         "queue_position" => 0, "skill_id" => 1,
+         "start_date" => "2016-06-29T10:46:00Z"},
+       %{"finish_date" => "2016-07-15T10:47:00Z", "finished_level" => 4,
+         "queue_position" => 1, "skill_id" => 1,
+         "start_date" => "2016-06-29T10:47:00Z"},
+       %{"finish_date" => "2016-08-30T10:47:00Z", "finished_level" => 2,
+         "queue_position" => 2, "skill_id" => 2,
+         "start_date" => "2016-07-15T10:47:00Z"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -253,6 +330,14 @@ defmodule ESI.API.Character do
   @doc """
   Public information about a character.
 
+  ## Response Example
+
+  Public data for the given character:
+
+      %{"ancestry_id" => 19, "birthday" => "2015-03-24T11:37:00Z",
+        "bloodline_id" => 3, "corporation_id" => 109299958, "description" => "",
+        "gender" => "male", "name" => "CCP Bartender", "race_id" => 2}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -274,6 +359,17 @@ defmodule ESI.API.Character do
 
   @doc """
   Returns a list of all planetary colonies owned by a character..
+
+  ## Response Example
+
+  List of colonies:
+
+      [%{"last_update" => "2016-11-28T16:42:51Z", "num_pins" => 1,
+         "owner_id" => 90000001, "planet_id" => 40023691, "planet_type" => "plasma",
+         "solar_system_id" => 30000379, "upgrade_level" => 0},
+       %{"last_update" => "2016-11-28T16:41:54Z", "num_pins" => 1,
+         "owner_id" => 90000001, "planet_id" => 40023697, "planet_type" => "barren",
+         "solar_system_id" => 30000379, "upgrade_level" => 0}]
 
   ## Swagger Source
 
@@ -305,6 +401,12 @@ defmodule ESI.API.Character do
   @doc """
   Takes a source character ID in the url and a set of target character ID's in the body, returns a CSPA charge cost.
 
+  ## Response Example
+
+  Aggregate cost of sending a mail from the source character to the target characters, in ISK hundredths:
+
+      %{"cost" => 295000}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -335,6 +437,10 @@ defmodule ESI.API.Character do
   @doc """
   Bulk delete contacts.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -364,6 +470,13 @@ defmodule ESI.API.Character do
 
   @doc """
   Return contacts of a character.
+
+  ## Response Example
+
+  A list of contacts:
+
+      [%{"contact_id" => 123, "contact_type" => "character", "is_blocked" => false,
+         "is_watched" => true, "standing" => 10.0}]
 
   ## Swagger Source
 
@@ -400,6 +513,12 @@ defmodule ESI.API.Character do
 
   @doc """
   Bulk add contacts with same settings.
+
+  ## Response Example
+
+  A list of contact ids that successfully created:
+
+      [123, 456]
 
   ## Swagger Source
 
@@ -438,6 +557,10 @@ defmodule ESI.API.Character do
   @doc """
   Bulk edit contacts with same settings.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -461,6 +584,17 @@ defmodule ESI.API.Character do
   @doc """
   A list of the character's clones.
 
+  ## Response Example
+
+  Clone information for the given character:
+
+      %{"home_location" => %{"location_id" => 1021348135816,
+          "location_type" => "structure"},
+        "jump_clones" => [%{"implants" => [22118], "location_id" => 60003463,
+           "location_type" => "station"},
+         %{"implants" => [], "location_id" => 1021348135816,
+           "location_type" => "structure"}]}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -482,6 +616,12 @@ defmodule ESI.API.Character do
 
   @doc """
   Return all mailing lists that the character is subscribed to.
+
+  ## Response Example
+
+  Mailing lists:
+
+      [%{"mailing_list_id" => 1, "name" => "test_mailing_list"}]
 
   ## Swagger Source
 
@@ -505,6 +645,12 @@ defmodule ESI.API.Character do
   @doc """
   Return custom labels for contacts the character defined.
 
+  ## Response Example
+
+  A list of contact labels:
+
+      [%{"label_id" => 123, "label_name" => "Friends"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -526,6 +672,15 @@ defmodule ESI.API.Character do
 
   @doc """
   List all trained skills for the given character.
+
+  ## Response Example
+
+  Known skills for the character:
+
+      %{"skills" => [%{"current_skill_level" => 1, "skill_id" => 1,
+           "skillpoints_in_skill" => 10000},
+         %{"current_skill_level" => 1, "skill_id" => 2,
+           "skillpoints_in_skill" => 10000}], "total_sp" => 20000}
 
   ## Swagger Source
 
@@ -560,6 +715,15 @@ defmodule ESI.API.Character do
   @doc """
   Return a list of character's recent kills and losses.
 
+  ## Response Example
+
+  A list of killmail IDs and hashes:
+
+      [%{"killmail_hash" => "8eef5e8fb6b88fe3407c489df33822b2e3b57a5e",
+         "killmail_id" => 2},
+       %{"killmail_hash" => "b41ccb498ece33d64019f64c0db392aa3aa701fb",
+         "killmail_id" => 1}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -590,6 +754,14 @@ defmodule ESI.API.Character do
   @doc """
   Get 50 event summaries from the calendar. If no event ID is given,.
 
+  ## Response Example
+
+  A collection of event summaries:
+
+      [%{"event_date" => "2016-06-26T20:00:00Z", "event_id" => 1386435,
+         "event_response" => "accepted", "importance" => 0,
+         "title" => "o7 The EVE Online Show"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -612,6 +784,22 @@ defmodule ESI.API.Character do
   @doc """
   Returns full details on the layout of a single planetary colony, including links, pins and routes. Note: Planetary information is only recalculated when the colony is viewed through the client. Information on this endpoint will not update until this criteria is met..
 
+  ## Response Example
+
+  Colony layout:
+
+      %{"links" => [%{"destination_pin_id" => 1000000017022, "link_level" => 0,
+           "source_pin_id" => 1000000017021}],
+        "pins" => [%{"is_running" => true, "latitude" => 1.55087844973,
+           "longitude" => 0.717145933308, "pin_id" => 1000000017021,
+           "type_id" => 2254},
+         %{"is_running" => true, "latitude" => 1.53360639935,
+           "longitude" => 0.709775584394, "pin_id" => 1000000017022,
+           "type_id" => 2256}],
+        "routes" => [%{"content_type_id" => 2393,
+           "destination_pin_id" => 1000000017030, "quantity" => 20, "route_id" => 4,
+           "source_pin_id" => 1000000017029}]}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -633,6 +821,15 @@ defmodule ESI.API.Character do
 
   @doc """
   Get portrait urls for a character.
+
+  ## Response Example
+
+  Public data for the given character:
+
+      %{"px128x128" => "https://imageserver.eveonline.com/Character/95465499_128.jpg",
+        "px256x256" => "https://imageserver.eveonline.com/Character/95465499_256.jpg",
+        "px512x512" => "https://imageserver.eveonline.com/Character/95465499_512.jpg",
+        "px64x64" => "https://imageserver.eveonline.com/Character/95465499_64.jpg"}
 
   ## Swagger Source
 
@@ -666,6 +863,15 @@ defmodule ESI.API.Character do
   @doc """
   Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards..
 
+  ## Response Example
+
+  The requested mail:
+
+      [%{"from" => 90000001, "is_read" => true, "labels" => [3], "mail_id" => 7,
+         "recipients" => [%{"recipient_id" => 90000002,
+            "recipient_type" => "character"}], "subject" => "Title for EVE Mail",
+         "timestamp" => "2015-09-30T16:07:00Z"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -696,6 +902,12 @@ defmodule ESI.API.Character do
   @doc """
   Create and send a new mail.
 
+  ## Response Example
+
+  Mail created:
+
+      13
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -718,6 +930,10 @@ defmodule ESI.API.Character do
   @doc """
   Delete a fitting from a character.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -739,6 +955,16 @@ defmodule ESI.API.Character do
 
   @doc """
   Get all the information for a specific event.
+
+  ## Response Example
+
+  Full details of a specific event:
+
+      %{"date" => "2016-06-26T21:00:00Z", "duration" => 60, "event_id" => 1386435,
+        "importance" => 1, "owner_id" => 1, "owner_name" => "EVE System",
+        "owner_type" => "eve_server", "response" => "Undecided",
+        "text" => "o7: The EVE Online Show features latest developer news, fast paced action, community overviews and a lot more with CCP Guard and CCP Mimic. Join the thrilling o7 live broadcast at 20:00 EVE time (=UTC) on <a href=\"http://www.twitch.tv/ccp\">EVE TV</a>. Don't miss it!",
+        "title" => "o7 The EVE Online Show"}
 
   ## Swagger Source
 
@@ -770,6 +996,10 @@ defmodule ESI.API.Character do
   @doc """
   Set your response status to an event.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -791,6 +1021,12 @@ defmodule ESI.API.Character do
 
   @doc """
   List your wallets and their balances. Characters typically have only one wallet, with wallet_id 1000 being the master wallet..
+
+  ## Response Example
+
+  Wallet data for selected user:
+
+      [%{"balance" => 295000, "wallet_id" => 1000}]
 
   ## Swagger Source
 
@@ -814,6 +1050,15 @@ defmodule ESI.API.Character do
   @doc """
   Get a list of all the corporations a character has been a member of.
 
+  ## Response Example
+
+  Corporation history for the given character:
+
+      [%{"corporation_id" => 90000001, "is_deleted" => false, "record_id" => 500,
+         "start_date" => "2016-06-26T20:00:00Z"},
+       %{"corporation_id" => 90000002, "is_deleted" => false, "record_id" => 501,
+         "start_date" => "2016-07-26T20:00:00Z"}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -836,6 +1081,12 @@ defmodule ESI.API.Character do
   @doc """
   Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable..
 
+  ## Response Example
+
+  Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable.:
+
+      %{"solar_system_id" => 30002505, "structure_id" => 1000000016989}
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -857,6 +1108,15 @@ defmodule ESI.API.Character do
 
   @doc """
   Return a list of the users mail labels, unread counts for each label and a total unread count..
+
+  ## Response Example
+
+  A list of mail labels and unread counts:
+
+      %{"labels" => [%{"color_hex" => "#660066", "label_id" => 16, "name" => "PINK",
+           "unread_count" => 4},
+         %{"color_hex" => "#ffffff", "label_id" => 17, "name" => "WHITE",
+           "unread_count" => 1}], "total_unread_count" => 5}
 
   ## Swagger Source
 
@@ -888,6 +1148,12 @@ defmodule ESI.API.Character do
   @doc """
   Create a mail label.
 
+  ## Response Example
+
+  Label created:
+
+      128
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -910,6 +1176,10 @@ defmodule ESI.API.Character do
   @doc """
   Delete a mail.
 
+  ## Response Example
+
+  No example available.
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -931,6 +1201,13 @@ defmodule ESI.API.Character do
 
   @doc """
   Return the contents of an EVE mail.
+
+  ## Response Example
+
+  Contents of a mail:
+
+      %{"body" => "blah blah blah", "from" => 90000001, "labels" => [2, 32],
+        "read" => false, "subject" => "test", "timestamp" => "2015-09-30T16:07:00Z"}
 
   ## Swagger Source
 
@@ -961,6 +1238,10 @@ defmodule ESI.API.Character do
 
   @doc """
   Update metadata about a mail.
+
+  ## Response Example
+
+  No example available.
 
   ## Swagger Source
 

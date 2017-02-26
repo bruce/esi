@@ -11,6 +11,12 @@ defmodule ESI.API.War do
   @doc """
   Return a list of wars.
 
+  ## Response Example
+
+  A list of war IDs, 2000 at most, in decending order by war_id.:
+
+      [3, 2, 1]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -41,6 +47,15 @@ defmodule ESI.API.War do
   @doc """
   Return a list of kills related to a war.
 
+  ## Response Example
+
+  A list of killmail IDs and hashes:
+
+      [%{"killmail_hash" => "8eef5e8fb6b88fe3407c489df33822b2e3b57a5e",
+         "killmail_id" => 2},
+       %{"killmail_hash" => "b41ccb498ece33d64019f64c0db392aa3aa701fb",
+         "killmail_id" => 1}]
+
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
@@ -62,6 +77,16 @@ defmodule ESI.API.War do
 
   @doc """
   Return details about a war.
+
+  ## Response Example
+
+  Details about a war:
+
+      %{"aggressor" => %{"corporation_id" => 986665792, "isk_destroyed" => 0,
+          "ships_killed" => 0}, "declared" => "2004-05-22T05:20:00Z",
+        "defender" => %{"corporation_id" => 1001562011, "isk_destroyed" => 0,
+          "ships_killed" => 0}, "id" => 1941, "mutual" => false,
+        "open_for_allies" => false}
 
   ## Swagger Source
 
