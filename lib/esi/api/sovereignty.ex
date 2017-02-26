@@ -28,6 +28,7 @@ defmodule ESI.API.Sovereignty do
     %ESI.Request{
       verb: :get,
       path: "/sovereignty/campaigns/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -60,6 +61,7 @@ defmodule ESI.API.Sovereignty do
     %ESI.Request{
       verb: :get,
       path: "/sovereignty/structures/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end

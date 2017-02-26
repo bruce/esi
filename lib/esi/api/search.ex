@@ -40,7 +40,8 @@ defmodule ESI.API.Search do
     %ESI.Request{
       verb: :get,
       path: "/search/",
-      query_opts: Keyword.take(opts, [:categories, :language, :search, :strict]),
+      opts_schema: %{categories: {:query, :required}, datasource: {:query, :optional}, language: {:query, :optional}, search: {:query, :required}, strict: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

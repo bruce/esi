@@ -33,7 +33,8 @@ defmodule ESI.API.Insurance do
     %ESI.Request{
       verb: :get,
       path: "/insurance/prices/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

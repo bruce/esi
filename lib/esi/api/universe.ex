@@ -24,6 +24,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/structures/#{structure_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -63,7 +64,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/bloodlines/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -91,6 +93,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/schematics/#{schematic_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -128,7 +131,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/categories/#{category_id}/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -156,6 +160,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/structures/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -192,7 +197,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/groups/",
-      query_opts: Keyword.take(opts, [:page]),
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -230,7 +236,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/races/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -260,6 +267,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/moons/#{moon_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -299,7 +307,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/constellations/#{constellation_id}/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -327,6 +336,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/categories/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -364,7 +374,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/types/#{type_id}/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -392,6 +403,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/systems/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -420,6 +432,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/constellations/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -462,7 +475,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/systems/#{system_id}/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -499,7 +513,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/groups/#{group_id}/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -538,7 +553,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/factions/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -570,6 +586,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/stargates/#{stargate_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -606,7 +623,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/types/",
-      query_opts: Keyword.take(opts, [:page]),
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -644,7 +662,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/regions/#{region_id}/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -672,6 +691,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/regions/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -702,6 +722,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/planets/#{planet_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -739,6 +760,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/stations/#{station_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -776,7 +798,8 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :post,
       path: "/universe/names/",
-      body_opts: Keyword.take(opts, [:ids]),
+      opts_schema: %{datasource: {:query, :optional}, ids: {:body, :required}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

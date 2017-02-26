@@ -26,6 +26,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/alliancehistory/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -55,6 +56,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -83,6 +85,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/members/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -111,6 +114,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/roles/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -147,7 +151,8 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/names/",
-      query_opts: Keyword.take(opts, [:corporation_ids]),
+      opts_schema: %{corporation_ids: {:query, :required}, datasource: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -188,7 +193,8 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/structures/",
-      query_opts: Keyword.take(opts, [:language, :page]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, page: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -218,6 +224,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/icons/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -246,6 +253,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/npccorps/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end

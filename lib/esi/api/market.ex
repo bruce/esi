@@ -42,7 +42,8 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/#{region_id}/orders/",
-      query_opts: Keyword.take(opts, [:order_type, :page, :type_id]),
+      opts_schema: %{datasource: {:query, :optional}, order_type: {:query, :required}, page: {:query, :optional}, type_id: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -71,6 +72,7 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/prices/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -111,7 +113,8 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/structures/#{structure_id}/",
-      query_opts: Keyword.take(opts, [:page]),
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -148,7 +151,8 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/#{region_id}/history/",
-      query_opts: Keyword.take(opts, [:type_id]),
+      opts_schema: %{datasource: {:query, :optional}, type_id: {:query, :required}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

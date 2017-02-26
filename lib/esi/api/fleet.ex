@@ -36,7 +36,8 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :get,
       path: "/fleets/#{fleet_id}/members/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -70,7 +71,8 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :post,
       path: "/fleets/#{fleet_id}/members/",
-      body_opts: Keyword.take(opts, [:invitation]),
+      opts_schema: %{datasource: {:query, :optional}, invitation: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -96,6 +98,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/squads/#{squad_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -130,7 +133,8 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :put,
       path: "/fleets/#{fleet_id}/squads/#{squad_id}/",
-      body_opts: Keyword.take(opts, [:naming]),
+      opts_schema: %{datasource: {:query, :optional}, naming: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -158,6 +162,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :post,
       path: "/fleets/#{fleet_id}/wings/#{wing_id}/squads/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -187,6 +192,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :get,
       path: "/fleets/#{fleet_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -221,7 +227,8 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :put,
       path: "/fleets/#{fleet_id}/",
-      body_opts: Keyword.take(opts, [:new_settings]),
+      opts_schema: %{datasource: {:query, :optional}, new_settings: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -247,6 +254,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/members/#{member_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -281,7 +289,8 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :put,
       path: "/fleets/#{fleet_id}/members/#{member_id}/",
-      body_opts: Keyword.take(opts, [:movement]),
+      opts_schema: %{datasource: {:query, :optional}, movement: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -318,7 +327,8 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :get,
       path: "/fleets/#{fleet_id}/wings/",
-      query_opts: Keyword.take(opts, [:language]),
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -346,6 +356,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :post,
       path: "/fleets/#{fleet_id}/wings/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -372,6 +383,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/wings/#{wing_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -406,7 +418,8 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :put,
       path: "/fleets/#{fleet_id}/wings/#{wing_id}/",
-      body_opts: Keyword.take(opts, [:naming]),
+      opts_schema: %{datasource: {:query, :optional}, naming: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

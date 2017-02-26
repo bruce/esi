@@ -28,6 +28,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/bookmarks/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -58,6 +59,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/fittings/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -94,7 +96,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :post,
       path: "/characters/#{character_id}/fittings/",
-      body_opts: Keyword.take(opts, [:fitting]),
+      opts_schema: %{datasource: {:query, :optional}, fitting: {:body, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -123,6 +126,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/ship/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -167,7 +171,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/search/",
-      query_opts: Keyword.take(opts, [:categories, :language, :search, :strict]),
+      opts_schema: %{categories: {:query, :required}, datasource: {:query, :optional}, language: {:query, :optional}, search: {:query, :required}, strict: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -203,7 +208,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/names/",
-      query_opts: Keyword.take(opts, [:character_ids]),
+      opts_schema: %{character_ids: {:query, :required}, datasource: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -229,6 +235,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/mail/labels/#{label_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -257,6 +264,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/bookmarks/folders/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -287,6 +295,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/assets/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -323,6 +332,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/skillqueue/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -353,6 +363,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -386,6 +397,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/planets/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -422,7 +434,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :post,
       path: "/characters/#{character_id}/cspa/",
-      body_opts: Keyword.take(opts, [:characters]),
+      opts_schema: %{characters: {:body, :required}, datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -456,7 +469,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/contacts/",
-      body_opts: Keyword.take(opts, [:contact_ids]),
+      opts_schema: %{contact_ids: {:body, :required}, datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -493,7 +507,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/contacts/",
-      query_opts: Keyword.take(opts, [:page]),
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -535,8 +550,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :post,
       path: "/characters/#{character_id}/contacts/",
-      body_opts: Keyword.take(opts, [:contact_ids]),
-      query_opts: Keyword.take(opts, [:label_id, :standing, :watched]),
+      opts_schema: %{contact_ids: {:body, :required}, datasource: {:query, :optional}, label_id: {:query, :optional}, standing: {:query, :required}, token: {:query, :optional}, user_agent: {:query, :optional}, watched: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -576,8 +591,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :put,
       path: "/characters/#{character_id}/contacts/",
-      body_opts: Keyword.take(opts, [:contact_ids]),
-      query_opts: Keyword.take(opts, [:label_id, :standing, :watched]),
+      opts_schema: %{contact_ids: {:body, :required}, datasource: {:query, :optional}, label_id: {:query, :optional}, standing: {:query, :required}, token: {:query, :optional}, user_agent: {:query, :optional}, watched: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -610,6 +625,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/clones/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -638,6 +654,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/lists/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -666,6 +683,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/contacts/labels/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -697,6 +715,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/skills/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -739,7 +758,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/killmails/recent/",
-      query_opts: Keyword.take(opts, [:max_count, :max_kill_id]),
+      opts_schema: %{datasource: {:query, :optional}, max_count: {:query, :optional}, max_kill_id: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -777,7 +797,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/calendar/",
-      query_opts: Keyword.take(opts, [:from_event]),
+      opts_schema: %{datasource: {:query, :optional}, from_event: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -815,6 +836,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/planets/#{planet_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -846,6 +868,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/portrait/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -887,7 +910,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/",
-      query_opts: Keyword.take(opts, [:labels, :last_mail_id]),
+      opts_schema: %{datasource: {:query, :optional}, labels: {:query, :optional}, last_mail_id: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -923,7 +947,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :post,
       path: "/characters/#{character_id}/mail/",
-      body_opts: Keyword.take(opts, [:mail]),
+      opts_schema: %{datasource: {:query, :optional}, mail: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -949,6 +974,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/fittings/#{fitting_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -981,6 +1007,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/calendar/#{event_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -1015,7 +1042,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :put,
       path: "/characters/#{character_id}/calendar/#{event_id}/",
-      body_opts: Keyword.take(opts, [:response]),
+      opts_schema: %{datasource: {:query, :optional}, response: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -1043,6 +1071,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/wallets/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -1074,6 +1103,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/corporationhistory/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -1102,6 +1132,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/location/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -1133,6 +1164,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/labels/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -1169,7 +1201,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :post,
       path: "/characters/#{character_id}/mail/labels/",
-      body_opts: Keyword.take(opts, [:label]),
+      opts_schema: %{datasource: {:query, :optional}, label: {:body, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -1195,6 +1228,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/mail/#{mail_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -1224,6 +1258,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/#{mail_id}/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -1258,7 +1293,8 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :put,
       path: "/characters/#{character_id}/mail/#{mail_id}/",
-      body_opts: Keyword.take(opts, [:contents]),
+      opts_schema: %{contents: {:body, :required}, datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

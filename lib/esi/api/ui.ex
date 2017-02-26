@@ -30,7 +30,8 @@ defmodule ESI.API.UI do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/information/",
-      query_opts: Keyword.take(opts, [:target_id]),
+      opts_schema: %{datasource: {:query, :optional}, target_id: {:query, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -64,7 +65,8 @@ defmodule ESI.API.UI do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/marketdetails/",
-      query_opts: Keyword.take(opts, [:type_id]),
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, type_id: {:query, :required}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -98,7 +100,8 @@ defmodule ESI.API.UI do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/newmail/",
-      body_opts: Keyword.take(opts, [:new_mail]),
+      opts_schema: %{datasource: {:query, :optional}, new_mail: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -136,7 +139,8 @@ defmodule ESI.API.UI do
     %ESI.Request{
       verb: :post,
       path: "/ui/autopilot/waypoint/",
-      query_opts: Keyword.take(opts, [:add_to_beginning, :clear_other_waypoints, :destination_id]),
+      opts_schema: %{add_to_beginning: {:query, :required}, clear_other_waypoints: {:query, :required}, datasource: {:query, :optional}, destination_id: {:query, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -170,7 +174,8 @@ defmodule ESI.API.UI do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/contract/",
-      query_opts: Keyword.take(opts, [:contract_id]),
+      opts_schema: %{contract_id: {:query, :required}, datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

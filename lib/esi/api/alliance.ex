@@ -32,7 +32,8 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/names/",
-      query_opts: Keyword.take(opts, [:alliance_ids]),
+      opts_schema: %{alliance_ids: {:query, :required}, datasource: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -60,6 +61,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/corporations/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -89,6 +91,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/icons/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -118,6 +121,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
@@ -146,6 +150,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end

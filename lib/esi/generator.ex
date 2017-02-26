@@ -113,27 +113,42 @@ defmodule ESI.Generator do
       [spaces, "%ESI.Request{"],
       [spaces, "  ", ~s(verb: :#{function.verb},)],
       [spaces, "  ", ~s(path: #{Endpoint.to_ex(function.endpoint)},)],
-      Enum.map(split_opts(function), &[spaces, "  ", &1, ","]) |> flow,
+      [spaces, "  ", ~s(opts_schema: ), write_opts_schema(function), ","],
+      write_opts(function),
       [spaces, "}"]
     ] |> flow
   end
 
   @ignore_params_in ~w(path header)
-  @ignore_params_named ~w(token user_agent datasource)
+  @ignore_opts_named ~w(token user_agent datasource)
+
+  defp write_opts(function) do
+    case opts_params(function) do
+      [] ->
+        []
+      _ ->
+        ["      ", ~s<opts: Map.new(opts),>]
+    end
+  end
+
+  defp write_opts_schema(function) do
+    Map.values(function.params)
+    |> Enum.filter_map(
+      fn v -> !Enum.member?(@ignore_params_in, v["in"]) end,
+      fn v -> {String.to_atom(v["name"]), {String.to_atom(v["in"]), write_required_status(v["required"])}} end
+    )
+    |> Map.new
+    |> inspect
+  end
+
+  defp write_required_status(true), do: :required
+  defp write_required_status(_), do: :optional
+
+  @spec opts_params(function :: Function.t) :: [map]
   defp opts_params(function) do
     Map.values(function.params)
     |> Enum.filter(fn v ->
-      !Enum.member?(@ignore_params_in, v["in"]) && !Enum.member?(@ignore_params_named, v["name"])
-    end)
-  end
-
-  defp split_opts(function) do
-    opts_params(function)
-    |> Enum.group_by(fn v -> v["in"] end)
-    |> Enum.map(fn {section, params} ->
-      contents = Enum.map(params, fn %{"name" => name} -> ":#{name}" end)
-      |> Enum.join(", ")
-      "#{section}_opts: Keyword.take(opts, [#{contents}])"
+      !Enum.member?(@ignore_params_in, v["in"]) && !Enum.member?(@ignore_opts_named, v["name"])
     end)
   end
 

@@ -28,6 +28,7 @@ defmodule ESI.API.Incursion do
     %ESI.Request{
       verb: :get,
       path: "/incursions/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end

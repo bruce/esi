@@ -32,7 +32,8 @@ defmodule ESI.API.War do
     %ESI.Request{
       verb: :get,
       path: "/wars/",
-      query_opts: Keyword.take(opts, [:max_war_id]),
+      opts_schema: %{datasource: {:query, :optional}, max_war_id: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -71,7 +72,8 @@ defmodule ESI.API.War do
     %ESI.Request{
       verb: :get,
       path: "/wars/#{war_id}/killmails/",
-      query_opts: Keyword.take(opts, [:page]),
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 
@@ -103,6 +105,7 @@ defmodule ESI.API.War do
     %ESI.Request{
       verb: :get,
       path: "/wars/#{war_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
     }
   end
