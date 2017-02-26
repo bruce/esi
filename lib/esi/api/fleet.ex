@@ -1,18 +1,14 @@
 defmodule ESI.API.Fleet do
 
   @typedoc """
-Options for [`Fleet.members/2`](#members/2).
+  Options for [`Fleet.members/2`](#members/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type members_opts :: [
-    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -50,18 +46,14 @@ Options for [`Fleet.members/2`](#members/2).
   end
 
   @typedoc """
-Options for [`Fleet.create_members/2`](#create_members/2).
+  Options for [`Fleet.create_members/2`](#create_members/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:invitation` (REQUIRED) -- Details of the invitation
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_members_opts :: [
-    datasource: nil | :tranquility | :singularity,
     invitation: [character_id: integer, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -93,16 +85,12 @@ Options for [`Fleet.create_members/2`](#create_members/2).
   end
 
   @typedoc """
-Options for [`Fleet.delete_squad/3`](#delete_squad/3).
+  Options for [`Fleet.delete_squad/3`](#delete_squad/3).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type delete_squad_opts :: [
-    datasource: nil | :tranquility | :singularity,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -134,18 +122,14 @@ Options for [`Fleet.delete_squad/3`](#delete_squad/3).
   end
 
   @typedoc """
-Options for [`Fleet.update_squad/3`](#update_squad/3).
+  Options for [`Fleet.update_squad/3`](#update_squad/3).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:naming` (REQUIRED) -- New name of the squad
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_squad_opts :: [
-    datasource: nil | :tranquility | :singularity,
     naming: [name: String.t],
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -177,16 +161,12 @@ Options for [`Fleet.update_squad/3`](#update_squad/3).
   end
 
   @typedoc """
-Options for [`Fleet.create_squads/3`](#create_squads/3).
+  Options for [`Fleet.create_squads/3`](#create_squads/3).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_squads_opts :: [
-    datasource: nil | :tranquility | :singularity,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -220,16 +200,12 @@ Options for [`Fleet.create_squads/3`](#create_squads/3).
   end
 
   @typedoc """
-Options for [`Fleet.fleet/2`](#fleet/2).
+  Options for [`Fleet.fleet/2`](#fleet/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type fleet_opts :: [
-    datasource: nil | :tranquility | :singularity,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -264,18 +240,14 @@ Options for [`Fleet.fleet/2`](#fleet/2).
   end
 
   @typedoc """
-Options for [`Fleet.update_fleet/2`](#update_fleet/2).
+  Options for [`Fleet.update_fleet/2`](#update_fleet/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:new_settings` (REQUIRED) -- What to update for this fleet
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_fleet_opts :: [
-    datasource: nil | :tranquility | :singularity,
     new_settings: [is_free_move: nil | boolean, motd: nil | String.t],
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -307,16 +279,12 @@ Options for [`Fleet.update_fleet/2`](#update_fleet/2).
   end
 
   @typedoc """
-Options for [`Fleet.delete_member/3`](#delete_member/3).
+  Options for [`Fleet.delete_member/3`](#delete_member/3).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type delete_member_opts :: [
-    datasource: nil | :tranquility | :singularity,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -348,18 +316,14 @@ Options for [`Fleet.delete_member/3`](#delete_member/3).
   end
 
   @typedoc """
-Options for [`Fleet.update_member/3`](#update_member/3).
+  Options for [`Fleet.update_member/3`](#update_member/3).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:movement` (REQUIRED) -- Details of the invitation
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_member_opts :: [
-    datasource: nil | :tranquility | :singularity,
     movement: [role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -391,18 +355,14 @@ Options for [`Fleet.update_member/3`](#update_member/3).
   end
 
   @typedoc """
-Options for [`Fleet.wings/2`](#wings/2).
+  Options for [`Fleet.wings/2`](#wings/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type wings_opts :: [
-    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -437,16 +397,12 @@ Options for [`Fleet.wings/2`](#wings/2).
   end
 
   @typedoc """
-Options for [`Fleet.create_wings/2`](#create_wings/2).
+  Options for [`Fleet.create_wings/2`](#create_wings/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type create_wings_opts :: [
-    datasource: nil | :tranquility | :singularity,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -480,16 +436,12 @@ Options for [`Fleet.create_wings/2`](#create_wings/2).
   end
 
   @typedoc """
-Options for [`Fleet.delete_wing/3`](#delete_wing/3).
+  Options for [`Fleet.delete_wing/3`](#delete_wing/3).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type delete_wing_opts :: [
-    datasource: nil | :tranquility | :singularity,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -521,18 +473,14 @@ Options for [`Fleet.delete_wing/3`](#delete_wing/3).
   end
 
   @typedoc """
-Options for [`Fleet.update_wing/3`](#update_wing/3).
+  Options for [`Fleet.update_wing/3`](#update_wing/3).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:naming` (REQUIRED) -- New name of the wing
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type update_wing_opts :: [
-    datasource: nil | :tranquility | :singularity,
     naming: [name: String.t],
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 

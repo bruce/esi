@@ -1,22 +1,18 @@
 defmodule ESI.API.Market do
 
   @typedoc """
-Options for [`Market.orders/2`](#orders/2).
+  Options for [`Market.orders/2`](#orders/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:order_type` (DEFAULT: `:all`) -- Filter buy/sell orders, return all orders by default. If you query without type_id, we always return both buy and sell orders.
 
   - `:page` (DEFAULT: `1`) -- Which page to query, only used for querying without type_id. Starting at 1
 
   - `:type_id` -- Return orders only for this type
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type orders_opts :: [
-    datasource: nil | :tranquility | :singularity,
     order_type: :buy | :sell | :all,
     page: nil | integer,
     type_id: nil | integer,
-    user_agent: nil | String.t,
   ]
 
 
@@ -53,18 +49,6 @@ Options for [`Market.orders/2`](#orders/2).
     }
   end
 
-  @typedoc """
-Options for [`Market.prices/1`](#prices/1).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type prices_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
   Return a list of prices.
 
@@ -85,29 +69,25 @@ Options for [`Market.prices/1`](#prices/1).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Market/get_markets_prices)
 
   """
-  @spec prices(opts :: prices_opts) :: ESI.Request.t
-  def prices(opts \\ []) do
+  @spec prices() :: ESI.Request.t
+  def prices() do
     %ESI.Request{
       verb: :get,
       path: "/markets/prices/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
 
   @typedoc """
-Options for [`Market.structure/2`](#structure/2).
+  Options for [`Market.structure/2`](#structure/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:page` (DEFAULT: `1`) -- Which page to query, starting at 1
   - `:token` -- Access token to use, if preferred over a header
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type structure_opts :: [
-    datasource: nil | :tranquility | :singularity,
     page: nil | integer,
     token: nil | String.t,
-    user_agent: nil | String.t,
   ]
 
 
@@ -145,16 +125,12 @@ Options for [`Market.structure/2`](#structure/2).
   end
 
   @typedoc """
-Options for [`Market.history/2`](#history/2).
+  Options for [`Market.history/2`](#history/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:type_id` (REQUIRED) -- Return statistics for this type
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type history_opts :: [
-    datasource: nil | :tranquility | :singularity,
     type_id: integer,
-    user_agent: nil | String.t,
   ]
 
 

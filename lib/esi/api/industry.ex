@@ -1,17 +1,5 @@
 defmodule ESI.API.Industry do
 
-  @typedoc """
-Options for [`Industry.facilities/1`](#facilities/1).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type facilities_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
   Return a list of industry facilities.
 
@@ -32,27 +20,15 @@ Options for [`Industry.facilities/1`](#facilities/1).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Industry/get_industry_facilities)
 
   """
-  @spec facilities(opts :: facilities_opts) :: ESI.Request.t
-  def facilities(opts \\ []) do
+  @spec facilities() :: ESI.Request.t
+  def facilities() do
     %ESI.Request{
       verb: :get,
       path: "/industry/facilities/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
-
-  @typedoc """
-Options for [`Industry.systems/1`](#systems/1).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type systems_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
 
   @doc """
   Return cost indices for solar systems.
@@ -74,13 +50,13 @@ Options for [`Industry.systems/1`](#systems/1).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Industry/get_industry_systems)
 
   """
-  @spec systems(opts :: systems_opts) :: ESI.Request.t
-  def systems(opts \\ []) do
+  @spec systems() :: ESI.Request.t
+  def systems() do
     %ESI.Request{
       verb: :get,
       path: "/industry/systems/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
 end

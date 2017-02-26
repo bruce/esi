@@ -1,16 +1,12 @@
 defmodule ESI.API.Insurance do
 
   @typedoc """
-Options for [`Insurance.prices/1`](#prices/1).
+  Options for [`Insurance.prices/1`](#prices/1).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type prices_opts :: [
-    datasource: nil | :tranquility | :singularity,
     language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-    user_agent: nil | String.t,
   ]
 
 

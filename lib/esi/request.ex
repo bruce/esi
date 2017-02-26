@@ -19,10 +19,24 @@ defmodule ESI.Request do
     opts: %{atom => any},
   }
 
+  @typedoc """
+  Additional request options.
+
+  You can provide any options that the API accepts, and/or these common options:
+
+  - `datasource` -- (DEFAULT: :tranquility) — The server name you would like data from
+  - `user_agent` -- Client identifier
+
+  """
+  @type request_opts :: [
+    datasource: :tranquility | :singularity,
+    user_agent: String.t
+  ] | Keyword.t
+
   @doc """
   Add query options to a request
   """
-  @spec options(req :: ESI.Request.t, opts :: Keyword.t) :: ESI.Request.t
+  @spec options(req :: ESI.Request.t, opts :: request_opts) :: ESI.Request.t
   def options(req, []) do
     req
   end

@@ -1,16 +1,12 @@
 defmodule ESI.API.Alliance do
 
   @typedoc """
-Options for [`Alliance.names/1`](#names/1).
+  Options for [`Alliance.names/1`](#names/1).
 
   - `:alliance_ids` (REQUIRED) -- A comma separated list of alliance IDs
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type names_opts :: [
     alliance_ids: [integer],
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
   ]
 
 
@@ -43,18 +39,6 @@ Options for [`Alliance.names/1`](#names/1).
     }
   end
 
-  @typedoc """
-Options for [`Alliance.corporations/2`](#corporations/2).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type corporations_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
   List all current member corporations of an alliance.
 
@@ -74,27 +58,15 @@ Options for [`Alliance.corporations/2`](#corporations/2).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id_corporations)
 
   """
-  @spec corporations(alliance_id :: integer, opts :: corporations_opts) :: ESI.Request.t
-  def corporations(alliance_id, opts \\ []) do
+  @spec corporations(alliance_id :: integer) :: ESI.Request.t
+  def corporations(alliance_id) do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/corporations/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
-
-  @typedoc """
-Options for [`Alliance.icons/2`](#icons/2).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type icons_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
 
   @doc """
   Get the icon urls for a alliance.
@@ -116,27 +88,15 @@ Options for [`Alliance.icons/2`](#icons/2).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id_icons)
 
   """
-  @spec icons(alliance_id :: integer, opts :: icons_opts) :: ESI.Request.t
-  def icons(alliance_id, opts \\ []) do
+  @spec icons(alliance_id :: integer) :: ESI.Request.t
+  def icons(alliance_id) do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/icons/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
-
-  @typedoc """
-Options for [`Alliance.alliance/2`](#alliance/2).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type alliance_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
 
   @doc """
   Public information about an alliance.
@@ -158,27 +118,15 @@ Options for [`Alliance.alliance/2`](#alliance/2).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id)
 
   """
-  @spec alliance(alliance_id :: integer, opts :: alliance_opts) :: ESI.Request.t
-  def alliance(alliance_id, opts \\ []) do
+  @spec alliance(alliance_id :: integer) :: ESI.Request.t
+  def alliance(alliance_id) do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
-
-  @typedoc """
-Options for [`Alliance.alliances/1`](#alliances/1).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type alliances_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
 
   @doc """
   List all active player alliances.
@@ -199,13 +147,13 @@ Options for [`Alliance.alliances/1`](#alliances/1).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances)
 
   """
-  @spec alliances(opts :: alliances_opts) :: ESI.Request.t
-  def alliances(opts \\ []) do
+  @spec alliances() :: ESI.Request.t
+  def alliances() do
     %ESI.Request{
       verb: :get,
       path: "/alliances/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
 end

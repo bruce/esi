@@ -1,16 +1,12 @@
 defmodule ESI.API.War do
 
   @typedoc """
-Options for [`War.wars/1`](#wars/1).
+  Options for [`War.wars/1`](#wars/1).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:max_war_id` -- Only return wars with ID smaller than this.
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type wars_opts :: [
-    datasource: nil | :tranquility | :singularity,
     max_war_id: nil | integer,
-    user_agent: nil | String.t,
   ]
 
 
@@ -44,16 +40,12 @@ Options for [`War.wars/1`](#wars/1).
   end
 
   @typedoc """
-Options for [`War.killmails/2`](#killmails/2).
+  Options for [`War.killmails/2`](#killmails/2).
 
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
   - `:page` (DEFAULT: `1`) -- Which page to query, starting at 1, 2000 killmails per page.
-  - `:user_agent` -- Client identifier, takes precedence over headers
   """
   @type killmails_opts :: [
-    datasource: nil | :tranquility | :singularity,
     page: nil | integer,
-    user_agent: nil | String.t,
   ]
 
 
@@ -89,18 +81,6 @@ Options for [`War.killmails/2`](#killmails/2).
     }
   end
 
-  @typedoc """
-Options for [`War.war/2`](#war/2).
-
-  - `:datasource` (DEFAULT: `:tranquility`) -- The server name you would like data from
-  - `:user_agent` -- Client identifier, takes precedence over headers
-  """
-  @type war_opts :: [
-    datasource: nil | :tranquility | :singularity,
-    user_agent: nil | String.t,
-  ]
-
-
   @doc """
   Return details about a war.
 
@@ -124,13 +104,13 @@ Options for [`War.war/2`](#war/2).
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Wars/get_wars_war_id)
 
   """
-  @spec war(war_id :: integer, opts :: war_opts) :: ESI.Request.t
-  def war(war_id, opts \\ []) do
+  @spec war(war_id :: integer) :: ESI.Request.t
+  def war(war_id) do
     %ESI.Request{
       verb: :get,
       path: "/wars/#{war_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+
     }
   end
 end
