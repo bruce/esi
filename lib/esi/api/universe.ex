@@ -179,6 +179,36 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @doc """
+  Get information on a graphic.
+
+  ## Response Example
+
+  Information about a graphic:
+
+      %{"graphic_file" => "res:/dx9/model/worldobject/planet/moon.red",
+        "graphic_id" => 10}
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_universe_graphics_graphic_id`
+  - `path` -- `/universe/graphics/{graphic_id}/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_graphics_graphic_id)
+
+  """
+  @spec graphic(graphic_id :: integer) :: ESI.Request.t
+  def graphic(graphic_id) do
+    %ESI.Request{
+      verb: :get,
+      path: "/universe/graphics/#{graphic_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+
+    }
+  end
+
   @typedoc """
   Options for [`Universe.groups/1`](#groups/1).
 
@@ -655,6 +685,35 @@ defmodule ESI.API.Universe do
       path: "/universe/types/",
       opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, user_agent: {:query, :optional}},
       opts: Map.new(opts),
+    }
+  end
+
+  @doc """
+  Get a list of graphics.
+
+  ## Response Example
+
+  A list of graphic ids:
+
+      [10, 4106]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_universe_graphics`
+  - `path` -- `/universe/graphics/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_graphics)
+
+  """
+  @spec graphics() :: ESI.Request.t
+  def graphics() do
+    %ESI.Request{
+      verb: :get,
+      path: "/universe/graphics/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+
     }
   end
 

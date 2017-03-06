@@ -39,7 +39,10 @@ defmodule ESI.API.Corporation do
   Public data about a corporation:
 
       %{"alliance_id" => 434243723, "ceo_id" => 180548812,
-        "corporation_name" => "C C P", "member_count" => 656, "ticker" => "-CCP-"}
+        "corporation_description" => "This is a corporation description, it's basically just a string",
+        "corporation_name" => "C C P", "creation_date" => "2004-11-28T16:42:51Z",
+        "creator_id" => 180548812, "member_count" => 656, "tax_rate" => 0.256,
+        "ticker" => "-CCP-", "url" => "http://www.eveonline.com"}
 
   ## Swagger Source
 
@@ -199,8 +202,8 @@ defmodule ESI.API.Corporation do
 
   List of corporation structures' information:
 
-      [%{"corporation_id" => 667531913, "current_vul" => "{1,2}",
-         "next_vul" => "{3,4}", "profile_id" => 11237,
+      [%{"corporation_id" => 667531913, "current_vul" => [%{"day" => 1, "hour" => 2}],
+         "next_vul" => [%{"day" => 3, "hour" => 4}], "profile_id" => 11237,
          "structure_id" => 1021975535893, "system_id" => 30004763,
          "type_id" => 35833}]
 
@@ -281,6 +284,45 @@ defmodule ESI.API.Corporation do
       path: "/corporations/npccorps/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
+    }
+  end
+
+  @typedoc """
+  Options for [`Corporation.update_structure/3`](#update_structure/3).
+
+  - `:new_schedule` (REQUIRED) -- New vulnerability window schedule for the structure
+  - `:token` -- Access token to use, if preferred over a header
+  """
+  @type update_structure_opts :: [
+    new_schedule: [nil | [day: integer, hour: integer]],
+    token: nil | String.t,
+  ]
+
+
+  @doc """
+  Update the vulnerability window schedule of a corporation structure.
+
+  ## Response Example
+
+  No example available.
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `put_corporations_corporation_id_structures_structure_id`
+  - `path` -- `/corporations/{corporation_id}/structures/{structure_id}/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/put_corporations_corporation_id_structures_structure_id)
+
+  """
+  @spec update_structure(corporation_id :: integer, structure_id :: integer, opts :: update_structure_opts) :: ESI.Request.t
+  def update_structure(corporation_id, structure_id, opts \\ []) do
+    %ESI.Request{
+      verb: :put,
+      path: "/corporations/#{corporation_id}/structures/#{structure_id}/",
+      opts_schema: %{datasource: {:query, :optional}, new_schedule: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

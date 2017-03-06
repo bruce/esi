@@ -1,5 +1,34 @@
 defmodule ESI.API.Market do
 
+  @doc """
+  Get a list of item groups.
+
+  ## Response Example
+
+  A list of item group ids:
+
+      [1, 2, 3]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_markets_groups`
+  - `path` -- `/markets/groups/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Market/get_markets_groups)
+
+  """
+  @spec groups() :: ESI.Request.t
+  def groups() do
+    %ESI.Request{
+      verb: :get,
+      path: "/markets/groups/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+
+    }
+  end
+
   @typedoc """
   Options for [`Market.orders/2`](#orders/2).
 
@@ -120,6 +149,47 @@ defmodule ESI.API.Market do
       verb: :get,
       path: "/markets/structures/#{structure_id}/",
       opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
+    }
+  end
+
+  @typedoc """
+  Options for [`Market.group_market_group/2`](#group_market_group/2).
+
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  """
+  @type group_market_group_opts :: [
+    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
+  ]
+
+
+  @doc """
+  Get information on an item group.
+
+  ## Response Example
+
+  Information about an item group:
+
+      %{"description" => "Small, fast vessels suited to a variety of purposes.",
+        "market_group_id" => 5, "name" => "Standard Frigates",
+        "parent_group_id" => 1361, "types" => [582, 583]}
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_markets_groups_market_group_id`
+  - `path` -- `/markets/groups/{market_group_id}/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Market/get_markets_groups_market_group_id)
+
+  """
+  @spec group_market_group(market_group_id :: integer, opts :: group_market_group_opts) :: ESI.Request.t
+  def group_market_group(market_group_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/markets/groups/#{market_group_id}/",
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
       opts: Map.new(opts),
     }
   end

@@ -751,6 +751,45 @@ defmodule ESI.API.Character do
   end
 
   @typedoc """
+  Options for [`Character.loyalty_points/2`](#loyalty_points/2).
+
+  - `:token` -- Access token to use, if preferred over a header
+  """
+  @type loyalty_points_opts :: [
+    token: nil | String.t,
+  ]
+
+
+  @doc """
+  Return a list of loyalty points for all corporations the character has worked for.
+
+  ## Response Example
+
+  A list of loyalty points:
+
+      [%{"corporation_id" => 123, "loyalty_points" => 100}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_characters_character_id_loyalty_points`
+  - `path` -- `/characters/{character_id}/loyalty/points/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Loyalty/get_characters_character_id_loyalty_points)
+
+  """
+  @spec loyalty_points(character_id :: integer, opts :: loyalty_points_opts) :: ESI.Request.t
+  def loyalty_points(character_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/characters/#{character_id}/loyalty/points/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
+    }
+  end
+
+  @typedoc """
   Options for [`Character.mail_lists/2`](#mail_lists/2).
 
   - `:token` -- Access token to use, if preferred over a header
@@ -1204,45 +1243,6 @@ defmodule ESI.API.Character do
       verb: :get,
       path: "/characters/#{character_id}/calendar/#{event_id}/",
       opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
-    }
-  end
-
-  @typedoc """
-  Options for [`Character.update_calendar_event/3`](#update_calendar_event/3).
-
-  - `:response` (REQUIRED) -- The response value to set, overriding current value.
-  - `:token` -- Access token to use, if preferred over a header
-  """
-  @type update_calendar_event_opts :: [
-    response: [response: :accepted | :declined | :tentative],
-    token: nil | String.t,
-  ]
-
-
-  @doc """
-  Set your response status to an event.
-
-  ## Response Example
-
-  No example available.
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `put_characters_character_id_calendar_event_id`
-  - `path` -- `/characters/{character_id}/calendar/{event_id}/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Calendar/put_characters_character_id_calendar_event_id)
-
-  """
-  @spec update_calendar_event(character_id :: integer, event_id :: integer, opts :: update_calendar_event_opts) :: ESI.Request.t
-  def update_calendar_event(character_id, event_id, opts \\ []) do
-    %ESI.Request{
-      verb: :put,
-      path: "/characters/#{character_id}/calendar/#{event_id}/",
-      opts_schema: %{datasource: {:query, :optional}, response: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
       opts: Map.new(opts),
     }
   end
