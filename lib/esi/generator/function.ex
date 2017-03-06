@@ -20,6 +20,7 @@ defmodule ESI.Generator.Function do
     :verb,
     :tags,
     :responses,
+    :info,
   ]
 
   defstruct [
@@ -33,6 +34,7 @@ defmodule ESI.Generator.Function do
     :tags,
     :responses,
     :arity,
+    :info,
   ]
 
   @type t :: %__MODULE__{
@@ -46,6 +48,7 @@ defmodule ESI.Generator.Function do
     responses: map,
     tags: [String.t],
     arity: pos_integer,
+    info: map,
   }
 
   def new(path, verb, info) do
@@ -59,6 +62,7 @@ defmodule ESI.Generator.Function do
       params: param_mapping(info["parameters"]),
       tags: info["tags"],
       responses: info["responses"],
+      info: info,
     }
     |> add_name
   end

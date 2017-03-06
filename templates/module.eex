@@ -1,0 +1,7 @@
+defmodule <%= name %> do
+
+<%= for function <- functions do %>
+<%= render_function function %>
+<% end %>
+
+end
