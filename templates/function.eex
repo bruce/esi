@@ -1,0 +1,34 @@
+  @doc """
+  <%= description function %>
+
+
+  ## Response Example
+
+  <%= if has_response_example?(function) do %>
+  <%= response_example_description function %>
+
+  <%= formatted_response_example function %>
+
+  <% else %>
+  No example available.
+  <% end %>
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `<%= function.operation %>`
+  - `path` -- `<%= function.endpoint.source %>`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/<%= esi_path function %>)
+
+  """
+  @spec <%= function.name %>(<%= args_spec(function) %>) :: ESI.Request.t
+  def <%= function.name %>(fleet_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/fleets/#{fleet_id}/members/",
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
+    }
+  end

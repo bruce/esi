@@ -16,6 +16,7 @@ defmodule ESI.Generator do
     end)
     |> Enum.group_by(&(&1.module_name))
     |> Enum.each(fn {module_name, functions} ->
+      IO.puts ESI.Generator.View.Module.render(module_name, functions)
       content = write_module(module_name, functions)
       name = Macro.underscore(module_name)
       path = Path.join([File.cwd!, "lib/esi/api", "#{name}.ex"])
