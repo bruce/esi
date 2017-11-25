@@ -2,7 +2,9 @@
 
 An Elixir client for Eve Online's Swagger Interface (ESI).
 
-[![Hex pm](http://img.shields.io/hexpm/v/esi.svg?style=flat)](https://hex.pm/packages/esi)![ESI Version](https://img.shields.io/badge/ESI-v0.7.2-blue.svg)
+## Documentation
+
+Documentation is available at <https://hexdocs.pm/esi>.
 
 ## Synopsis
 
@@ -72,9 +74,8 @@ Then:
 
 - Make sure any new modules/functions look like they're named correctly. Ff they're
   not, see the renaming functions in `ESI.Generator.Function`.
-- Update the `README.md` with the current ESI Swagger Specification version number:
-  - In the badge
-  - In the code example
+- Update the `README.md` with the current ESI Swagger Specification version number
+  in the code example.
 
 ## Contributing
 
