@@ -4,12 +4,10 @@ defmodule ESI.API.Fleet do
   Options for [`Fleet.members/2`](#members/2).
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type members_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-    token: nil | String.t,
-  ]
+  @type members_opts :: [members_opt]
+  @type members_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh} | {:token, nil | String.t}
 
 
   @doc """
@@ -49,16 +47,14 @@ defmodule ESI.API.Fleet do
   Options for [`Fleet.create_members/2`](#create_members/2).
 
   - `:invitation` (REQUIRED) -- Details of the invitation
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type create_members_opts :: [
-    invitation: [character_id: integer, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
-    token: nil | String.t,
-  ]
+  @type create_members_opts :: [create_members_opt]
+  @type create_members_opt :: {:invitation, [character_id: integer, role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer]} | {:token, nil | String.t}
 
 
   @doc """
-  Invite a character into the fleet, if a character has a CSPA charge set, it is not possible to invite them to the fleet using ESI.
+  Invite a character into the fleet. If a character has a CSPA charge set it is not possible to invite them to the fleet using ESI.
 
   ## Response Example
 
@@ -87,11 +83,10 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.delete_squad/3`](#delete_squad/3).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type delete_squad_opts :: [
-    token: nil | String.t,
-  ]
+  @type delete_squad_opts :: [delete_squad_opt]
+  @type delete_squad_opt :: {:token, nil | String.t}
 
 
   @doc """
@@ -125,12 +120,10 @@ defmodule ESI.API.Fleet do
   Options for [`Fleet.update_squad/3`](#update_squad/3).
 
   - `:naming` (REQUIRED) -- New name of the squad
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type update_squad_opts :: [
-    naming: [name: String.t],
-    token: nil | String.t,
-  ]
+  @type update_squad_opts :: [update_squad_opt]
+  @type update_squad_opt :: {:naming, [name: String.t]} | {:token, nil | String.t}
 
 
   @doc """
@@ -163,11 +156,10 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.create_squads/3`](#create_squads/3).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type create_squads_opts :: [
-    token: nil | String.t,
-  ]
+  @type create_squads_opts :: [create_squads_opt]
+  @type create_squads_opt :: {:token, nil | String.t}
 
 
   @doc """
@@ -202,11 +194,10 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.fleet/2`](#fleet/2).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type fleet_opts :: [
-    token: nil | String.t,
-  ]
+  @type fleet_opts :: [fleet_opt]
+  @type fleet_opt :: {:token, nil | String.t}
 
 
   @doc """
@@ -243,12 +234,10 @@ defmodule ESI.API.Fleet do
   Options for [`Fleet.update_fleet/2`](#update_fleet/2).
 
   - `:new_settings` (REQUIRED) -- What to update for this fleet
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type update_fleet_opts :: [
-    new_settings: [is_free_move: nil | boolean, motd: nil | String.t],
-    token: nil | String.t,
-  ]
+  @type update_fleet_opts :: [update_fleet_opt]
+  @type update_fleet_opt :: {:new_settings, [is_free_move: nil | boolean, motd: nil | String.t]} | {:token, nil | String.t}
 
 
   @doc """
@@ -281,11 +270,10 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.delete_member/3`](#delete_member/3).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type delete_member_opts :: [
-    token: nil | String.t,
-  ]
+  @type delete_member_opts :: [delete_member_opt]
+  @type delete_member_opt :: {:token, nil | String.t}
 
 
   @doc """
@@ -319,12 +307,10 @@ defmodule ESI.API.Fleet do
   Options for [`Fleet.update_member/3`](#update_member/3).
 
   - `:movement` (REQUIRED) -- Details of the invitation
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type update_member_opts :: [
-    movement: [role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer],
-    token: nil | String.t,
-  ]
+  @type update_member_opts :: [update_member_opt]
+  @type update_member_opt :: {:movement, [role: :fleet_commander | :wing_commander | :squad_commander | :squad_member, squad_id: nil | integer, wing_id: nil | integer]} | {:token, nil | String.t}
 
 
   @doc """
@@ -358,12 +344,10 @@ defmodule ESI.API.Fleet do
   Options for [`Fleet.wings/2`](#wings/2).
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type wings_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-    token: nil | String.t,
-  ]
+  @type wings_opts :: [wings_opt]
+  @type wings_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh} | {:token, nil | String.t}
 
 
   @doc """
@@ -399,11 +383,10 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.create_wings/2`](#create_wings/2).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type create_wings_opts :: [
-    token: nil | String.t,
-  ]
+  @type create_wings_opts :: [create_wings_opt]
+  @type create_wings_opt :: {:token, nil | String.t}
 
 
   @doc """
@@ -438,11 +421,10 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.delete_wing/3`](#delete_wing/3).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type delete_wing_opts :: [
-    token: nil | String.t,
-  ]
+  @type delete_wing_opts :: [delete_wing_opt]
+  @type delete_wing_opt :: {:token, nil | String.t}
 
 
   @doc """
@@ -476,12 +458,10 @@ defmodule ESI.API.Fleet do
   Options for [`Fleet.update_wing/3`](#update_wing/3).
 
   - `:naming` (REQUIRED) -- New name of the wing
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type update_wing_opts :: [
-    naming: [name: String.t],
-    token: nil | String.t,
-  ]
+  @type update_wing_opts :: [update_wing_opt]
+  @type update_wing_opt :: {:naming, [name: String.t]} | {:token, nil | String.t}
 
 
   @doc """

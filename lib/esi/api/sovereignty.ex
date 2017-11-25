@@ -1,6 +1,35 @@
 defmodule ESI.API.Sovereignty do
 
   @doc """
+  Shows sovereignty information for solar systems.
+
+  ## Response Example
+
+  A list of sovereignty information for solar systems in New Eden:
+
+      [%{"faction_id" => 500001, "system_id" => 30045334}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_sovereignty_map`
+  - `path` -- `/sovereignty/map/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Sovereignty/get_sovereignty_map)
+
+  """
+  @spec map() :: ESI.Request.t
+  def map() do
+    %ESI.Request{
+      verb: :get,
+      path: "/sovereignty/map/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+
+    }
+  end
+
+  @doc """
   Shows sovereignty data for campaigns..
 
   ## Response Example

@@ -5,9 +5,8 @@ defmodule ESI.API.Insurance do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type prices_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type prices_opts :: [prices_opt]
+  @type prices_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """

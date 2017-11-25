@@ -33,16 +33,11 @@ defmodule ESI.API.Market do
   Options for [`Market.orders/2`](#orders/2).
 
   - `:order_type` (DEFAULT: `:all`) -- Filter buy/sell orders, return all orders by default. If you query without type_id, we always return both buy and sell orders.
-
-  - `:page` (DEFAULT: `1`) -- Which page to query, only used for querying without type_id. Starting at 1
-
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:type_id` -- Return orders only for this type
   """
-  @type orders_opts :: [
-    order_type: :buy | :sell | :all,
-    page: nil | integer,
-    type_id: nil | integer,
-  ]
+  @type orders_opts :: [orders_opt]
+  @type orders_opt :: {:order_type, :buy | :sell | :all} | {:page, nil | integer} | {:type_id, nil | integer}
 
 
   @doc """
@@ -111,13 +106,11 @@ defmodule ESI.API.Market do
   @typedoc """
   Options for [`Market.structure/2`](#structure/2).
 
-  - `:page` (DEFAULT: `1`) -- Which page to query, starting at 1
-  - `:token` -- Access token to use, if preferred over a header
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type structure_opts :: [
-    page: nil | integer,
-    token: nil | String.t,
-  ]
+  @type structure_opts :: [structure_opt]
+  @type structure_opt :: {:page, nil | integer} | {:token, nil | String.t}
 
 
   @doc """
@@ -128,7 +121,7 @@ defmodule ESI.API.Market do
   A list of orders:
 
       [%{"duration" => 90, "is_buy_order" => false,
-         "issued" => "2016-09-03T05:12:25Z", "location_id" => 60005599,
+         "issued" => "2016-09-03T05:12:25Z", "location_id" => 1020988381992,
          "min_volume" => 1, "order_id" => 4623824223, "price" => 9.9,
          "range" => "region", "type_id" => 34, "volume_remain" => 1296000,
          "volume_total" => 2000000}]
@@ -154,13 +147,50 @@ defmodule ESI.API.Market do
   end
 
   @typedoc """
+  Options for [`Market.types/2`](#types/2).
+
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
+  """
+  @type types_opts :: [types_opt]
+  @type types_opt :: {:page, nil | integer}
+
+
+  @doc """
+  Return a list of type IDs that have active orders in the region, for efficient market indexing..
+
+  ## Response Example
+
+  A list of type IDs:
+
+      [587, 593, 597]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_markets_region_id_types`
+  - `path` -- `/markets/{region_id}/types/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Market/get_markets_region_id_types)
+
+  """
+  @spec types(region_id :: integer, opts :: types_opts) :: ESI.Request.t
+  def types(region_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/markets/#{region_id}/types/",
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
+    }
+  end
+
+  @typedoc """
   Options for [`Market.group_market_group/2`](#group_market_group/2).
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type group_market_group_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type group_market_group_opts :: [group_market_group_opt]
+  @type group_market_group_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -199,9 +229,8 @@ defmodule ESI.API.Market do
 
   - `:type_id` (REQUIRED) -- Return statistics for this type
   """
-  @type history_opts :: [
-    type_id: integer,
-  ]
+  @type history_opts :: [history_opt]
+  @type history_opt :: {:type_id, integer}
 
 
   @doc """

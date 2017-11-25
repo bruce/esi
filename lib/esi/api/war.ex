@@ -5,9 +5,8 @@ defmodule ESI.API.War do
 
   - `:max_war_id` -- Only return wars with ID smaller than this.
   """
-  @type wars_opts :: [
-    max_war_id: nil | integer,
-  ]
+  @type wars_opts :: [wars_opt]
+  @type wars_opt :: {:max_war_id, nil | integer}
 
 
   @doc """
@@ -15,7 +14,7 @@ defmodule ESI.API.War do
 
   ## Response Example
 
-  A list of war IDs, 2000 at most, in decending order by war_id.:
+  A list of war IDs, in decending order by war_id.:
 
       [3, 2, 1]
 
@@ -42,11 +41,10 @@ defmodule ESI.API.War do
   @typedoc """
   Options for [`War.killmails/2`](#killmails/2).
 
-  - `:page` (DEFAULT: `1`) -- Which page to query, starting at 1, 2000 killmails per page.
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   """
-  @type killmails_opts :: [
-    page: nil | integer,
-  ]
+  @type killmails_opts :: [killmails_opt]
+  @type killmails_opt :: {:page, nil | integer}
 
 
   @doc """

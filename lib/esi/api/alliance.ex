@@ -5,9 +5,8 @@ defmodule ESI.API.Alliance do
 
   - `:alliance_ids` (REQUIRED) -- A comma separated list of alliance IDs
   """
-  @type names_opts :: [
-    alliance_ids: [integer],
-  ]
+  @type names_opts :: [names_opt]
+  @type names_opt :: {:alliance_ids, [integer]}
 
 
   @doc """
@@ -73,7 +72,7 @@ defmodule ESI.API.Alliance do
 
   ## Response Example
 
-  Urls for icons for the given alliance id and server:
+  Icon URLs for the given alliance id and server:
 
       %{"px128x128" => "https://imageserver.eveonline.com/Alliance/503818424_128.png",
         "px64x64" => "https://imageserver.eveonline.com/Alliance/503818424_64.png"}
@@ -154,6 +153,46 @@ defmodule ESI.API.Alliance do
       path: "/alliances/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
 
+    }
+  end
+
+  @typedoc """
+  Options for [`Alliance.contacts/2`](#contacts/2).
+
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
+  - `:token` -- Access token to use if unable to set a header
+  """
+  @type contacts_opts :: [contacts_opt]
+  @type contacts_opt :: {:page, nil | integer} | {:token, nil | String.t}
+
+
+  @doc """
+  Return contacts of an alliance.
+
+  ## Response Example
+
+  A list of contacts:
+
+      [%{"contact_id" => 2112625428, "contact_type" => "character",
+         "standing" => 10.0}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_alliances_alliance_id_contacts`
+  - `path` -- `/alliances/{alliance_id}/contacts/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Contacts/get_alliances_alliance_id_contacts)
+
+  """
+  @spec contacts(alliance_id :: integer, opts :: contacts_opts) :: ESI.Request.t
+  def contacts(alliance_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/alliances/#{alliance_id}/contacts/",
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end

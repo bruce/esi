@@ -85,10 +85,18 @@ defmodule ESI.Generator.Function do
   @spec generate_module_name(endpoint :: Endpoint.t) :: String.t
   defp generate_module_name(endpoint) do
     endpoint
-    |> namespace()
-    |> Inflector.singularize()
-    |> Inflector.titleize()
+    |> namespace
+    |> rename_namespace
+    |> singularize
+    |> Inflector.titleize
   end
+
+  @skip_singularize ~w(status opportunities)
+  @spec singularize(String.t) :: String.t
+  for skip <- @skip_singularize do
+    defp singularize(unquote(skip)), do: unquote(skip)
+  end
+  defp singularize(word), do: Inflector.singularize(word)
 
   @spec param_mapping(params :: map) :: %{String.t => map}
   defp param_mapping(params) do
@@ -106,7 +114,7 @@ defmodule ESI.Generator.Function do
   @spec generate_name(function :: t) :: String.t
   defp generate_name(function) do
     base = do_generate_name(function.endpoint) || function.operation
-    base = base |> rename(form(function.endpoint))
+    base = base |> rename_function(form(function.endpoint))
     if Enum.member?(@unprefixed, function.module_name) do
       base
     else
@@ -186,10 +194,19 @@ defmodule ESI.Generator.Function do
     {"openwindow_marketdetails", [:word, :word]} => "open_market_details_window",
     {"openwindow_newmail", [:word, :word]} => "open_new_mail_window",
   }
-  @spec rename(String.t, String.t) :: String.t
+  @spec rename_function(String.t, String.t) :: String.t
   for {{old, form}, new} <- @function_renames do
-    defp rename(unquote(old), unquote(form)), do: unquote(new)
+    defp rename_function(unquote(old), unquote(form)), do: unquote(new)
   end
-  defp rename(name, _), do: name
+  defp rename_function(name, _), do: name
+
+  @namespace_renames [
+    {"fw", "faction_warfare"}
+  ]
+  @spec rename_namespace(String.t) :: String.t
+  for {old, new} <- @namespace_renames do
+    defp rename_namespace(unquote(old)), do: unquote(new)
+  end
+  defp rename_namespace(name), do: name
 
 end

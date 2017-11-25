@@ -9,7 +9,8 @@ defmodule Mix.Tasks.Esi.Generate do
 
   def run(_) do
     Application.ensure_all_started(:esi)
-    swagger() |> ESI.Generator.run()
+    swagger()
+    |> ESI.Generator.run()
   end
 
   @spec swagger() :: map

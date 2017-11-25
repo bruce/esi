@@ -4,12 +4,10 @@ defmodule ESI.API.UI do
   Options for [`UI.open_information_window/1`](#open_information_window/1).
 
   - `:target_id` (REQUIRED) -- The target to open
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type open_information_window_opts :: [
-    target_id: integer,
-    token: nil | String.t,
-  ]
+  @type open_information_window_opts :: [open_information_window_opt]
+  @type open_information_window_opt :: {:target_id, integer} | {:token, nil | String.t}
 
 
   @doc """
@@ -42,13 +40,11 @@ defmodule ESI.API.UI do
   @typedoc """
   Options for [`UI.open_market_details_window/1`](#open_market_details_window/1).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   - `:type_id` (REQUIRED) -- The item type to open in market window
   """
-  @type open_market_details_window_opts :: [
-    token: nil | String.t,
-    type_id: integer,
-  ]
+  @type open_market_details_window_opts :: [open_market_details_window_opt]
+  @type open_market_details_window_opt :: {:token, nil | String.t} | {:type_id, integer}
 
 
   @doc """
@@ -82,12 +78,10 @@ defmodule ESI.API.UI do
   Options for [`UI.open_new_mail_window/1`](#open_new_mail_window/1).
 
   - `:new_mail` (REQUIRED) -- The details of mail to create
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type open_new_mail_window_opts :: [
-    new_mail: [body: String.t, recipients: [integer], subject: String.t, to_corp_or_alliance_id: nil | integer, to_mailing_list_id: nil | integer],
-    token: nil | String.t,
-  ]
+  @type open_new_mail_window_opts :: [open_new_mail_window_opt]
+  @type open_new_mail_window_opt :: {:new_mail, [body: String.t, recipients: [integer], subject: String.t, to_corp_or_alliance_id: nil | integer, to_mailing_list_id: nil | integer]} | {:token, nil | String.t}
 
 
   @doc """
@@ -123,14 +117,10 @@ defmodule ESI.API.UI do
   - `:add_to_beginning` (DEFAULT: `false`) -- Whether this solar system should be added to the beginning of all waypoints
   - `:clear_other_waypoints` (DEFAULT: `false`) -- Whether clean other waypoints beforing adding this one
   - `:destination_id` (REQUIRED) -- The destination to travel to, can be solar system, station or structure's id
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type set_autopilot_waypoint_opts :: [
-    add_to_beginning: boolean,
-    clear_other_waypoints: boolean,
-    destination_id: integer,
-    token: nil | String.t,
-  ]
+  @type set_autopilot_waypoint_opts :: [set_autopilot_waypoint_opt]
+  @type set_autopilot_waypoint_opt :: {:add_to_beginning, boolean} | {:clear_other_waypoints, boolean} | {:destination_id, integer} | {:token, nil | String.t}
 
 
   @doc """
@@ -164,12 +154,10 @@ defmodule ESI.API.UI do
   Options for [`UI.open_contract_window/1`](#open_contract_window/1).
 
   - `:contract_id` (REQUIRED) -- The contract to open
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type open_contract_window_opts :: [
-    contract_id: integer,
-    token: nil | String.t,
-  ]
+  @type open_contract_window_opts :: [open_contract_window_opt]
+  @type open_contract_window_opt :: {:contract_id, integer} | {:token, nil | String.t}
 
 
   @doc """

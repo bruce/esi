@@ -28,10 +28,8 @@ defmodule ESI.Request do
   - `user_agent` -- Client identifier
 
   """
-  @type request_opts :: [
-    datasource: :tranquility | :singularity,
-    user_agent: String.t
-  ] | Keyword.t
+  @type request_opts :: [request_opt]
+  @type request_opt :: {:datasource, :tranquility | :singularity} | {:user_agent, String.t} | {atom, any}
 
   @doc """
   Add query options to a request

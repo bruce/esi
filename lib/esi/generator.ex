@@ -4,7 +4,9 @@ defmodule ESI.Generator do
   alias ESI.Generator.{Endpoint, Function, SwaggerType}
 
   def run(swagger) do
+    write_api_version!(swagger["info"]["version"])
     swagger
+    |> resolve_refs(swagger)
     |> Map.get("paths", [])
     |> Enum.flat_map(fn {path, requests} ->
       requests
@@ -20,6 +22,46 @@ defmodule ESI.Generator do
       File.write!(path, content, [:write])
       Mix.shell.info(path)
     end)
+  end
+
+  defp write_api_version!(nil) do
+    raise "Could not determine ESI Swagger Specification version number"
+  end
+  defp write_api_version!(value) do
+    path = Path.join([File.cwd!, "lib/esi/api.ex"])
+    File.write!(
+      path,
+      [
+        "defmodule ESI.API do",
+        ~s<  @doc """>,
+        "  The ESI Swagger Specification version number.",
+        ~s<  """>,
+        "  @spec version :: String.t",
+        "  def version do",
+        "    #{inspect(value)}",
+        "  end",
+        "end"
+      ] |> flow,
+      [:write]
+    )
+    Mix.shell.info(path)
+  end
+
+  defp resolve_refs(swagger, %{"$ref" => "#/" <> ref}) do
+    get_in(swagger, String.split(ref, "/"))
+  end
+  defp resolve_refs(swagger, value) when is_list(value) do
+    for item <- value do
+      resolve_refs(swagger, item)
+    end
+  end
+  defp resolve_refs(swagger, value) when is_map(value) do
+    for {key, val} <- value, into: %{} do
+      {key, resolve_refs(swagger, val)}
+    end
+  end
+  defp resolve_refs(_swagger, value) do
+    value
   end
 
   defp write_module(name, functions) do
@@ -82,7 +124,7 @@ defmodule ESI.Generator do
     [
       "  #{description}:",
       "",
-      "      " <> String.replace(inspect(example, pretty: true), "\n", "\n      ")
+      "      " <> String.replace(inspect(example, pretty: true, charlists: :as_lists), "\n", "\n      ")
     ]
   end
 
@@ -136,10 +178,8 @@ defmodule ESI.Generator do
 
   defp write_opts_schema(function) do
     Map.values(function.params)
-    |> Enum.filter_map(
-      fn v -> !Enum.member?(@ignore_params_in, v["in"]) end,
-      fn v -> {String.to_atom(v["name"]), {String.to_atom(v["in"]), write_required_status(v["required"])}} end
-    )
+    |> Enum.filter(fn v -> !Enum.member?(@ignore_params_in, v["in"]) end)
+    |> Enum.map(fn v -> {String.to_atom(v["name"]), {String.to_atom(v["in"]), write_required_status(v["required"])}} end)
     |> Map.new
     |> inspect
   end
@@ -157,12 +197,15 @@ defmodule ESI.Generator do
 
   defp write_opts_type(function) do
     [
-      "  @type #{function.name}_opts :: [",
-      Enum.map(opts_params(function), fn param ->
-        swagger_type = SwaggerType.new(param)
-        ~s<    #{param["name"]}: #{swagger_type},>
-      end) |> flow,
-      "  ]"
+      "  @type #{function.name}_opts :: [#{function.name}_opt]",
+      "  @type #{function.name}_opt :: " <> (
+        Enum.map(opts_params(function), fn param ->
+          swagger_type = SwaggerType.new(param)
+          ~s<{:#{param["name"]}, #{swagger_type}}>
+        end)
+        |> Enum.join(" | ")
+      )
+      |> flow
     ] |> flow
   end
 

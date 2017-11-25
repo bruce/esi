@@ -3,11 +3,10 @@ defmodule ESI.API.Universe do
   @typedoc """
   Options for [`Universe.structure/2`](#structure/2).
 
-  - `:token` -- Access token to use, if preferred over a header
+  - `:token` -- Access token to use if unable to set a header
   """
-  @type structure_opts :: [
-    token: nil | String.t,
-  ]
+  @type structure_opts :: [structure_opt]
+  @type structure_opt :: {:token, nil | String.t}
 
 
   @doc """
@@ -44,9 +43,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type bloodlines_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type bloodlines_opts :: [bloodlines_opt]
+  @type bloodlines_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -115,9 +113,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type category_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type category_opts :: [category_opt]
+  @type category_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -157,7 +154,7 @@ defmodule ESI.API.Universe do
 
   List of public structure IDs:
 
-      [1000000017013, 1000000025062]
+      [1020988381992, 1020988381991]
 
   ## Swagger Source
 
@@ -212,11 +209,10 @@ defmodule ESI.API.Universe do
   @typedoc """
   Options for [`Universe.groups/1`](#groups/1).
 
-  - `:page` -- Which page to query
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   """
-  @type groups_opts :: [
-    page: nil | integer,
-  ]
+  @type groups_opts :: [groups_opt]
+  @type groups_opt :: {:page, nil | integer}
 
 
   @doc """
@@ -248,14 +244,45 @@ defmodule ESI.API.Universe do
     }
   end
 
+  @doc """
+  Get information on a star.
+
+  ## Response Example
+
+  Information about a star:
+
+      %{"age" => 9398686722, "luminosity" => 0.06615000218153,
+        "name" => "BKG-Q2 - Star", "radius" => 346600000,
+        "solar_system_id" => 30004333, "spectral_class" => "K2 V",
+        "temperature" => 3953, "type_id" => 45033}
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_universe_stars_star_id`
+  - `path` -- `/universe/stars/{star_id}/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_stars_star_id)
+
+  """
+  @spec star(star_id :: integer) :: ESI.Request.t
+  def star(star_id) do
+    %ESI.Request{
+      verb: :get,
+      path: "/universe/stars/#{star_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+
+    }
+  end
+
   @typedoc """
   Options for [`Universe.races/1`](#races/1).
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type races_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type races_opts :: [races_opt]
+  @type races_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -325,9 +352,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type constellation_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type constellation_opts :: [constellation_opt]
+  @type constellation_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -359,6 +385,35 @@ defmodule ESI.API.Universe do
       path: "/universe/constellations/#{constellation_id}/",
       opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
       opts: Map.new(opts),
+    }
+  end
+
+  @doc """
+  Get the number of jumps in solar systems within the last hour ending at the timestamp of the Last-Modified header, excluding wormhole space. Only systems with jumps will be listed.
+
+  ## Response Example
+
+  A list of systems and number of jumps:
+
+      [%{"ship_jumps" => 42, "system_id" => 30002410}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_universe_system_jumps`
+  - `path` -- `/universe/system_jumps/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_system_jumps)
+
+  """
+  @spec system_jumps() :: ESI.Request.t
+  def system_jumps() do
+    %ESI.Request{
+      verb: :get,
+      path: "/universe/system_jumps/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+
     }
   end
 
@@ -396,9 +451,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type type_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type type_opts :: [type_opt]
+  @type type_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -494,9 +548,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type system_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type system_opts :: [system_opt]
+  @type system_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -511,8 +564,8 @@ defmodule ESI.API.Universe do
          %{"planet_id" => 40000043}],
         "position" => %{"x" => -91174141133075340, "y" => 43938227486247170,
           "z" => -56482824383339900}, "security_class" => "B",
-        "security_status" => 0.8462923765182495, "stargates" => [50000342],
-        "system_id" => 30000003}
+        "security_status" => 0.8462923765182495, "star_id" => 40000040,
+        "stargates" => [50000342], "system_id" => 30000003}
 
   ## Swagger Source
 
@@ -539,9 +592,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type group_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type group_opts :: [group_opt]
+  @type group_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -579,9 +631,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type factions_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type factions_opts :: [factions_opt]
+  @type factions_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -652,11 +703,10 @@ defmodule ESI.API.Universe do
   @typedoc """
   Options for [`Universe.types/1`](#types/1).
 
-  - `:page` -- Which page to query
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   """
-  @type types_opts :: [
-    page: nil | integer,
-  ]
+  @type types_opts :: [types_opt]
+  @type types_opt :: {:page, nil | integer}
 
 
   @doc """
@@ -685,6 +735,36 @@ defmodule ESI.API.Universe do
       path: "/universe/types/",
       opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, user_agent: {:query, :optional}},
       opts: Map.new(opts),
+    }
+  end
+
+  @doc """
+  Get the number of ship, pod and NPC kills per solar system within the last hour ending at the timestamp of the Last-Modified header, excluding wormhole space. Only systems with kills will be listed.
+
+  ## Response Example
+
+  A list of systems and number of ship, pod and NPC kills:
+
+      [%{"npc_kills" => 0, "pod_kills" => 24, "ship_kills" => 42,
+         "system_id" => 30002410}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_universe_system_kills`
+  - `path` -- `/universe/system_kills/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_system_kills)
+
+  """
+  @spec system_kills() :: ESI.Request.t
+  def system_kills() do
+    %ESI.Request{
+      verb: :get,
+      path: "/universe/system_kills/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+
     }
   end
 
@@ -722,9 +802,8 @@ defmodule ESI.API.Universe do
 
   - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
   """
-  @type region_opts :: [
-    language: nil | :de | :"en-us" | :fr | :ja | :ru | :zh,
-  ]
+  @type region_opts :: [region_opt]
+  @type region_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
 
   @doc """
@@ -861,9 +940,8 @@ defmodule ESI.API.Universe do
 
   - `:ids` (REQUIRED) -- The ids to resolve
   """
-  @type create_names_opts :: [
-    ids: [nil | integer],
-  ]
+  @type create_names_opts :: [create_names_opt]
+  @type create_names_opt :: {:ids, [nil | integer]}
 
 
   @doc """
@@ -871,7 +949,7 @@ defmodule ESI.API.Universe do
 
   ## Response Example
 
-  List of id/name associations for a set of ID's. ID's that cannot be resolved are not returned.:
+  List of id/name associations for a set of ID's. All ID's must resolve to a name, or nothing will be returned.:
 
       [%{"category" => "character", "id" => 95465499, "name" => "CCP Bartender"},
        %{"category" => "solar_system", "id" => 30000142, "name" => "Jita"}]

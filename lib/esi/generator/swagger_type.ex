@@ -1,4 +1,5 @@
 defmodule ESI.Generator.SwaggerType do
+  @moduledoc false
 
   @enforce_keys [:node, :ancestors]
 

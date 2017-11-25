@@ -5,7 +5,7 @@ defmodule ESI.API.Industry do
 
   ## Response Example
 
-  A list of prices:
+  A list of facilities:
 
       [%{"facility_id" => 60012544, "owner_id" => 1000126, "region_id" => 10000001,
          "solar_system_id" => 30000032, "tax" => 0.1, "type_id" => 2502}]
