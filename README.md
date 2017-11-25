@@ -82,7 +82,7 @@ $ mix esi.generate
 
 Then:
 
-- Make sure any new modules/functions look like they're named correctly. Ff they're
+- Make sure any new modules/functions look like they're named correctly. If they're
   not, see the renaming functions in `ESI.Generator.Function`.
 - Update the `README.md` with the current ESI Swagger Specification version number
   in the code example.
