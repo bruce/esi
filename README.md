@@ -2,7 +2,7 @@
 
 An Elixir client for Eve Online's Swagger Interface (ESI).
 
-[![ESI Version](https://img.shields.io/badge/ESI-v0.7.2-blue.svg)]
+![ESI Version](https://img.shields.io/badge/ESI-v0.7.2-blue.svg)
 
 ## Synopsis
 
