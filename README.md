@@ -26,7 +26,7 @@ You can see what version of the ESI Swagger Specification was used by running:
 
 ``` elixir
 ESI.API.version()
-# => "0.7.2"
+# => "0.7.5"
 ```
 
 API functions are available in modules under `ESI.API`. The module grouping is close to,
