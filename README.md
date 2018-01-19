@@ -80,6 +80,12 @@ $ rm lib/esi/api.ex lib/esi/api/*.ex
 $ mix esi.generate
 ```
 
+If you are using Elixir version 1.6.0 or above, format the code that was generated with:
+
+```
+$ mix format
+```
+
 Then:
 
 - Make sure any new modules/functions look like they're named correctly. If they're

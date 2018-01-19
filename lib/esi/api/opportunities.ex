@@ -1,5 +1,4 @@
 defmodule ESI.API.Opportunities do
-
   @doc """
   Return a list of opportunities groups.
 
@@ -19,13 +18,12 @@ defmodule ESI.API.Opportunities do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Opportunities/get_opportunities_groups)
 
   """
-  @spec groups() :: ESI.Request.t
+  @spec groups() :: ESI.Request.t()
   def groups() do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/groups/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
     }
   end
 
@@ -36,9 +34,12 @@ defmodule ESI.API.Opportunities do
 
   Details of an opportunities task:
 
-      %{"description" => "To use station services...",
+      %{
+        "description" => "To use station services...",
         "name" => "Dock in the station",
-        "notification" => "Completed:<br>Docked in a station!", "task_id" => 10}
+        "notification" => "Completed:<br>Docked in a station!",
+        "task_id" => 10
+      }
 
   ## Swagger Source
 
@@ -50,13 +51,12 @@ defmodule ESI.API.Opportunities do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Opportunities/get_opportunities_tasks_task_id)
 
   """
-  @spec task(task_id :: integer) :: ESI.Request.t
+  @spec task(task_id :: integer) :: ESI.Request.t()
   def task(task_id) do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/tasks/#{task_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
     }
   end
 
@@ -79,13 +79,12 @@ defmodule ESI.API.Opportunities do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Opportunities/get_opportunities_tasks)
 
   """
-  @spec tasks() :: ESI.Request.t
+  @spec tasks() :: ESI.Request.t()
   def tasks() do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/tasks/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
     }
   end
 
@@ -97,7 +96,6 @@ defmodule ESI.API.Opportunities do
   @type group_opts :: [group_opt]
   @type group_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
-
   @doc """
   Return information of an opportunities group.
 
@@ -105,10 +103,14 @@ defmodule ESI.API.Opportunities do
 
   Details of an opportunities group:
 
-      %{"connected_groups" => [100], "description" => "As a capsuleer...",
-        "group_id" => 103, "name" => "Welcome to New Eden",
+      %{
+        "connected_groups" => [100],
+        "description" => "As a capsuleer...",
+        "group_id" => 103,
+        "name" => "Welcome to New Eden",
         "notification" => "Completed:<br>Welcome to New Eden",
-        "required_tasks" => [19]}
+        "required_tasks" => [19]
+      }
 
   ## Swagger Source
 
@@ -120,13 +122,17 @@ defmodule ESI.API.Opportunities do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Opportunities/get_opportunities_groups_group_id)
 
   """
-  @spec group(group_id :: integer, opts :: group_opts) :: ESI.Request.t
+  @spec group(group_id :: integer, opts :: group_opts) :: ESI.Request.t()
   def group(group_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/groups/#{group_id}/",
-      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+      opts_schema: %{
+        datasource: {:query, :optional},
+        language: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 end

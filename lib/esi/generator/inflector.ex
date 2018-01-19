@@ -9,6 +9,7 @@ defmodule ESI.Generator.Inflector do
       unquote(mod_name)
     end
   end
+
   def titleize(name) do
     Macro.camelize(name)
   end
@@ -21,8 +22,8 @@ defmodule ESI.Generator.Inflector do
       unquote(mod_name)
     end
   end
+
   def singularize(word) do
     String.replace_suffix(word, "s", "")
   end
-
 end

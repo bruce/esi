@@ -1,5 +1,4 @@
 defmodule ESI.API.UI do
-
   @typedoc """
   Options for [`UI.open_information_window/1`](#open_information_window/1).
 
@@ -7,8 +6,7 @@ defmodule ESI.API.UI do
   - `:token` -- Access token to use if unable to set a header
   """
   @type open_information_window_opts :: [open_information_window_opt]
-  @type open_information_window_opt :: {:target_id, integer} | {:token, nil | String.t}
-
+  @type open_information_window_opt :: {:target_id, integer} | {:token, nil | String.t()}
 
   @doc """
   Open the information window for a character, corporation or alliance inside the client.
@@ -27,13 +25,18 @@ defmodule ESI.API.UI do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/User Interface/post_ui_openwindow_information)
 
   """
-  @spec open_information_window(opts :: open_information_window_opts) :: ESI.Request.t
+  @spec open_information_window(opts :: open_information_window_opts) :: ESI.Request.t()
   def open_information_window(opts \\ []) do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/information/",
-      opts_schema: %{datasource: {:query, :optional}, target_id: {:query, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+      opts_schema: %{
+        datasource: {:query, :optional},
+        target_id: {:query, :required},
+        token: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 
@@ -44,8 +47,7 @@ defmodule ESI.API.UI do
   - `:type_id` (REQUIRED) -- The item type to open in market window
   """
   @type open_market_details_window_opts :: [open_market_details_window_opt]
-  @type open_market_details_window_opt :: {:token, nil | String.t} | {:type_id, integer}
-
+  @type open_market_details_window_opt :: {:token, nil | String.t()} | {:type_id, integer}
 
   @doc """
   Open the market details window for a specific typeID inside the client.
@@ -64,13 +66,18 @@ defmodule ESI.API.UI do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/User Interface/post_ui_openwindow_marketdetails)
 
   """
-  @spec open_market_details_window(opts :: open_market_details_window_opts) :: ESI.Request.t
+  @spec open_market_details_window(opts :: open_market_details_window_opts) :: ESI.Request.t()
   def open_market_details_window(opts \\ []) do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/marketdetails/",
-      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}, type_id: {:query, :required}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+      opts_schema: %{
+        datasource: {:query, :optional},
+        token: {:query, :optional},
+        type_id: {:query, :required},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 
@@ -81,8 +88,16 @@ defmodule ESI.API.UI do
   - `:token` -- Access token to use if unable to set a header
   """
   @type open_new_mail_window_opts :: [open_new_mail_window_opt]
-  @type open_new_mail_window_opt :: {:new_mail, [body: String.t, recipients: [integer], subject: String.t, to_corp_or_alliance_id: nil | integer, to_mailing_list_id: nil | integer]} | {:token, nil | String.t}
-
+  @type open_new_mail_window_opt ::
+          {:new_mail,
+           [
+             body: String.t(),
+             recipients: [integer],
+             subject: String.t(),
+             to_corp_or_alliance_id: nil | integer,
+             to_mailing_list_id: nil | integer
+           ]}
+          | {:token, nil | String.t()}
 
   @doc """
   Open the New Mail window, according to settings from the request if applicable.
@@ -101,13 +116,18 @@ defmodule ESI.API.UI do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/User Interface/post_ui_openwindow_newmail)
 
   """
-  @spec open_new_mail_window(opts :: open_new_mail_window_opts) :: ESI.Request.t
+  @spec open_new_mail_window(opts :: open_new_mail_window_opts) :: ESI.Request.t()
   def open_new_mail_window(opts \\ []) do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/newmail/",
-      opts_schema: %{datasource: {:query, :optional}, new_mail: {:body, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+      opts_schema: %{
+        datasource: {:query, :optional},
+        new_mail: {:body, :required},
+        token: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 
@@ -120,8 +140,11 @@ defmodule ESI.API.UI do
   - `:token` -- Access token to use if unable to set a header
   """
   @type set_autopilot_waypoint_opts :: [set_autopilot_waypoint_opt]
-  @type set_autopilot_waypoint_opt :: {:add_to_beginning, boolean} | {:clear_other_waypoints, boolean} | {:destination_id, integer} | {:token, nil | String.t}
-
+  @type set_autopilot_waypoint_opt ::
+          {:add_to_beginning, boolean}
+          | {:clear_other_waypoints, boolean}
+          | {:destination_id, integer}
+          | {:token, nil | String.t()}
 
   @doc """
   Set a solar system as autopilot waypoint.
@@ -140,13 +163,20 @@ defmodule ESI.API.UI do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/User Interface/post_ui_autopilot_waypoint)
 
   """
-  @spec set_autopilot_waypoint(opts :: set_autopilot_waypoint_opts) :: ESI.Request.t
+  @spec set_autopilot_waypoint(opts :: set_autopilot_waypoint_opts) :: ESI.Request.t()
   def set_autopilot_waypoint(opts \\ []) do
     %ESI.Request{
       verb: :post,
       path: "/ui/autopilot/waypoint/",
-      opts_schema: %{add_to_beginning: {:query, :required}, clear_other_waypoints: {:query, :required}, datasource: {:query, :optional}, destination_id: {:query, :required}, token: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+      opts_schema: %{
+        add_to_beginning: {:query, :required},
+        clear_other_waypoints: {:query, :required},
+        datasource: {:query, :optional},
+        destination_id: {:query, :required},
+        token: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 
@@ -157,8 +187,7 @@ defmodule ESI.API.UI do
   - `:token` -- Access token to use if unable to set a header
   """
   @type open_contract_window_opts :: [open_contract_window_opt]
-  @type open_contract_window_opt :: {:contract_id, integer} | {:token, nil | String.t}
-
+  @type open_contract_window_opt :: {:contract_id, integer} | {:token, nil | String.t()}
 
   @doc """
   Open the contract window inside the client.
@@ -177,13 +206,18 @@ defmodule ESI.API.UI do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/User Interface/post_ui_openwindow_contract)
 
   """
-  @spec open_contract_window(opts :: open_contract_window_opts) :: ESI.Request.t
+  @spec open_contract_window(opts :: open_contract_window_opts) :: ESI.Request.t()
   def open_contract_window(opts \\ []) do
     %ESI.Request{
       verb: :post,
       path: "/ui/openwindow/contract/",
-      opts_schema: %{contract_id: {:query, :required}, datasource: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+      opts_schema: %{
+        contract_id: {:query, :required},
+        datasource: {:query, :optional},
+        token: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 end

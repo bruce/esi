@@ -3,13 +3,14 @@ defmodule ESI.Generator.Function do
 
   alias ESI.Generator.{Endpoint, Inflector}
 
-  import Endpoint, only: [
-    args: 1,
-    ends_as?: 2,
-    form: 1,
-    namespace: 1,
-    words: 1,
-  ]
+  import Endpoint,
+    only: [
+      args: 1,
+      ends_as?: 2,
+      form: 1,
+      namespace: 1,
+      words: 1
+    ]
 
   @enforce_keys [
     :doc,
@@ -19,7 +20,7 @@ defmodule ESI.Generator.Function do
     :params,
     :verb,
     :tags,
-    :responses,
+    :responses
   ]
 
   defstruct [
@@ -32,24 +33,25 @@ defmodule ESI.Generator.Function do
     :name,
     :tags,
     :responses,
-    :arity,
+    :arity
   ]
 
   @type t :: %__MODULE__{
-    doc: String.t,
-    endpoint: Endpoint.t,
-    module_name: String.t,
-    operation: String.t,
-    params: %{String.t => map},
-    verb: atom,
-    name: String.t,
-    responses: map,
-    tags: [String.t],
-    arity: pos_integer,
-  }
+          doc: String.t(),
+          endpoint: Endpoint.t(),
+          module_name: String.t(),
+          operation: String.t(),
+          params: %{String.t() => map},
+          verb: atom,
+          name: String.t(),
+          responses: map,
+          tags: [String.t()],
+          arity: pos_integer
+        }
 
   def new(path, verb, info) do
     endpoint = Endpoint.new(path)
+
     %__MODULE__{
       endpoint: endpoint,
       operation: info["operationId"],
@@ -58,7 +60,7 @@ defmodule ESI.Generator.Function do
       doc: info["description"],
       params: param_mapping(info["parameters"]),
       tags: info["tags"],
-      responses: info["responses"],
+      responses: info["responses"]
     }
     |> add_name
   end
@@ -75,30 +77,34 @@ defmodule ESI.Generator.Function do
   @spec arity(function :: t, takes_options :: boolean) :: pos_integer
   def arity(function, takes_options) do
     params_count = Map.values(function.params) |> Enum.count(&(&1["in"] == "path"))
-    add = case takes_options do
-      true -> 1
-      false -> 0
-    end
+
+    add =
+      case takes_options do
+        true -> 1
+        false -> 0
+      end
+
     params_count + add
   end
 
-  @spec generate_module_name(endpoint :: Endpoint.t) :: String.t
+  @spec generate_module_name(endpoint :: Endpoint.t()) :: String.t()
   defp generate_module_name(endpoint) do
     endpoint
     |> namespace
     |> rename_namespace
     |> singularize
-    |> Inflector.titleize
+    |> Inflector.titleize()
   end
 
   @skip_singularize ~w(status opportunities)
-  @spec singularize(String.t) :: String.t
+  @spec singularize(String.t()) :: String.t()
   for skip <- @skip_singularize do
     defp singularize(unquote(skip)), do: unquote(skip)
   end
+
   defp singularize(word), do: Inflector.singularize(word)
 
-  @spec param_mapping(params :: map) :: %{String.t => map}
+  @spec param_mapping(params :: map) :: %{String.t() => map}
   defp param_mapping(params) do
     for param <- params, into: %{} do
       {param["name"], param}
@@ -111,10 +117,11 @@ defmodule ESI.Generator.Function do
     delete: "delete_"
   ]
   @unprefixed ~w(UI)
-  @spec generate_name(function :: t) :: String.t
+  @spec generate_name(function :: t) :: String.t()
   defp generate_name(function) do
     base = do_generate_name(function.endpoint) || function.operation
     base = base |> rename_function(form(function.endpoint))
+
     if Enum.member?(@unprefixed, function.module_name) do
       base
     else
@@ -122,52 +129,61 @@ defmodule ESI.Generator.Function do
     end
   end
 
-  @spec response_example(function :: t) :: nil | {String.t, any}
+  @spec response_example(function :: t) :: nil | {String.t(), any}
   def response_example(function) do
     Enum.find_value(function.responses, fn {code, info} ->
       case String.to_integer(code) do
         value when value in 200..299 ->
           result = info["examples"]["application/json"]
+
           if result do
             {info["description"], result}
           end
+
         _ ->
           false
       end
     end)
   end
 
-  @spec generate_name(endpoint :: Endpoint.t) :: String.t
+  @spec generate_name(endpoint :: Endpoint.t()) :: String.t()
   defp do_generate_name(endpoint) do
     cond do
       form(endpoint) == [] ->
         endpoint
         |> namespace()
+
       words(endpoint) == [] ->
         endpoint
         |> namespace()
         |> Inflector.singularize()
+
       args(endpoint) == [] && length(Enum.uniq(form(endpoint))) == 1 ->
         endpoint
         |> words()
         |> Enum.join("_")
+
       ends_as?(endpoint, [:word, :word, :arg]) ->
         endpoint
         |> words()
         |> Enum.slice(-2, 2)
         |> Enum.join("_")
-        |> Inflector.singularize
+        |> Inflector.singularize()
+
       ends_as?(endpoint, [:arg, :word]) ->
         endpoint
         |> words()
         |> List.last()
+
       ends_as?(endpoint, [:word, :word]) ->
         # /characters/{character_id}/bookmarks/labels -> bookmark_labels
         [category, items] = Enum.slice(words(endpoint), -2, 2)
         Inflector.singularize(category) <> "_" <> items
+
       ends_as?(endpoint, [:word, :arg]) ->
         last_arg = List.last(args(endpoint))
         last_word = List.last(words(endpoint))
+
         if Inflector.singularize(last_word) <> "_id" == last_arg do
           # /characters/{character_id}/planets/{planet_id}/ -> planet
           Inflector.singularize(last_word)
@@ -175,10 +191,12 @@ defmodule ESI.Generator.Function do
           # /characters/{character_id}/calendar/{event_id}/ -> calendar_event
           Inflector.singularize(last_word) <> "_" <> String.replace_suffix(last_arg, "_id", "")
         end
+
       form(endpoint) == [:arg] ->
         endpoint
         |> namespace()
         |> Inflector.singularize()
+
       true ->
         nil
     end
@@ -192,21 +210,22 @@ defmodule ESI.Generator.Function do
     {"openwindow_contract", [:word, :word]} => "open_contract_window",
     {"openwindow_information", [:word, :word]} => "open_information_window",
     {"openwindow_marketdetails", [:word, :word]} => "open_market_details_window",
-    {"openwindow_newmail", [:word, :word]} => "open_new_mail_window",
+    {"openwindow_newmail", [:word, :word]} => "open_new_mail_window"
   }
-  @spec rename_function(String.t, String.t) :: String.t
+  @spec rename_function(String.t(), String.t()) :: String.t()
   for {{old, form}, new} <- @function_renames do
     defp rename_function(unquote(old), unquote(form)), do: unquote(new)
   end
+
   defp rename_function(name, _), do: name
 
   @namespace_renames [
     {"fw", "faction_warfare"}
   ]
-  @spec rename_namespace(String.t) :: String.t
+  @spec rename_namespace(String.t()) :: String.t()
   for {old, new} <- @namespace_renames do
     defp rename_namespace(unquote(old)), do: unquote(new)
   end
-  defp rename_namespace(name), do: name
 
+  defp rename_namespace(name), do: name
 end
