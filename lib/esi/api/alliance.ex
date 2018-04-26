@@ -99,6 +99,47 @@ defmodule ESI.API.Alliance do
     }
   end
 
+  @typedoc """
+  Options for [`Alliance.contact_labels/2`](#contact_labels/2).
+
+  - `:token` -- Access token to use if unable to set a header
+  """
+  @type contact_labels_opts :: [contact_labels_opt]
+  @type contact_labels_opt :: {:token, nil | String.t()}
+
+  @doc """
+  Return custom labels for an alliance's contacts.
+
+  ## Response Example
+
+  A list of alliance contact labels:
+
+      [%{"label_id" => 1, "label_name" => "Alliance Friends"}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_alliances_alliance_id_contacts_labels`
+  - `path` -- `/alliances/{alliance_id}/contacts/labels/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Contacts/get_alliances_alliance_id_contacts_labels)
+
+  """
+  @spec contact_labels(alliance_id :: integer, opts :: contact_labels_opts) :: ESI.Request.t()
+  def contact_labels(alliance_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/alliances/#{alliance_id}/contacts/labels/",
+      opts_schema: %{
+        datasource: {:query, :optional},
+        token: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
+    }
+  end
+
   @doc """
   Public information about an alliance.
 

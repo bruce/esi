@@ -328,7 +328,7 @@ defmodule ESI.API.Universe do
 
       %{
         "age" => 9398686722,
-        "luminosity" => 0.06615000218153,
+        "luminosity" => 0.0661500022,
         "name" => "BKG-Q2 - Star",
         "radius" => 346600000,
         "solar_system_id" => 30004333,
@@ -675,7 +675,7 @@ defmodule ESI.API.Universe do
           "z" => -56482824383339900
         },
         "security_class" => "B",
-        "security_status" => 0.8462923765182495,
+        "security_status" => 0.8462923765,
         "star_id" => 40000040,
         "stargates" => [50000342],
         "system_id" => 30000003
@@ -917,6 +917,38 @@ defmodule ESI.API.Universe do
   end
 
   @doc """
+  Get information on an asteroid belt.
+
+  ## Response Example
+
+  Information about an asteroid belt:
+
+      %{
+        "name" => "Tanoo I - Asteroid Belt 1",
+        "position" => %{"x" => 161967513600, "y" => 21288837120, "z" => -73505464320},
+        "system_id" => 30000001
+      }
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_universe_asteroid_belts_asteroid_belt_id`
+  - `path` -- `/universe/asteroid_belts/{asteroid_belt_id}/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_asteroid_belts_asteroid_belt_id)
+
+  """
+  @spec asteroid_belt(asteroid_belt_id :: integer) :: ESI.Request.t()
+  def asteroid_belt(asteroid_belt_id) do
+    %ESI.Request{
+      verb: :get,
+      path: "/universe/asteroid_belts/#{asteroid_belt_id}/",
+      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+    }
+  end
+
+  @doc """
   Get a list of graphics.
 
   ## Response Example
@@ -1049,6 +1081,55 @@ defmodule ESI.API.Universe do
       verb: :get,
       path: "/universe/planets/#{planet_id}/",
       opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+    }
+  end
+
+  @typedoc """
+  Options for [`Universe.ancestries/1`](#ancestries/1).
+
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  """
+  @type ancestries_opts :: [ancestries_opt]
+  @type ancestries_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
+
+  @doc """
+  Get all character ancestries.
+
+  ## Response Example
+
+  A list of ancestries:
+
+      [
+        %{
+          "bloodline_id" => 1,
+          "description" => "Acutely aware of the small population...",
+          "id" => 12,
+          "name" => "Tube Child",
+          "short_description" => "Manufactured citizens of the State."
+        }
+      ]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_universe_ancestries`
+  - `path` -- `/universe/ancestries/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Universe/get_universe_ancestries)
+
+  """
+  @spec ancestries(opts :: ancestries_opts) :: ESI.Request.t()
+  def ancestries(opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/universe/ancestries/",
+      opts_schema: %{
+        datasource: {:query, :optional},
+        language: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 

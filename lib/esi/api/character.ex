@@ -119,19 +119,18 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.create_fittings/2`](#create_fittings/2).
 
-  - `:fitting` -- Details about the new fitting
+  - `:fitting` (REQUIRED) -- Details about the new fitting
   - `:token` -- Access token to use if unable to set a header
   """
   @type create_fittings_opts :: [create_fittings_opt]
   @type create_fittings_opt ::
           {:fitting,
-           nil
-           | [
-               description: String.t(),
-               items: [[flag: integer, quantity: integer, type_id: integer]],
-               name: String.t(),
-               ship_type_id: integer
-             ]}
+           [
+             description: String.t(),
+             items: [[flag: integer, quantity: integer, type_id: integer]],
+             name: String.t(),
+             ship_type_id: integer
+           ]}
           | {:token, nil | String.t()}
 
   @doc """
@@ -160,7 +159,7 @@ defmodule ESI.API.Character do
       path: "/characters/#{character_id}/fittings/",
       opts_schema: %{
         datasource: {:query, :optional},
-        fitting: {:body, :optional},
+        fitting: {:body, :required},
         token: {:query, :optional},
         user_agent: {:query, :optional}
       },
@@ -1179,11 +1178,11 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.create_contacts/2`](#create_contacts/2).
 
-  - `:contact_ids` (REQUIRED) -- A list of contacts to add
+  - `:contact_ids` (REQUIRED) -- A list of contacts
   - `:label_id` (DEFAULT: `0`) -- Add a custom label to the new contact
-  - `:standing` (REQUIRED) -- Standing for the new contact
+  - `:standing` (REQUIRED) -- Standing for the contact
   - `:token` -- Access token to use if unable to set a header
-  - `:watched` (DEFAULT: `false`) -- Whether the new contact should be watched, note this is only effective on characters
+  - `:watched` (DEFAULT: `false`) -- Whether the contact should be watched, note this is only effective on characters
   """
   @type create_contacts_opts :: [create_contacts_opt]
   @type create_contacts_opt ::
@@ -1233,7 +1232,7 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.update_contacts/2`](#update_contacts/2).
 
-  - `:contact_ids` (REQUIRED) -- A list of contacts to edit
+  - `:contact_ids` (REQUIRED) -- A list of contacts
   - `:label_id` (DEFAULT: `0`) -- Add a custom label to the contact, use 0 for clearing label
   - `:standing` (REQUIRED) -- Standing for the contact
   - `:token` -- Access token to use if unable to set a header
@@ -1392,19 +1391,18 @@ defmodule ESI.API.Character do
   @type orders_opt :: {:token, nil | String.t()}
 
   @doc """
-  List market orders placed by a character.
+  List open market orders placed by a character.
 
   ## Response Example
 
-  Market orders placed by a character:
+  Open market orders placed by a character:
 
       [
         %{
-          "account_id" => 1000,
           "duration" => 30,
           "escrow" => 45.6,
           "is_buy_order" => true,
-          "is_corp" => false,
+          "is_corporation" => false,
           "issued" => "2016-09-03T05:12:25Z",
           "location_id" => 456,
           "min_volume" => 1,
@@ -1412,7 +1410,6 @@ defmodule ESI.API.Character do
           "price" => 33.3,
           "range" => "station",
           "region_id" => 123,
-          "state" => "open",
           "type_id" => 456,
           "volume_remain" => 4422,
           "volume_total" => 123456
@@ -1695,7 +1692,7 @@ defmodule ESI.API.Character do
       [
         %{
           "agent_id" => 3009358,
-          "points_per_day" => 53.5346162146776,
+          "points_per_day" => 53.5346162147,
           "remainder_points" => 53604.0634303189,
           "skill_type_id" => 11450,
           "started_at" => "2017-03-23T14:47:00Z"
@@ -1735,7 +1732,7 @@ defmodule ESI.API.Character do
   @type contact_labels_opt :: {:token, nil | String.t()}
 
   @doc """
-  Return custom labels for contacts the character defined.
+  Return custom labels for a character's contacts.
 
   ## Response Example
 
@@ -2103,16 +2100,14 @@ defmodule ESI.API.Character do
         ],
         "pins" => [
           %{
-            "is_running" => true,
-            "latitude" => 1.55087844973,
-            "longitude" => 0.717145933308,
+            "latitude" => 1.5508784497,
+            "longitude" => 0.7171459333,
             "pin_id" => 1000000017021,
             "type_id" => 2254
           },
           %{
-            "is_running" => true,
-            "latitude" => 1.53360639935,
-            "longitude" => 0.709775584394,
+            "latitude" => 1.5336063994,
+            "longitude" => 0.7097755844,
             "pin_id" => 1000000017022,
             "type_id" => 2256
           }
@@ -2963,14 +2958,14 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.wallet_journal/2`](#wallet_journal/2).
 
-  - `:from_id` -- Only show journal entries happened before the transaction referenced by this id
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
   @type wallet_journal_opts :: [wallet_journal_opt]
-  @type wallet_journal_opt :: {:from_id, nil | integer} | {:token, nil | String.t()}
+  @type wallet_journal_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Retrieve character wallet journal.
+  Retrieve the given character's wallet journal going 30 days back.
 
   ## Response Example
 
@@ -2978,9 +2973,16 @@ defmodule ESI.API.Character do
 
       [
         %{
-          "date" => "2016-10-24T09:00:00Z",
-          "ref_id" => 1234567890,
-          "ref_type" => "player_trading"
+          "amount" => -100000,
+          "balance" => 500000.4316,
+          "context_id" => 4,
+          "context_id_type" => "contract_id",
+          "date" => "2018-02-23T14:31:32Z",
+          "description" => "Contract Deposit",
+          "first_party_id" => 2112625428,
+          "id" => 89,
+          "ref_type" => "contract_deposit",
+          "second_party_id" => 1000132
         }
       ]
 
@@ -3001,7 +3003,7 @@ defmodule ESI.API.Character do
       path: "/characters/#{character_id}/wallet/journal/",
       opts_schema: %{
         datasource: {:query, :optional},
-        from_id: {:query, :optional},
+        page: {:query, :optional},
         token: {:query, :optional},
         user_agent: {:query, :optional}
       },
@@ -3118,13 +3120,13 @@ defmodule ESI.API.Character do
       %{
         "labels" => [
           %{
-            "color_hex" => "#660066",
+            "color" => "#660066",
             "label_id" => 16,
             "name" => "PINK",
             "unread_count" => 4
           },
           %{
-            "color_hex" => "#ffffff",
+            "color" => "#ffffff",
             "label_id" => 17,
             "name" => "WHITE",
             "unread_count" => 1
@@ -3160,36 +3162,35 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.create_mail_labels/2`](#create_mail_labels/2).
 
-  - `:label` -- Label to create
+  - `:label` (REQUIRED) -- Label to create
   - `:token` -- Access token to use if unable to set a header
   """
   @type create_mail_labels_opts :: [create_mail_labels_opt]
   @type create_mail_labels_opt ::
           {:label,
-           nil
-           | [
-               color:
-                 nil
-                 | :"#0000fe"
-                 | :"#006634"
-                 | :"#0099ff"
-                 | :"#00ff33"
-                 | :"#01ffff"
-                 | :"#349800"
-                 | :"#660066"
-                 | :"#666666"
-                 | :"#999999"
-                 | :"#99ffff"
-                 | :"#9a0000"
-                 | :"#ccff9a"
-                 | :"#e6e6e6"
-                 | :"#fe0000"
-                 | :"#ff6600"
-                 | :"#ffff01"
-                 | :"#ffffcd"
-                 | :"#ffffff",
-               name: String.t()
-             ]}
+           [
+             color:
+               nil
+               | :"#0000fe"
+               | :"#006634"
+               | :"#0099ff"
+               | :"#00ff33"
+               | :"#01ffff"
+               | :"#349800"
+               | :"#660066"
+               | :"#666666"
+               | :"#999999"
+               | :"#99ffff"
+               | :"#9a0000"
+               | :"#ccff9a"
+               | :"#e6e6e6"
+               | :"#fe0000"
+               | :"#ff6600"
+               | :"#ffff01"
+               | :"#ffffcd"
+               | :"#ffffff",
+             name: String.t()
+           ]}
           | {:token, nil | String.t()}
 
   @doc """
@@ -3219,7 +3220,68 @@ defmodule ESI.API.Character do
       path: "/characters/#{character_id}/mail/labels/",
       opts_schema: %{
         datasource: {:query, :optional},
-        label: {:body, :optional},
+        label: {:body, :required},
+        token: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
+    }
+  end
+
+  @typedoc """
+  Options for [`Character.order_history/2`](#order_history/2).
+
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
+  - `:token` -- Access token to use if unable to set a header
+  """
+  @type order_history_opts :: [order_history_opt]
+  @type order_history_opt :: {:page, nil | integer} | {:token, nil | String.t()}
+
+  @doc """
+  List cancelled and expired market orders placed by a character up to 90 days in the past..
+
+  ## Response Example
+
+  Expired and cancelled market orders placed by a character:
+
+      [
+        %{
+          "duration" => 30,
+          "escrow" => 45.6,
+          "is_buy_order" => true,
+          "is_corporation" => false,
+          "issued" => "2016-09-03T05:12:25Z",
+          "location_id" => 456,
+          "min_volume" => 1,
+          "order_id" => 123,
+          "price" => 33.3,
+          "range" => "station",
+          "region_id" => 123,
+          "state" => "expired",
+          "type_id" => 456,
+          "volume_remain" => 4422,
+          "volume_total" => 123456
+        }
+      ]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_characters_character_id_orders_history`
+  - `path` -- `/characters/{character_id}/orders/history/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Market/get_characters_character_id_orders_history)
+
+  """
+  @spec order_history(character_id :: integer, opts :: order_history_opts) :: ESI.Request.t()
+  def order_history(character_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/characters/#{character_id}/orders/history/",
+      opts_schema: %{
+        datasource: {:query, :optional},
+        page: {:query, :optional},
         token: {:query, :optional},
         user_agent: {:query, :optional}
       },

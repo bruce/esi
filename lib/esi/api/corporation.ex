@@ -58,11 +58,11 @@ defmodule ESI.API.Corporation do
   @type shareholders_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Return the current member list of a corporation, the token's character need to be a member of the corporation..
+  Return the current shareholders of a corporation..
 
   ## Response Example
 
-  List of member character IDs:
+  List of shareholders:
 
       [
         %{
@@ -122,11 +122,11 @@ defmodule ESI.API.Corporation do
   @type orders_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  List market orders placed on behalf of a corporation.
+  List open market orders placed on behalf of a corporation.
 
   ## Response Example
 
-  A list of market orders:
+  A list of open market orders:
 
       [
         %{
@@ -140,7 +140,6 @@ defmodule ESI.API.Corporation do
           "price" => 33.3,
           "range" => "station",
           "region_id" => 123,
-          "state" => "open",
           "type_id" => 456,
           "volume_remain" => 4422,
           "volume_total" => 123456,
@@ -531,7 +530,6 @@ defmodule ESI.API.Corporation do
           %{
             "discount_per_good_standing" => 10,
             "minimum_standing" => 0,
-            "owner_id" => 98000002,
             "service_name" => "Reprocessing Plant",
             "surcharge_per_bad_standing" => 0
           }
@@ -807,6 +805,47 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         item_ids: {:body, :required},
+        token: {:query, :optional},
+        user_agent: {:query, :optional}
+      },
+      opts: Map.new(opts)
+    }
+  end
+
+  @typedoc """
+  Options for [`Corporation.contact_labels/2`](#contact_labels/2).
+
+  - `:token` -- Access token to use if unable to set a header
+  """
+  @type contact_labels_opts :: [contact_labels_opt]
+  @type contact_labels_opt :: {:token, nil | String.t()}
+
+  @doc """
+  Return custom labels for a corporation's contacts.
+
+  ## Response Example
+
+  A list of corporation contact labels:
+
+      [%{"label_id" => 2, "label_name" => "Corporation Friends"}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_corporations_corporation_id_contacts_labels`
+  - `path` -- `/corporations/{corporation_id}/contacts/labels/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Contacts/get_corporations_corporation_id_contacts_labels)
+
+  """
+  @spec contact_labels(corporation_id :: integer, opts :: contact_labels_opts) :: ESI.Request.t()
+  def contact_labels(corporation_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/corporations/#{corporation_id}/contacts/labels/",
+      opts_schema: %{
+        datasource: {:query, :optional},
         token: {:query, :optional},
         user_agent: {:query, :optional}
       },
@@ -1351,7 +1390,7 @@ defmodule ESI.API.Corporation do
           | {:token, nil | String.t()}
 
   @doc """
-  Get a list of corporation structures.
+  Get a list of corporation structures. This route's version includes the changes to structures detailed in this blog: https://www.eveonline.com/article/upwell-2.0-structures-changes-coming-on-february-13th.
 
   ## Response Example
 
@@ -1360,9 +1399,10 @@ defmodule ESI.API.Corporation do
       [
         %{
           "corporation_id" => 667531913,
-          "current_vul" => [%{"day" => 1, "hour" => 2}],
-          "next_vul" => [%{"day" => 3, "hour" => 4}],
           "profile_id" => 11237,
+          "reinforce_hour" => 22,
+          "reinforce_weekday" => 2,
+          "state" => "shield_vulnerable",
           "structure_id" => 1021975535893,
           "system_id" => 30004763,
           "type_id" => 35833
@@ -1726,14 +1766,14 @@ defmodule ESI.API.Corporation do
   @typedoc """
   Options for [`Corporation.journal/3`](#journal/3).
 
-  - `:from_id` -- Only show journal entries happened before the transaction referenced by this id
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
   @type journal_opts :: [journal_opt]
-  @type journal_opt :: {:from_id, nil | integer} | {:token, nil | String.t()}
+  @type journal_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Retrieve corporation wallet journal.
+  Retrieve the given corporation's wallet journal for the given division going 30 days back.
 
   ## Response Example
 
@@ -1741,9 +1781,16 @@ defmodule ESI.API.Corporation do
 
       [
         %{
+          "amount" => -1000,
+          "balance" => 1.0e5,
+          "context_id" => 2112625428,
+          "context_id_type" => "character_id",
           "date" => "2016-10-24T09:00:00Z",
-          "ref_id" => 1234567890,
-          "ref_type" => "player_trading"
+          "description" => "CCP Zoetrope transferred cash from C C P's corporate account to CCP SnowedIn's account",
+          "first_party_id" => 109299958,
+          "id" => 1234567890,
+          "ref_type" => "corporation_account_withdrawal",
+          "second_party_id" => 95538921
         }
       ]
 
@@ -1765,7 +1812,7 @@ defmodule ESI.API.Corporation do
       path: "/corporations/#{corporation_id}/wallets/#{division}/journal/",
       opts_schema: %{
         datasource: {:query, :optional},
-        from_id: {:query, :optional},
+        page: {:query, :optional},
         token: {:query, :optional},
         user_agent: {:query, :optional}
       },
@@ -2083,10 +2130,11 @@ defmodule ESI.API.Corporation do
   @typedoc """
   Options for [`Corporation.mining_extractions/2`](#mining_extractions/2).
 
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
   @type mining_extractions_opts :: [mining_extractions_opt]
-  @type mining_extractions_opt :: {:token, nil | String.t()}
+  @type mining_extractions_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
   Extraction timers for all moon chunks being extracted by refineries belonging to a corporation..
@@ -2123,6 +2171,7 @@ defmodule ESI.API.Corporation do
       path: "/corporation/#{corporation_id}/mining/extractions/",
       opts_schema: %{
         datasource: {:query, :optional},
+        page: {:query, :optional},
         token: {:query, :optional},
         user_agent: {:query, :optional}
       },
@@ -2209,44 +2258,59 @@ defmodule ESI.API.Corporation do
   end
 
   @typedoc """
-  Options for [`Corporation.update_structure/3`](#update_structure/3).
+  Options for [`Corporation.order_history/2`](#order_history/2).
 
-  - `:new_schedule` (REQUIRED) -- New vulnerability window schedule for the structure
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
-  @type update_structure_opts :: [update_structure_opt]
-  @type update_structure_opt ::
-          {:new_schedule, [nil | [day: integer, hour: integer]]} | {:token, nil | String.t()}
+  @type order_history_opts :: [order_history_opt]
+  @type order_history_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Update the vulnerability window schedule of a corporation structure.
+  List cancelled and expired market orders placed on behalf of a corporation up to 90 days in the past..
 
   ## Response Example
 
-  No example available.
+  Expired and cancelled market orders placed on behalf of a corporation:
+
+      [
+        %{
+          "duration" => 30,
+          "escrow" => 45.6,
+          "is_buy_order" => true,
+          "issued" => "2016-09-03T05:12:25Z",
+          "location_id" => 456,
+          "min_volume" => 1,
+          "order_id" => 123,
+          "price" => 33.3,
+          "range" => "station",
+          "region_id" => 123,
+          "state" => "expired",
+          "type_id" => 456,
+          "volume_remain" => 4422,
+          "volume_total" => 123456,
+          "wallet_division" => 1
+        }
+      ]
 
   ## Swagger Source
 
   This function was generated from the following Swagger operation:
 
-  - `operationId` -- `put_corporations_corporation_id_structures_structure_id`
-  - `path` -- `/corporations/{corporation_id}/structures/{structure_id}/`
+  - `operationId` -- `get_corporations_corporation_id_orders_history`
+  - `path` -- `/corporations/{corporation_id}/orders/history/`
 
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/put_corporations_corporation_id_structures_structure_id)
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Market/get_corporations_corporation_id_orders_history)
 
   """
-  @spec update_structure(
-          corporation_id :: integer,
-          structure_id :: integer,
-          opts :: update_structure_opts
-        ) :: ESI.Request.t()
-  def update_structure(corporation_id, structure_id, opts \\ []) do
+  @spec order_history(corporation_id :: integer, opts :: order_history_opts) :: ESI.Request.t()
+  def order_history(corporation_id, opts \\ []) do
     %ESI.Request{
-      verb: :put,
-      path: "/corporations/#{corporation_id}/structures/#{structure_id}/",
+      verb: :get,
+      path: "/corporations/#{corporation_id}/orders/history/",
       opts_schema: %{
         datasource: {:query, :optional},
-        new_schedule: {:body, :required},
+        page: {:query, :optional},
         token: {:query, :optional},
         user_agent: {:query, :optional}
       },
