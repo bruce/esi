@@ -40,8 +40,7 @@ defmodule ESI.API.Route do
         avoid: {:query, :optional},
         connections: {:query, :optional},
         datasource: {:query, :optional},
-        flag: {:query, :optional},
-        user_agent: {:query, :optional}
+        flag: {:query, :optional}
       },
       opts: Map.new(opts)
     }

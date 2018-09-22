@@ -59,7 +59,7 @@ defmodule ESI.API.Killmail do
     %ESI.Request{
       verb: :get,
       path: "/killmails/#{killmail_id}/#{killmail_hash}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

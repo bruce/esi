@@ -41,7 +41,7 @@ defmodule ESI.API.Loyalty do
     %ESI.Request{
       verb: :get,
       path: "/loyalty/stores/#{corporation_id}/offers/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

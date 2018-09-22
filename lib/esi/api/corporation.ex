@@ -39,11 +39,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/wallets/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -105,8 +101,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -134,6 +129,7 @@ defmodule ESI.API.Corporation do
           "escrow" => 45.6,
           "is_buy_order" => true,
           "issued" => "2016-09-03T05:12:25Z",
+          "issued_by" => 2112625428,
           "location_id" => 456,
           "min_volume" => 1,
           "order_id" => 123,
@@ -165,8 +161,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -217,8 +212,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -261,51 +255,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
-      opts: Map.new(opts)
-    }
-  end
-
-  @typedoc """
-  Options for [`Corporation.outposts/2`](#outposts/2).
-
-  - `:page` (DEFAULT: `1`) -- Which page of results to return
-  - `:token` -- Access token to use if unable to set a header
-  """
-  @type outposts_opts :: [outposts_opt]
-  @type outposts_opt :: {:page, nil | integer} | {:token, nil | String.t()}
-
-  @doc """
-  Get a list of corporation outpost IDs Note: This endpoint will be removed once outposts are migrated to Citadels as talked about in this blog: https://community.eveonline.com/news/dev-blogs/the-next-steps-in-structure-transition/.
-
-  ## Response Example
-
-  List of corporation outpost IDs:
-
-      [61001146, 61001147, 61001148]
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `get_corporations_corporation_id_outposts`
-  - `path` -- `/corporations/{corporation_id}/outposts/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_outposts)
-
-  """
-  @spec outposts(corporation_id :: integer, opts :: outposts_opts) :: ESI.Request.t()
-  def outposts(corporation_id, opts \\ []) do
-    %ESI.Request{
-      verb: :get,
-      path: "/corporations/#{corporation_id}/outposts/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -343,7 +293,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/alliancehistory/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -382,7 +332,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -396,7 +346,7 @@ defmodule ESI.API.Corporation do
   @type contracts_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Returns contracts available to a coporation, only if the corporation is issuer, acceptor or assignee. Only returns contracts no older than 30 days, or if the status is "in_progress"..
+  Returns contracts available to a corporation, only if the corporation is issuer, acceptor or assignee. Only returns contracts no older than 30 days, or if the status is "in_progress"..
 
   ## Response Example
 
@@ -443,8 +393,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -493,72 +442,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
-      opts: Map.new(opts)
-    }
-  end
-
-  @typedoc """
-  Options for [`Corporation.outpost/3`](#outpost/3).
-
-  - `:token` -- Access token to use if unable to set a header
-  """
-  @type outpost_opts :: [outpost_opt]
-  @type outpost_opt :: {:token, nil | String.t()}
-
-  @doc """
-  Get details about a given outpost. Note: This endpoint will be removed once outposts are migrated to Citadels as talked about in this blog: https://community.eveonline.com/news/dev-blogs/the-next-steps-in-structure-transition/.
-
-  ## Response Example
-
-  Details about the given outpost:
-
-      %{
-        "coordinates" => %{
-          "x" => -102478848000,
-          "y" => -18310963200,
-          "z" => -9660456960
-        },
-        "docking_cost_per_ship_volume" => 0,
-        "office_rental_cost" => 100,
-        "owner_id" => 98000002,
-        "reprocessing_efficiency" => 0.5,
-        "reprocessing_station_take" => 0.01,
-        "services" => [
-          %{
-            "discount_per_good_standing" => 10,
-            "minimum_standing" => 0,
-            "service_name" => "Reprocessing Plant",
-            "surcharge_per_bad_standing" => 0
-          }
-        ],
-        "standing_owner_id" => 99003581,
-        "system_id" => 30000657,
-        "type_id" => 21644
-      }
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `get_corporations_corporation_id_outposts_outpost_id`
-  - `path` -- `/corporations/{corporation_id}/outposts/{outpost_id}/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_corporation_id_outposts_outpost_id)
-
-  """
-  @spec outpost(corporation_id :: integer, outpost_id :: integer, opts :: outpost_opts) ::
-          ESI.Request.t()
-  def outpost(corporation_id, outpost_id, opts \\ []) do
-    %ESI.Request{
-      verb: :get,
-      path: "/corporations/#{corporation_id}/outposts/#{outpost_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -616,8 +500,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -655,11 +538,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/members/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -706,11 +585,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/fw/stats/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -733,6 +608,7 @@ defmodule ESI.API.Corporation do
 
       [
         %{
+          "is_blueprint_copy" => true,
           "is_singleton" => true,
           "item_id" => 1000000016835,
           "location_flag" => "Hangar",
@@ -761,8 +637,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -778,7 +653,7 @@ defmodule ESI.API.Corporation do
   @type create_asset_names_opt :: {:item_ids, [nil | integer]} | {:token, nil | String.t()}
 
   @doc """
-  Return names for a set of item ids, which you can get from corporation assets endpoint. Only valid for items that can customize names, like containers or ships..
+  Return names for a set of item ids, which you can get from corporation assets endpoint. Only valid for items that can customize names, like containers or ships.
 
   ## Response Example
 
@@ -805,8 +680,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         item_ids: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -844,11 +718,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/contacts/labels/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -885,11 +755,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/roles/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -926,11 +792,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/members/limit/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -967,11 +829,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/members/titles/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1019,8 +877,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1087,49 +944,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
-      opts: Map.new(opts)
-    }
-  end
-
-  @typedoc """
-  Options for [`Corporation.names/1`](#names/1).
-
-  - `:corporation_ids` (REQUIRED) -- A comma separated list of corporation IDs
-  """
-  @type names_opts :: [names_opt]
-  @type names_opt :: {:corporation_ids, [integer]}
-
-  @doc """
-  Resolve a set of corporation IDs to corporation names.
-
-  ## Response Example
-
-  List of id/name associations:
-
-      [%{"corporation_id" => 1000171, "corporation_name" => "Republic University"}]
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `get_corporations_names`
-  - `path` -- `/corporations/names/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Corporation/get_corporations_names)
-
-  """
-  @spec names(opts :: names_opts) :: ESI.Request.t()
-  def names(opts \\ []) do
-    %ESI.Request{
-      verb: :get,
-      path: "/corporations/names/",
-      opts_schema: %{
-        corporation_ids: {:query, :required},
-        datasource: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1175,8 +990,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1231,8 +1045,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         system_id: {:query, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1241,14 +1054,14 @@ defmodule ESI.API.Corporation do
   @typedoc """
   Options for [`Corporation.killmail_recent/2`](#killmail_recent/2).
 
-  - `:max_kill_id` -- Only return killmails with ID smaller than this
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
   @type killmail_recent_opts :: [killmail_recent_opt]
-  @type killmail_recent_opt :: {:max_kill_id, nil | integer} | {:token, nil | String.t()}
+  @type killmail_recent_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Get a list of corporation's recent kills and losses.
+  Get a list of a corporation's kills and losses going back 90 days.
 
   ## Response Example
 
@@ -1283,9 +1096,8 @@ defmodule ESI.API.Corporation do
       path: "/corporations/#{corporation_id}/killmails/recent/",
       opts_schema: %{
         datasource: {:query, :optional},
-        max_kill_id: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        page: {:query, :optional},
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1328,8 +1140,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         item_ids: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1367,11 +1178,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/facilities/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1379,7 +1186,7 @@ defmodule ESI.API.Corporation do
   @typedoc """
   Options for [`Corporation.structures/2`](#structures/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
@@ -1428,8 +1235,7 @@ defmodule ESI.API.Corporation do
         datasource: {:query, :optional},
         language: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1471,8 +1277,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1547,8 +1352,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1603,8 +1407,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         from_id: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1654,8 +1457,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1709,8 +1511,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1754,11 +1555,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/titles/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1813,8 +1610,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1865,8 +1661,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1875,7 +1670,7 @@ defmodule ESI.API.Corporation do
   @typedoc """
   Options for [`Corporation.industry_jobs/2`](#industry_jobs/2).
 
-  - `:include_completed` (DEFAULT: `false`) -- Whether retrieve completed industry jobs as well
+  - `:include_completed` (DEFAULT: `false`) -- Whether to retrieve completed corporation industry jobs. Only includes jobs from the past 90 days
   - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
@@ -1932,8 +1727,7 @@ defmodule ESI.API.Corporation do
         datasource: {:query, :optional},
         include_completed: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1986,8 +1780,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2028,11 +1821,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/divisions/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2065,7 +1854,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/icons/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -2118,11 +1907,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/membertracking/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2172,8 +1957,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2220,11 +2004,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/#{corporation_id}/contracts/#{contract_id}/items/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2253,7 +2033,7 @@ defmodule ESI.API.Corporation do
     %ESI.Request{
       verb: :get,
       path: "/corporations/npccorps/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -2279,6 +2059,7 @@ defmodule ESI.API.Corporation do
           "escrow" => 45.6,
           "is_buy_order" => true,
           "issued" => "2016-09-03T05:12:25Z",
+          "issued_by" => 2112625428,
           "location_id" => 456,
           "min_volume" => 1,
           "order_id" => 123,
@@ -2311,8 +2092,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2362,8 +2142,7 @@ defmodule ESI.API.Corporation do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }

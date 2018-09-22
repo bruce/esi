@@ -2,7 +2,7 @@ defmodule ESI.API.War do
   @typedoc """
   Options for [`War.wars/1`](#wars/1).
 
-  - `:max_war_id` -- Only return wars with ID smaller than this.
+  - `:max_war_id` -- Only return wars with ID smaller than this
   """
   @type wars_opts :: [wars_opt]
   @type wars_opt :: {:max_war_id, nil | integer}
@@ -12,7 +12,7 @@ defmodule ESI.API.War do
 
   ## Response Example
 
-  A list of war IDs, in decending order by war_id.:
+  A list of war IDs, in descending order by war_id:
 
       [3, 2, 1]
 
@@ -31,11 +31,7 @@ defmodule ESI.API.War do
     %ESI.Request{
       verb: :get,
       path: "/wars/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        max_war_id: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, max_war_id: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -81,11 +77,7 @@ defmodule ESI.API.War do
     %ESI.Request{
       verb: :get,
       path: "/wars/#{war_id}/killmails/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        page: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -129,7 +121,7 @@ defmodule ESI.API.War do
     %ESI.Request{
       verb: :get,
       path: "/wars/#{war_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

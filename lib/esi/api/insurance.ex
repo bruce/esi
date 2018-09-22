@@ -2,7 +2,7 @@ defmodule ESI.API.Insurance do
   @typedoc """
   Options for [`Insurance.prices/1`](#prices/1).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type prices_opts :: [prices_opt]
   @type prices_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -36,11 +36,7 @@ defmodule ESI.API.Insurance do
     %ESI.Request{
       verb: :get,
       path: "/insurance/prices/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end

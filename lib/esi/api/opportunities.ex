@@ -23,7 +23,7 @@ defmodule ESI.API.Opportunities do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/groups/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -56,7 +56,7 @@ defmodule ESI.API.Opportunities do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/tasks/#{task_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -84,14 +84,14 @@ defmodule ESI.API.Opportunities do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/tasks/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Opportunities.group/2`](#group/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type group_opts :: [group_opt]
   @type group_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -127,11 +127,7 @@ defmodule ESI.API.Opportunities do
     %ESI.Request{
       verb: :get,
       path: "/opportunities/groups/#{group_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end

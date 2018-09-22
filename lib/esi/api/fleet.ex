@@ -2,7 +2,7 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.members/2`](#members/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   - `:token` -- Access token to use if unable to set a header
   """
   @type members_opts :: [members_opt]
@@ -49,8 +49,7 @@ defmodule ESI.API.Fleet do
       opts_schema: %{
         datasource: {:query, :optional},
         language: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -98,8 +97,7 @@ defmodule ESI.API.Fleet do
       opts_schema: %{
         datasource: {:query, :optional},
         invitation: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -136,11 +134,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/squads/#{squad_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -180,8 +174,7 @@ defmodule ESI.API.Fleet do
       opts_schema: %{
         datasource: {:query, :optional},
         naming: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -220,11 +213,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :post,
       path: "/fleets/#{fleet_id}/wings/#{wing_id}/squads/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -266,11 +255,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :get,
       path: "/fleets/#{fleet_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -311,8 +296,7 @@ defmodule ESI.API.Fleet do
       opts_schema: %{
         datasource: {:query, :optional},
         new_settings: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -349,11 +333,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/members/#{member_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -400,8 +380,7 @@ defmodule ESI.API.Fleet do
       opts_schema: %{
         datasource: {:query, :optional},
         movement: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -410,7 +389,7 @@ defmodule ESI.API.Fleet do
   @typedoc """
   Options for [`Fleet.wings/2`](#wings/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   - `:token` -- Access token to use if unable to set a header
   """
   @type wings_opts :: [wings_opt]
@@ -450,8 +429,7 @@ defmodule ESI.API.Fleet do
       opts_schema: %{
         datasource: {:query, :optional},
         language: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -489,11 +467,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :post,
       path: "/fleets/#{fleet_id}/wings/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -529,11 +503,7 @@ defmodule ESI.API.Fleet do
     %ESI.Request{
       verb: :delete,
       path: "/fleets/#{fleet_id}/wings/#{wing_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -573,8 +543,7 @@ defmodule ESI.API.Fleet do
       opts_schema: %{
         datasource: {:query, :optional},
         naming: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }

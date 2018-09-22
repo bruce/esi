@@ -23,14 +23,14 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/groups/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Market.orders/2`](#orders/2).
 
-  - `:order_type` (DEFAULT: `:all`) -- Filter buy/sell orders, return all orders by default. If you query without type_id, we always return both buy and sell orders.
+  - `:order_type` (DEFAULT: `:all`) -- Filter buy/sell orders, return all orders by default. If you query without type_id, we always return both buy and sell orders
   - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:type_id` -- Return orders only for this type
   """
@@ -81,8 +81,7 @@ defmodule ESI.API.Market do
         datasource: {:query, :optional},
         order_type: {:query, :required},
         page: {:query, :optional},
-        type_id: {:query, :optional},
-        user_agent: {:query, :optional}
+        type_id: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -118,7 +117,7 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/prices/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -172,8 +171,7 @@ defmodule ESI.API.Market do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -211,11 +209,7 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/#{region_id}/types/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        page: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -223,7 +217,7 @@ defmodule ESI.API.Market do
   @typedoc """
   Options for [`Market.group_market_group/2`](#group_market_group/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type group_market_group_opts :: [group_market_group_opt]
   @type group_market_group_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -259,11 +253,7 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/groups/#{market_group_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -309,11 +299,7 @@ defmodule ESI.API.Market do
     %ESI.Request{
       verb: :get,
       path: "/markets/#{region_id}/history/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        type_id: {:query, :required},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, type_id: {:query, :required}},
       opts: Map.new(opts)
     }
   end

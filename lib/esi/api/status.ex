@@ -27,7 +27,7 @@ defmodule ESI.API.Status do
     %ESI.Request{
       verb: :get,
       path: "/status/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

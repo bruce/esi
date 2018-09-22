@@ -3,7 +3,7 @@ defmodule ESI.API.Search do
   Options for [`Search.search/1`](#search/1).
 
   - `:categories` (REQUIRED) -- Type of entities to search for
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   - `:search` (REQUIRED) -- The string to search on
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
   """
@@ -59,8 +59,7 @@ defmodule ESI.API.Search do
         datasource: {:query, :optional},
         language: {:query, :optional},
         search: {:query, :required},
-        strict: {:query, :optional},
-        user_agent: {:query, :optional}
+        strict: {:query, :optional}
       },
       opts: Map.new(opts)
     }

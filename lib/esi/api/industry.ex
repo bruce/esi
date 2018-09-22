@@ -32,7 +32,7 @@ defmodule ESI.API.Industry do
     %ESI.Request{
       verb: :get,
       path: "/industry/facilities/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -65,7 +65,7 @@ defmodule ESI.API.Industry do
     %ESI.Request{
       verb: :get,
       path: "/industry/systems/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

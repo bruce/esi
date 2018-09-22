@@ -1,45 +1,4 @@
 defmodule ESI.API.Alliance do
-  @typedoc """
-  Options for [`Alliance.names/1`](#names/1).
-
-  - `:alliance_ids` (REQUIRED) -- A comma separated list of alliance IDs
-  """
-  @type names_opts :: [names_opt]
-  @type names_opt :: {:alliance_ids, [integer]}
-
-  @doc """
-  Resolve a set of alliance IDs to alliance names.
-
-  ## Response Example
-
-  List of id/name associations:
-
-      [%{"alliance_id" => 1000171, "alliance_name" => "Republic University"}]
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `get_alliances_names`
-  - `path` -- `/alliances/names/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_names)
-
-  """
-  @spec names(opts :: names_opts) :: ESI.Request.t()
-  def names(opts \\ []) do
-    %ESI.Request{
-      verb: :get,
-      path: "/alliances/names/",
-      opts_schema: %{
-        alliance_ids: {:query, :required},
-        datasource: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
-      opts: Map.new(opts)
-    }
-  end
-
   @doc """
   List all current member corporations of an alliance.
 
@@ -64,7 +23,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/corporations/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -95,7 +54,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/icons/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -131,11 +90,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/contacts/labels/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -171,7 +126,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -199,7 +154,7 @@ defmodule ESI.API.Alliance do
     %ESI.Request{
       verb: :get,
       path: "/alliances/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -245,8 +200,7 @@ defmodule ESI.API.Alliance do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }

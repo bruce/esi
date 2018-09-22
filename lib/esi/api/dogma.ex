@@ -23,7 +23,42 @@ defmodule ESI.API.Dogma do
     %ESI.Request{
       verb: :get,
       path: "/dogma/effects/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
+    }
+  end
+
+  @doc """
+  Returns info about a dynamic item resulting from mutation with a mutaplasmid..
+
+  ## Response Example
+
+  Details about a dynamic item:
+
+      %{
+        "created_by" => 2112625428,
+        "dogma_attributes" => [%{"attribute_id" => 9, "value" => 350}],
+        "dogma_effects" => [%{"effect_id" => 508, "is_default" => false}],
+        "mutator_type_id" => 47845,
+        "source_type_id" => 33103
+      }
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_dogma_dynamic_items_type_id_item_id`
+  - `path` -- `/dogma/dynamic/items/{type_id}/{item_id}/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Dogma/get_dogma_dynamic_items_type_id_item_id)
+
+  """
+  @spec get_dogma_dynamic_items_type_id_item_id(type_id :: integer, item_id :: integer) ::
+          ESI.Request.t()
+  def get_dogma_dynamic_items_type_id_item_id(type_id, item_id) do
+    %ESI.Request{
+      verb: :get,
+      path: "/dogma/dynamic/items/#{type_id}/#{item_id}/",
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -61,7 +96,7 @@ defmodule ESI.API.Dogma do
     %ESI.Request{
       verb: :get,
       path: "/dogma/effects/#{effect_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -89,7 +124,7 @@ defmodule ESI.API.Dogma do
     %ESI.Request{
       verb: :get,
       path: "/dogma/attributes/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -127,7 +162,7 @@ defmodule ESI.API.Dogma do
     %ESI.Request{
       verb: :get,
       path: "/dogma/attributes/#{attribute_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

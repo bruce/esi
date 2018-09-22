@@ -60,8 +60,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -107,11 +106,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/fittings/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -160,8 +155,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         fitting: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -226,8 +220,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -269,11 +262,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/ship/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -282,7 +271,7 @@ defmodule ESI.API.Character do
   Options for [`Character.search/2`](#search/2).
 
   - `:categories` (REQUIRED) -- Type of entities to search for
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   - `:search` (REQUIRED) -- The string to search on
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
   - `:token` -- Access token to use if unable to set a header
@@ -342,49 +331,7 @@ defmodule ESI.API.Character do
         language: {:query, :optional},
         search: {:query, :required},
         strict: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
-      opts: Map.new(opts)
-    }
-  end
-
-  @typedoc """
-  Options for [`Character.names/1`](#names/1).
-
-  - `:character_ids` (REQUIRED) -- A comma separated list of character IDs
-  """
-  @type names_opts :: [names_opt]
-  @type names_opt :: {:character_ids, [integer]}
-
-  @doc """
-  Resolve a set of character IDs to character names.
-
-  ## Response Example
-
-  List of id/name associations:
-
-      [%{"character_id" => 95465499, "character_name" => "CCP Bartender"}]
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `get_characters_names`
-  - `path` -- `/characters/names/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_names)
-
-  """
-  @spec names(opts :: names_opts) :: ESI.Request.t()
-  def names(opts \\ []) do
-    %ESI.Request{
-      verb: :get,
-      path: "/characters/names/",
-      opts_schema: %{
-        character_ids: {:query, :required},
-        datasource: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -424,11 +371,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/mail/labels/#{label_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -470,8 +413,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -495,6 +437,7 @@ defmodule ESI.API.Character do
 
       [
         %{
+          "is_blueprint_copy" => true,
           "is_singleton" => true,
           "item_id" => 1000000016835,
           "location_flag" => "Hangar",
@@ -523,8 +466,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -584,11 +526,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/skillqueue/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -629,11 +567,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/fatigue/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -688,8 +622,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         from_id: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -728,7 +661,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -770,11 +703,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/attributes/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -816,11 +745,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/online/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -876,11 +801,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/planets/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -917,11 +838,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/roles/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -962,8 +879,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         characters: {:body, :required},
         datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1020,11 +936,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/stats/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1076,8 +988,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1117,8 +1028,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         contact_ids: {:query, :required},
         datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1168,8 +1078,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1179,7 +1088,7 @@ defmodule ESI.API.Character do
   Options for [`Character.create_contacts/2`](#create_contacts/2).
 
   - `:contact_ids` (REQUIRED) -- A list of contacts
-  - `:label_id` (DEFAULT: `0`) -- Add a custom label to the new contact
+  - `:label_ids` -- Add custom labels to the new contact
   - `:standing` (REQUIRED) -- Standing for the contact
   - `:token` -- Access token to use if unable to set a header
   - `:watched` (DEFAULT: `false`) -- Whether the contact should be watched, note this is only effective on characters
@@ -1187,7 +1096,7 @@ defmodule ESI.API.Character do
   @type create_contacts_opts :: [create_contacts_opt]
   @type create_contacts_opt ::
           {:contact_ids, [nil | integer]}
-          | {:label_id, nil | integer}
+          | {:label_ids, nil | [integer]}
           | {:standing, float}
           | {:token, nil | String.t()}
           | {:watched, nil | boolean}
@@ -1219,10 +1128,9 @@ defmodule ESI.API.Character do
       opts_schema: %{
         contact_ids: {:body, :required},
         datasource: {:query, :optional},
-        label_id: {:query, :optional},
+        label_ids: {:query, :optional},
         standing: {:query, :required},
         token: {:query, :optional},
-        user_agent: {:query, :optional},
         watched: {:query, :optional}
       },
       opts: Map.new(opts)
@@ -1233,7 +1141,7 @@ defmodule ESI.API.Character do
   Options for [`Character.update_contacts/2`](#update_contacts/2).
 
   - `:contact_ids` (REQUIRED) -- A list of contacts
-  - `:label_id` (DEFAULT: `0`) -- Add a custom label to the contact, use 0 for clearing label
+  - `:label_ids` -- Add custom labels to the contact
   - `:standing` (REQUIRED) -- Standing for the contact
   - `:token` -- Access token to use if unable to set a header
   - `:watched` (DEFAULT: `false`) -- Whether the contact should be watched, note this is only effective on characters
@@ -1241,7 +1149,7 @@ defmodule ESI.API.Character do
   @type update_contacts_opts :: [update_contacts_opt]
   @type update_contacts_opt ::
           {:contact_ids, [nil | integer]}
-          | {:label_id, nil | integer}
+          | {:label_ids, nil | [integer]}
           | {:standing, float}
           | {:token, nil | String.t()}
           | {:watched, nil | boolean}
@@ -1271,10 +1179,9 @@ defmodule ESI.API.Character do
       opts_schema: %{
         contact_ids: {:body, :required},
         datasource: {:query, :optional},
-        label_id: {:query, :optional},
+        label_ids: {:query, :optional},
         standing: {:query, :required},
         token: {:query, :optional},
-        user_agent: {:query, :optional},
         watched: {:query, :optional}
       },
       opts: Map.new(opts)
@@ -1317,11 +1224,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/calendar/#{event_id}/attendees/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1375,8 +1278,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1431,11 +1333,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/orders/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1485,11 +1383,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/clones/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1526,65 +1420,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/loyalty/points/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
-      opts: Map.new(opts)
-    }
-  end
-
-  @typedoc """
-  Options for [`Character.chat_channels/2`](#chat_channels/2).
-
-  - `:token` -- Access token to use if unable to set a header
-  """
-  @type chat_channels_opts :: [chat_channels_opt]
-  @type chat_channels_opt :: {:token, nil | String.t()}
-
-  @doc """
-  Return chat channels that a character is the owner or operator of.
-
-  ## Response Example
-
-  A list of chat channels:
-
-      [
-        %{
-          "allowed" => [],
-          "blocked" => [],
-          "channel_id" => -69329950,
-          "comparison_key" => "players'haven",
-          "has_password" => false,
-          "motd" => "<b>Feed pineapples to the cats!</b>",
-          "muted" => [],
-          "name" => "Players' Haven",
-          "operators" => [],
-          "owner_id" => 95578451
-        }
-      ]
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `get_characters_character_id_chat_channels`
-  - `path` -- `/characters/{character_id}/chat_channels/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Character/get_characters_character_id_chat_channels)
-
-  """
-  @spec chat_channels(character_id :: integer, opts :: chat_channels_opts) :: ESI.Request.t()
-  def chat_channels(character_id, opts \\ []) do
-    %ESI.Request{
-      verb: :get,
-      path: "/characters/#{character_id}/chat_channels/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1621,11 +1457,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/lists/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1667,8 +1499,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         item_ids: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1692,7 +1523,7 @@ defmodule ESI.API.Character do
       [
         %{
           "agent_id" => 3009358,
-          "points_per_day" => 53.5346162147,
+          "points_per_day" => 53.5346162146776,
           "remainder_points" => 53604.0634303189,
           "skill_type_id" => 11450,
           "started_at" => "2017-03-23T14:47:00Z"
@@ -1714,11 +1545,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/agents_research/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1755,11 +1582,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/contacts/labels/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1812,11 +1635,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/skills/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1824,17 +1643,14 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.killmail_recent/2`](#killmail_recent/2).
 
-  - `:max_count` (DEFAULT: `50`) -- How many killmails to return at maximum
-  - `:max_kill_id` -- Only return killmails with ID smaller than this.
-
+  - `:page` (DEFAULT: `1`) -- Which page of results to return
   - `:token` -- Access token to use if unable to set a header
   """
   @type killmail_recent_opts :: [killmail_recent_opt]
-  @type killmail_recent_opt ::
-          {:max_count, nil | integer} | {:max_kill_id, nil | integer} | {:token, nil | String.t()}
+  @type killmail_recent_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Return a list of character's recent kills and losses.
+  Return a list of a character's kills and losses going back 90 days.
 
   ## Response Example
 
@@ -1868,10 +1684,8 @@ defmodule ESI.API.Character do
       path: "/characters/#{character_id}/killmails/recent/",
       opts_schema: %{
         datasource: {:query, :optional},
-        max_count: {:query, :optional},
-        max_kill_id: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        page: {:query, :optional},
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -1930,11 +1744,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/medals/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1949,7 +1759,7 @@ defmodule ESI.API.Character do
   @type calendar_opt :: {:from_event, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Get 50 event summaries from the calendar. If no from_event ID is given, the resource will return the next 50 chronological event summaries from now. If a from_event ID is specified, it will return the next 50 chronological event summaries from after that event..
+  Get 50 event summaries from the calendar. If no from_event ID is given, the resource will return the next 50 chronological event summaries from now. If a from_event ID is specified, it will return the next 50 chronological event summaries from after that event.
 
   ## Response Example
 
@@ -1983,8 +1793,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         from_event: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2022,11 +1831,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/wallet/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2068,8 +1873,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         item_ids: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2100,14 +1904,14 @@ defmodule ESI.API.Character do
         ],
         "pins" => [
           %{
-            "latitude" => 1.5508784497,
-            "longitude" => 0.7171459333,
+            "latitude" => 1.55087844973,
+            "longitude" => 0.717145933308,
             "pin_id" => 1000000017021,
             "type_id" => 2254
           },
           %{
-            "latitude" => 1.5336063994,
-            "longitude" => 0.7097755844,
+            "latitude" => 1.53360639935,
+            "longitude" => 0.709775584394,
             "pin_id" => 1000000017022,
             "type_id" => 2256
           }
@@ -2139,11 +1943,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/planets/#{planet_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2151,7 +1951,7 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.industry_jobs/2`](#industry_jobs/2).
 
-  - `:include_completed` -- Whether retrieve completed character industry jobs as well
+  - `:include_completed` -- Whether to retrieve completed character industry jobs. Only includes jobs from the past 90 days
   - `:token` -- Access token to use if unable to set a header
   """
   @type industry_jobs_opts :: [industry_jobs_opt]
@@ -2203,8 +2003,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         include_completed: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2239,7 +2038,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/portrait/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -2255,7 +2054,7 @@ defmodule ESI.API.Character do
           {:labels, nil | [integer]} | {:last_mail_id, nil | integer} | {:token, nil | String.t()}
 
   @doc """
-  Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards..
+  Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards.
 
   ## Response Example
 
@@ -2294,8 +2093,7 @@ defmodule ESI.API.Character do
         datasource: {:query, :optional},
         labels: {:query, :optional},
         last_mail_id: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2350,8 +2148,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         mail: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2394,11 +2191,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/fleet/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2437,11 +2230,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/fittings/#{fitting_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2490,11 +2279,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/calendar/#{event_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2502,7 +2287,7 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.update_calendar_event/3`](#update_calendar_event/3).
 
-  - `:response` (REQUIRED) -- The response value to set, overriding current value.
+  - `:response` (REQUIRED) -- The response value to set, overriding current value
   - `:token` -- Access token to use if unable to set a header
   """
   @type update_calendar_event_opts :: [update_calendar_event_opt]
@@ -2538,8 +2323,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         response: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -2586,11 +2370,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/contracts/#{contract_id}/items/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2598,7 +2378,7 @@ defmodule ESI.API.Character do
   @typedoc """
   Options for [`Character.create_affiliation/1`](#create_affiliation/1).
 
-  - `:characters` (REQUIRED) -- The character IDs to fetch affiliations for. All characters must exist, or none will be returned.
+  - `:characters` (REQUIRED) -- The character IDs to fetch affiliations for. All characters must exist, or none will be returned
   """
   @type create_affiliation_opts :: [create_affiliation_opt]
   @type create_affiliation_opt :: {:characters, [nil | integer]}
@@ -2633,11 +2413,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :post,
       path: "/characters/affiliation/",
-      opts_schema: %{
-        characters: {:body, :required},
-        datasource: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{characters: {:body, :required}, datasource: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2674,11 +2450,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/opportunities/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2719,7 +2491,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/corporationhistory/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -2765,11 +2537,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/notifications/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2806,11 +2574,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/titles/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2824,11 +2588,11 @@ defmodule ESI.API.Character do
   @type location_opt :: {:token, nil | String.t()}
 
   @doc """
-  Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable..
+  Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable.
 
   ## Response Example
 
-  Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable.:
+  Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable:
 
       %{"solar_system_id" => 30002505, "structure_id" => 1000000016989}
 
@@ -2847,11 +2611,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/location/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2897,11 +2657,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/fw/stats/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -2946,11 +2702,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/contracts/#{contract_id}/bids/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -3004,8 +2756,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -3052,11 +2803,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/notifications/contacts/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -3093,11 +2840,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/implants/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -3150,11 +2893,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/labels/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -3221,8 +2960,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         label: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -3282,8 +3020,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         datasource: {:query, :optional},
         page: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -3325,11 +3062,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/standings/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -3368,11 +3101,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :delete,
       path: "/characters/#{character_id}/mail/#{mail_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -3417,11 +3146,7 @@ defmodule ESI.API.Character do
     %ESI.Request{
       verb: :get,
       path: "/characters/#{character_id}/mail/#{mail_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -3465,8 +3190,7 @@ defmodule ESI.API.Character do
       opts_schema: %{
         contents: {:body, :required},
         datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }

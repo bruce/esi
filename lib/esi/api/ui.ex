@@ -33,8 +33,7 @@ defmodule ESI.API.UI do
       opts_schema: %{
         datasource: {:query, :optional},
         target_id: {:query, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -74,8 +73,7 @@ defmodule ESI.API.UI do
       opts_schema: %{
         datasource: {:query, :optional},
         token: {:query, :optional},
-        type_id: {:query, :required},
-        user_agent: {:query, :optional}
+        type_id: {:query, :required}
       },
       opts: Map.new(opts)
     }
@@ -124,8 +122,7 @@ defmodule ESI.API.UI do
       opts_schema: %{
         datasource: {:query, :optional},
         new_mail: {:body, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -173,8 +170,7 @@ defmodule ESI.API.UI do
         clear_other_waypoints: {:query, :required},
         datasource: {:query, :optional},
         destination_id: {:query, :required},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }
@@ -214,8 +210,7 @@ defmodule ESI.API.UI do
       opts_schema: %{
         contract_id: {:query, :required},
         datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
+        token: {:query, :optional}
       },
       opts: Map.new(opts)
     }

@@ -1,10 +1,10 @@
 defmodule ESI.API.FactionWarfare do
   @doc """
-  Top 100 leaderboard of pilots for kills and victory points separated by total, last week and yesterday..
+  Top 100 leaderboard of pilots for kills and victory points separated by total, last week and yesterday.
 
   ## Response Example
 
-  Character leaderboard of kills and victory points within faction warfare.:
+  Character leaderboard of kills and victory points within faction warfare:
 
       %{
         "kills" => %{
@@ -52,7 +52,7 @@ defmodule ESI.API.FactionWarfare do
     %ESI.Request{
       verb: :get,
       path: "/fw/leaderboards/characters/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -80,7 +80,7 @@ defmodule ESI.API.FactionWarfare do
     %ESI.Request{
       verb: :get,
       path: "/fw/wars/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -120,16 +120,16 @@ defmodule ESI.API.FactionWarfare do
     %ESI.Request{
       verb: :get,
       path: "/fw/stats/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @doc """
-  Top 10 leaderboard of corporations for kills and victory points separated by total, last week and yesterday..
+  Top 10 leaderboard of corporations for kills and victory points separated by total, last week and yesterday.
 
   ## Response Example
 
-  Corporation leaderboard of kills and victory points within faction warfare.:
+  Corporation leaderboard of kills and victory points within faction warfare:
 
       %{
         "kills" => %{
@@ -177,16 +177,16 @@ defmodule ESI.API.FactionWarfare do
     %ESI.Request{
       verb: :get,
       path: "/fw/leaderboards/corporations/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @doc """
-  Top 4 leaderboard of factions for kills and victory points separated by total, last week and yesterday..
+  Top 4 leaderboard of factions for kills and victory points separated by total, last week and yesterday.
 
   ## Response Example
 
-  Corporation leaderboard of kills and victory points within faction warfare.:
+  Corporation leaderboard of kills and victory points within faction warfare:
 
       %{
         "kills" => %{
@@ -234,7 +234,7 @@ defmodule ESI.API.FactionWarfare do
     %ESI.Request{
       verb: :get,
       path: "/fw/leaderboards/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -243,11 +243,11 @@ defmodule ESI.API.FactionWarfare do
 
   ## Response Example
 
-  All faction war solar systems:
+  All faction warfare solar systems:
 
       [
         %{
-          "contested" => true,
+          "contested" => "uncontested",
           "occupier_faction_id" => 500001,
           "owner_faction_id" => 500001,
           "solar_system_id" => 30002096,
@@ -271,7 +271,7 @@ defmodule ESI.API.FactionWarfare do
     %ESI.Request{
       verb: :get,
       path: "/fw/systems/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

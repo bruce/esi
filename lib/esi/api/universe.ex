@@ -8,13 +8,17 @@ defmodule ESI.API.Universe do
   @type structure_opt :: {:token, nil | String.t()}
 
   @doc """
-  Returns information on requested structure, if you are on the ACL. Otherwise, returns "Forbidden" for all inputs..
+  Returns information on requested structure if you are on the ACL. Otherwise, returns "Forbidden" for all inputs..
 
   ## Response Example
 
   Data about a structure:
 
-      %{"name" => "V-3YG7 VI - The Capital", "solar_system_id" => 30000142}
+      %{
+        "name" => "V-3YG7 VI - The Capital",
+        "owner_id" => 109299958,
+        "solar_system_id" => 30000142
+      }
 
   ## Swagger Source
 
@@ -31,11 +35,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/structures/#{structure_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        token: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -43,7 +43,7 @@ defmodule ESI.API.Universe do
   @typedoc """
   Options for [`Universe.bloodlines/1`](#bloodlines/1).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type bloodlines_opts :: [bloodlines_opt]
   @type bloodlines_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -86,11 +86,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/bloodlines/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -119,14 +115,14 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/schematics/#{schematic_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Universe.category/2`](#category/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type category_opts :: [category_opt]
   @type category_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -160,11 +156,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/categories/#{category_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -172,7 +164,7 @@ defmodule ESI.API.Universe do
   @typedoc """
   Options for [`Universe.create_ids/1`](#create_ids/1).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   - `:names` (REQUIRED) -- The names to resolve
   """
   @type create_ids_opts :: [create_ids_opt]
@@ -180,11 +172,11 @@ defmodule ESI.API.Universe do
           {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh} | {:names, [nil | String.t()]}
 
   @doc """
-  Resolve a set of names to IDs in the following categories: agents, alliances, characters, constellations, corporations factions, inventory_types, regions, stations, and systems. Only exact matches will be returned. All names searched for are cached for 12 hours..
+  Resolve a set of names to IDs in the following categories: agents, alliances, characters, constellations, corporations factions, inventory_types, regions, stations, and systems. Only exact matches will be returned. All names searched for are cached for 12 hours.
 
   ## Response Example
 
-  List of id/name associations for a set of names divided by category. Any name passed in that did not have a match will be ommitted.:
+  List of id/name associations for a set of names divided by category. Any name passed in that did not have a match will be ommitted:
 
       %{
         "characters" => [
@@ -212,8 +204,7 @@ defmodule ESI.API.Universe do
       opts_schema: %{
         datasource: {:query, :optional},
         language: {:query, :optional},
-        names: {:body, :required},
-        user_agent: {:query, :optional}
+        names: {:body, :required}
       },
       opts: Map.new(opts)
     }
@@ -243,7 +234,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/structures/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -274,7 +265,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/graphics/#{graphic_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -310,11 +301,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/groups/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        page: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -328,7 +315,7 @@ defmodule ESI.API.Universe do
 
       %{
         "age" => 9398686722,
-        "luminosity" => 0.0661500022,
+        "luminosity" => 0.06615000218153,
         "name" => "BKG-Q2 - Star",
         "radius" => 346600000,
         "solar_system_id" => 30004333,
@@ -352,14 +339,14 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/stars/#{star_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Universe.races/1`](#races/1).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type races_opts :: [races_opt]
   @type races_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -395,11 +382,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/races/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -433,14 +416,14 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/moons/#{moon_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Universe.constellation/2`](#constellation/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type constellation_opts :: [constellation_opt]
   @type constellation_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -479,11 +462,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/constellations/#{constellation_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -512,7 +491,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/system_jumps/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -540,14 +519,14 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/categories/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Universe.type/2`](#type/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type type_opts :: [type_opt]
   @type type_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -582,11 +561,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/types/#{type_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -615,7 +590,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/systems/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -643,20 +618,20 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/constellations/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Universe.system/2`](#system/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type system_opts :: [system_opt]
   @type system_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
 
   @doc """
-  Get information on a solar system.
+  Get information on a solar system..
 
   ## Response Example
 
@@ -675,7 +650,7 @@ defmodule ESI.API.Universe do
           "z" => -56482824383339900
         },
         "security_class" => "B",
-        "security_status" => 0.8462923765,
+        "security_status" => 0.8462923765182495,
         "star_id" => 40000040,
         "stargates" => [50000342],
         "system_id" => 30000003
@@ -696,11 +671,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/systems/#{system_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -708,7 +679,7 @@ defmodule ESI.API.Universe do
   @typedoc """
   Options for [`Universe.group/2`](#group/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type group_opts :: [group_opt]
   @type group_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -743,11 +714,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/groups/#{group_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -755,7 +722,7 @@ defmodule ESI.API.Universe do
   @typedoc """
   Options for [`Universe.factions/1`](#factions/1).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type factions_opts :: [factions_opt]
   @type factions_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -796,11 +763,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/factions/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -836,7 +799,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/stargates/#{stargate_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -872,11 +835,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/types/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        page: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -912,7 +871,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/system_kills/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -944,7 +903,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/asteroid_belts/#{asteroid_belt_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -972,14 +931,14 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/graphics/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Universe.region/2`](#region/2).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type region_opts :: [region_opt]
   @type region_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -1013,11 +972,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/regions/#{region_id}/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1046,7 +1001,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/regions/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -1080,14 +1035,14 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/planets/#{planet_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
   @typedoc """
   Options for [`Universe.ancestries/1`](#ancestries/1).
 
-  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response
+  - `:language` (DEFAULT: `:"en-us"`) -- Language to use in the response, takes precedence over Accept-Language
   """
   @type ancestries_opts :: [ancestries_opt]
   @type ancestries_opt :: {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
@@ -1124,11 +1079,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/ancestries/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, language: {:query, :optional}},
       opts: Map.new(opts)
     }
   end
@@ -1172,7 +1123,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :get,
       path: "/universe/stations/#{station_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -1185,11 +1136,11 @@ defmodule ESI.API.Universe do
   @type create_names_opt :: {:ids, [nil | integer]}
 
   @doc """
-  Resolve a set of IDs to names and categories. Supported ID's for resolving are: Characters, Corporations, Alliances, Stations, Solar Systems, Constellations, Regions, Types..
+  Resolve a set of IDs to names and categories. Supported ID's for resolving are: Characters, Corporations, Alliances, Stations, Solar Systems, Constellations, Regions, Types.
 
   ## Response Example
 
-  List of id/name associations for a set of ID's. All ID's must resolve to a name, or nothing will be returned.:
+  List of id/name associations for a set of ID's. All ID's must resolve to a name, or nothing will be returned:
 
       [
         %{"category" => "character", "id" => 95465499, "name" => "CCP Bartender"},
@@ -1211,11 +1162,7 @@ defmodule ESI.API.Universe do
     %ESI.Request{
       verb: :post,
       path: "/universe/names/",
-      opts_schema: %{
-        datasource: {:query, :optional},
-        ids: {:body, :required},
-        user_agent: {:query, :optional}
-      },
+      opts_schema: %{datasource: {:query, :optional}, ids: {:body, :required}},
       opts: Map.new(opts)
     }
   end
