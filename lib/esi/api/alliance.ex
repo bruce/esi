@@ -1,43 +1,4 @@
 defmodule ESI.API.Alliance do
-
-  @typedoc """
-  Options for [`Alliance.names/1`](#names/1).
-
-  - `:alliance_ids` (REQUIRED) -- A comma separated list of alliance IDs
-  """
-  @type names_opts :: [names_opt]
-  @type names_opt :: {:alliance_ids, [integer]}
-
-
-  @doc """
-  Resolve a set of alliance IDs to alliance names.
-
-  ## Response Example
-
-  List of id/name associations:
-
-      [%{"alliance_id" => 1000171, "alliance_name" => "Republic University"}]
-
-  ## Swagger Source
-
-  This function was generated from the following Swagger operation:
-
-  - `operationId` -- `get_alliances_names`
-  - `path` -- `/alliances/names/`
-
-  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_names)
-
-  """
-  @spec names(opts :: names_opts) :: ESI.Request.t
-  def names(opts \\ []) do
-    %ESI.Request{
-      verb: :get,
-      path: "/alliances/names/",
-      opts_schema: %{alliance_ids: {:query, :required}, datasource: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
-    }
-  end
-
   @doc """
   List all current member corporations of an alliance.
 
@@ -57,13 +18,12 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id_corporations)
 
   """
-  @spec corporations(alliance_id :: integer) :: ESI.Request.t
+  @spec corporations(alliance_id :: integer) :: ESI.Request.t()
   def corporations(alliance_id) do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/corporations/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -74,8 +34,10 @@ defmodule ESI.API.Alliance do
 
   Icon URLs for the given alliance id and server:
 
-      %{"px128x128" => "https://imageserver.eveonline.com/Alliance/503818424_128.png",
-        "px64x64" => "https://imageserver.eveonline.com/Alliance/503818424_64.png"}
+      %{
+        "px128x128" => "https://imageserver.eveonline.com/Alliance/503818424_128.png",
+        "px64x64" => "https://imageserver.eveonline.com/Alliance/503818424_64.png"
+      }
 
   ## Swagger Source
 
@@ -87,13 +49,49 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id_icons)
 
   """
-  @spec icons(alliance_id :: integer) :: ESI.Request.t
+  @spec icons(alliance_id :: integer) :: ESI.Request.t()
   def icons(alliance_id) do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/icons/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
+      opts_schema: %{datasource: {:query, :optional}}
+    }
+  end
 
+  @typedoc """
+  Options for [`Alliance.contact_labels/2`](#contact_labels/2).
+
+  - `:token` -- Access token to use if unable to set a header
+  """
+  @type contact_labels_opts :: [contact_labels_opt]
+  @type contact_labels_opt :: {:token, nil | String.t()}
+
+  @doc """
+  Return custom labels for an alliance's contacts.
+
+  ## Response Example
+
+  A list of alliance contact labels:
+
+      [%{"label_id" => 1, "label_name" => "Alliance Friends"}]
+
+  ## Swagger Source
+
+  This function was generated from the following Swagger operation:
+
+  - `operationId` -- `get_alliances_alliance_id_contacts_labels`
+  - `path` -- `/alliances/{alliance_id}/contacts/labels/`
+
+  [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Contacts/get_alliances_alliance_id_contacts_labels)
+
+  """
+  @spec contact_labels(alliance_id :: integer, opts :: contact_labels_opts) :: ESI.Request.t()
+  def contact_labels(alliance_id, opts \\ []) do
+    %ESI.Request{
+      verb: :get,
+      path: "/alliances/#{alliance_id}/contacts/labels/",
+      opts_schema: %{datasource: {:query, :optional}, token: {:query, :optional}},
+      opts: Map.new(opts)
     }
   end
 
@@ -104,8 +102,14 @@ defmodule ESI.API.Alliance do
 
   Public data about an alliance:
 
-      %{"alliance_name" => "C C P Alliance", "date_founded" => "2016-06-26T21:00:00Z",
-        "executor_corp" => 98356193, "ticker" => "<C C P>"}
+      %{
+        "creator_corporation_id" => 45678,
+        "creator_id" => 12345,
+        "date_founded" => "2016-06-26T21:00:00Z",
+        "executor_corporation_id" => 98356193,
+        "name" => "C C P Alliance",
+        "ticker" => "<C C P>"
+      }
 
   ## Swagger Source
 
@@ -117,13 +121,12 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances_alliance_id)
 
   """
-  @spec alliance(alliance_id :: integer) :: ESI.Request.t
+  @spec alliance(alliance_id :: integer) :: ESI.Request.t()
   def alliance(alliance_id) do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -146,13 +149,12 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Alliance/get_alliances)
 
   """
-  @spec alliances() :: ESI.Request.t
+  @spec alliances() :: ESI.Request.t()
   def alliances() do
     %ESI.Request{
       verb: :get,
       path: "/alliances/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 
@@ -163,8 +165,7 @@ defmodule ESI.API.Alliance do
   - `:token` -- Access token to use if unable to set a header
   """
   @type contacts_opts :: [contacts_opt]
-  @type contacts_opt :: {:page, nil | integer} | {:token, nil | String.t}
-
+  @type contacts_opt :: {:page, nil | integer} | {:token, nil | String.t()}
 
   @doc """
   Return contacts of an alliance.
@@ -173,8 +174,13 @@ defmodule ESI.API.Alliance do
 
   A list of contacts:
 
-      [%{"contact_id" => 2112625428, "contact_type" => "character",
-         "standing" => 10.0}]
+      [
+        %{
+          "contact_id" => 2112625428,
+          "contact_type" => "character",
+          "standing" => 9.9
+        }
+      ]
 
   ## Swagger Source
 
@@ -186,13 +192,17 @@ defmodule ESI.API.Alliance do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Contacts/get_alliances_alliance_id_contacts)
 
   """
-  @spec contacts(alliance_id :: integer, opts :: contacts_opts) :: ESI.Request.t
+  @spec contacts(alliance_id :: integer, opts :: contacts_opts) :: ESI.Request.t()
   def contacts(alliance_id, opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/alliances/#{alliance_id}/contacts/",
-      opts_schema: %{datasource: {:query, :optional}, page: {:query, :optional}, token: {:query, :optional}, user_agent: {:query, :optional}},
-      opts: Map.new(opts),
+      opts_schema: %{
+        datasource: {:query, :optional},
+        page: {:query, :optional},
+        token: {:query, :optional}
+      },
+      opts: Map.new(opts)
     }
   end
 end

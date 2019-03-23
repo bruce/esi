@@ -21,3 +21,14 @@ erl_crash.dump
 
 # Swagger file
 /priv/swagger.json
+
+# VSCode Related stuff
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+
+# VSCode Elixir extension
+/.elixir_ls

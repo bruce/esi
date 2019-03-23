@@ -8,21 +8,21 @@ defmodule ESI.Generator.Endpoint do
   ]
 
   @type t :: %__MODULE__{
-    source: String.t,
-    components: [component]
-  }
+          source: String.t(),
+          components: [component]
+        }
 
   @type component_kind :: :arg | :word
-  @type component :: {component_kind, String.t}
+  @type component :: {component_kind, String.t()}
 
   @doc """
   Create an endpoint from a string
   """
-  @spec new(source :: String.t) :: t
+  @spec new(source :: String.t()) :: t
   def new(source) do
     %__MODULE__{
       source: source,
-      components: parse_components(source),
+      components: parse_components(source)
     }
   end
 
@@ -36,7 +36,7 @@ defmodule ESI.Generator.Endpoint do
       # => "universe"
 
   """
-  @spec namespace(endpoint :: t) :: String.t
+  @spec namespace(endpoint :: t) :: String.t()
   def namespace(endpoint) do
     endpoint.components
     |> hd
@@ -85,7 +85,7 @@ defmodule ESI.Generator.Endpoint do
       |> Endpoint.words()
       # => ["items", "things"]
   """
-  @spec words(endpoint :: t) :: [String.t]
+  @spec words(endpoint :: t) :: [String.t()]
   def words(endpoint) do
     endpoint
     |> subject()
@@ -101,7 +101,7 @@ defmodule ESI.Generator.Endpoint do
       |> Endpoint.words()
       # => ["item_id"]
   """
-  @spec args(endpoint :: t) :: [String.t]
+  @spec args(endpoint :: t) :: [String.t()]
   def args(endpoint) do
     endpoint
     |> subject()
@@ -118,44 +118,51 @@ defmodule ESI.Generator.Endpoint do
       # => "\"/universe/items/\#{item_id}/things\""
 
   """
-  @spec to_ex(t) :: String.t
+  @spec to_ex(t) :: String.t()
   def to_ex(endpoint) do
-    inside = endpoint.components
-    |> Enum.map(fn
-      {:arg, name} ->
-        ~S<#{> <> name <> ~S<}>
-      {:word, value} ->
-        value
-    end)
-    |> Path.join
+    inside =
+      endpoint.components
+      |> Enum.map(fn
+        {:arg, name} ->
+          ~S<#{> <> name <> ~S<}>
+
+        {:word, value} ->
+          value
+      end)
+      |> Path.join()
+
     ~S<"/> <> inside <> ~S</">
   end
 
   @spec ends_as?(endpoint :: t, structure :: [component_kind]) :: boolean
   def ends_as?(endpoint, structure) do
     structure = List.wrap(structure)
-    candidate = endpoint
-    |> form()
-    |> Enum.slice(-(length(structure)), length(structure))
+
+    candidate =
+      endpoint
+      |> form()
+      |> Enum.slice(-length(structure), length(structure))
+
     structure == candidate
   end
 
-  @spec parse_components(source :: String.t) :: [component]
+  @spec parse_components(source :: String.t()) :: [component]
   defp parse_components(source) do
     source
-    |> Path.split
+    |> Path.split()
     |> Enum.reduce([], fn
       "/", acc ->
         acc
+
       part, acc ->
         case Regex.run(~r/^\{(.+?)\}$/, part) do
           nil ->
             [{:word, part} | acc]
+
           [_, value] ->
             [{:arg, value} | acc]
         end
     end)
-    |> Enum.reverse
+    |> Enum.reverse()
   end
-
 end

@@ -1,5 +1,4 @@
 defmodule ESI.API.Status do
-
   @doc """
   EVE Server status.
 
@@ -7,8 +6,11 @@ defmodule ESI.API.Status do
 
   Server status:
 
-      %{"players" => 12345, "server_version" => "1132976",
-        "start_time" => "2017-01-02T12:34:56Z"}
+      %{
+        "players" => 12345,
+        "server_version" => "1132976",
+        "start_time" => "2017-01-02T12:34:56Z"
+      }
 
   ## Swagger Source
 
@@ -20,13 +22,12 @@ defmodule ESI.API.Status do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Status/get_status)
 
   """
-  @spec status() :: ESI.Request.t
+  @spec status() :: ESI.Request.t()
   def status() do
     %ESI.Request{
       verb: :get,
       path: "/status/",
-      opts_schema: %{datasource: {:query, :optional}, user_agent: {:query, :optional}},
-
+      opts_schema: %{datasource: {:query, :optional}}
     }
   end
 end

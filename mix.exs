@@ -1,20 +1,22 @@
 defmodule ESI.Mixfile do
   use Mix.Project
 
-  @version "0.1.1"
+  @version "0.1.2"
 
   def project do
-    [app: :esi,
-     version: @version,
-     elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     source_url: "https://github.com/bruce/esi",
-     homepage_url: "https://github.com/bruce/esi",
-     description: description(),
-     deps: deps(),
-     docs: docs(),
-     package: package()]
+    [
+      app: :esi,
+      version: @version,
+      elixir: "~> 1.4",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      source_url: "https://github.com/bruce/esi",
+      homepage_url: "https://github.com/bruce/esi",
+      description: description(),
+      deps: deps(),
+      docs: docs(),
+      package: package()
+    ]
   end
 
   # Configuration for the OTP application
@@ -44,9 +46,9 @@ defmodule ESI.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:hackney, "~> 1.6"},
-      {:poison, "~> 2.0"},
-      {:ex_doc, "~> 0.14", only: :dev, runtime: false}
+      {:hackney, "~> 1.10"},
+      {:poison, "~> 3.1"},
+      {:ex_doc, "~> 0.18.1", only: :dev, runtime: false}
     ]
   end
 
@@ -55,7 +57,7 @@ defmodule ESI.Mixfile do
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Bruce Williams", "Brian O'Grady"],
       licenses: ["MIT"],
-      links: %{"GitHub": "https://eveonline.com/bruce/esi"}
+      links: %{GitHub: "https://eveonline.com/bruce/esi"}
     ]
   end
 end

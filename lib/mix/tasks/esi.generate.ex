@@ -9,6 +9,7 @@ defmodule Mix.Tasks.Esi.Generate do
 
   def run(_) do
     Application.ensure_all_started(:esi)
+
     swagger()
     |> ESI.Generator.run()
   end
@@ -16,8 +17,7 @@ defmodule Mix.Tasks.Esi.Generate do
   @spec swagger() :: map
   defp swagger() do
     Path.join([:code.priv_dir(:esi), "swagger.json"])
-    |> File.read!
-    |> Poison.decode!
+    |> File.read!()
+    |> Poison.decode!()
   end
-
 end

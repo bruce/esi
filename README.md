@@ -26,7 +26,7 @@ You can see what version of the ESI Swagger Specification was used by running:
 
 ``` elixir
 ESI.API.version()
-# => "0.7.2"
+# => "0.7.5"
 ```
 
 API functions are available in modules under `ESI.API`. The module grouping is close to,
@@ -78,6 +78,12 @@ Then run:
 ```
 $ rm lib/esi/api.ex lib/esi/api/*.ex
 $ mix esi.generate
+```
+
+If you are using Elixir version 1.6.0 or above, format the code that was generated with:
+
+```
+$ mix format
 ```
 
 Then:
