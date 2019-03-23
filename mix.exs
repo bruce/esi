@@ -57,7 +57,7 @@ defmodule ESI.Mixfile do
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Bruce Williams", "Brian O'Grady"],
       licenses: ["MIT"],
-      links: %{GitHub: "https://eveonline.com/bruce/esi"}
+      links: %{GitHub: "https://github.com/bruce/esi"}
     ]
   end
 end
