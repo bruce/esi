@@ -1,4 +1,5 @@
 defmodule ESI.API.Search do
+
   @typedoc """
   Options for [`Search.search/1`](#search/1).
 
@@ -8,23 +9,8 @@ defmodule ESI.API.Search do
   - `:strict` (DEFAULT: `false`) -- Whether the search should be a strict match
   """
   @type search_opts :: [search_opt]
-  @type search_opt ::
-          {:categories,
-           [
-             :agent
-             | :alliance
-             | :character
-             | :constellation
-             | :corporation
-             | :faction
-             | :inventory_type
-             | :region
-             | :solar_system
-             | :station
-           ]}
-          | {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh}
-          | {:search, String.t()}
-          | {:strict, nil | boolean}
+  @type search_opt :: {:categories, [:agent | :alliance | :character | :constellation | :corporation | :faction | :inventory_type | :region | :solar_system | :station]} | {:language, nil | :de | :"en-us" | :fr | :ja | :ru | :zh} | {:search, String.t} | {:strict, nil | boolean}
+
 
   @doc """
   Search for entities that match a given sub-string..
@@ -49,19 +35,13 @@ defmodule ESI.API.Search do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Search/get_search)
 
   """
-  @spec search(opts :: search_opts) :: ESI.Request.t()
+  @spec search(opts :: search_opts) :: ESI.Request.t
   def search(opts \\ []) do
     %ESI.Request{
       verb: :get,
       path: "/search/",
-      opts_schema: %{
-        categories: {:query, :required},
-        datasource: {:query, :optional},
-        language: {:query, :optional},
-        search: {:query, :required},
-        strict: {:query, :optional}
-      },
-      opts: Map.new(opts)
+      opts_schema: %{categories: {:query, :required}, datasource: {:query, :optional}, language: {:query, :optional}, search: {:query, :required}, strict: {:query, :optional}},
+      opts: Map.new(opts),
     }
   end
 end
