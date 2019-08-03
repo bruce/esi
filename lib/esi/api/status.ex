@@ -1,4 +1,5 @@
 defmodule ESI.API.Status do
+
   @doc """
   EVE Server status.
 
@@ -22,12 +23,13 @@ defmodule ESI.API.Status do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Status/get_status)
 
   """
-  @spec status() :: ESI.Request.t()
+  @spec status() :: ESI.Request.t
   def status() do
     %ESI.Request{
       verb: :get,
       path: "/status/",
-      opts_schema: %{datasource: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}},
+
     }
   end
 end

@@ -1,4 +1,5 @@
 defmodule ESI.API.Killmail do
+
   @doc """
   Return a single killmail from its ID and hash.
 
@@ -54,12 +55,13 @@ defmodule ESI.API.Killmail do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Killmails/get_killmails_killmail_id_killmail_hash)
 
   """
-  @spec killmail(killmail_id :: integer, killmail_hash :: String.t()) :: ESI.Request.t()
+  @spec killmail(killmail_id :: integer, killmail_hash :: String.t) :: ESI.Request.t
   def killmail(killmail_id, killmail_hash) do
     %ESI.Request{
       verb: :get,
       path: "/killmails/#{killmail_id}/#{killmail_hash}/",
-      opts_schema: %{datasource: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}},
+
     }
   end
 end

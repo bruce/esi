@@ -1,4 +1,5 @@
 defmodule ESI.API.Loyalty do
+
   @doc """
   Return a list of offers from a specific corporation's loyalty store.
 
@@ -36,12 +37,13 @@ defmodule ESI.API.Loyalty do
   [View on ESI Site](https://esi.tech.ccp.is/latest/#!/Loyalty/get_loyalty_stores_corporation_id_offers)
 
   """
-  @spec offers(corporation_id :: integer) :: ESI.Request.t()
+  @spec offers(corporation_id :: integer) :: ESI.Request.t
   def offers(corporation_id) do
     %ESI.Request{
       verb: :get,
       path: "/loyalty/stores/#{corporation_id}/offers/",
-      opts_schema: %{datasource: {:query, :optional}}
+      opts_schema: %{datasource: {:query, :optional}},
+
     }
   end
 end
